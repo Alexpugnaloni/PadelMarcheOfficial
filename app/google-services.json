@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566688487100",
+    "project_id": "padelmarcheofficial",
+    "storage_bucket": "padelmarcheofficial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566688487100:android:c0272ac4b50b323b3662b9",
+        "android_client_info": {
+          "package_name": "com.example.padelmarcheofficial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuOq3B0E7bIWtsYOXJodEb6AEFBl2dzRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
