@@ -15,7 +15,7 @@ class OperazioniSuFb {
     /**
      * Riferimento per *Firestore*
      */
-    private val db = Firebase.firestore
+    private val db = Firebase
 
     /**
      * Riferimento per *FirebaseAuth*
