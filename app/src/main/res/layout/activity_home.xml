@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/agg_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="68dp"
         android:background="@color/blu"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,20 +25,22 @@
 
             <ImageView
                 android:id="@+id/toolbar_button"
-                android:layout_width="wrap_content"
+                android:layout_width="41dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="-3dp"
-                android:layout_toStartOf="@+id/toolbar_title"
                 android:scaleType="fitCenter"
-                android:src="@drawable/padelmarchetitlebianco" />
+                android:src="@drawable/ic_menu" />
 
             <ImageView
                 android:id="@+id/toolbar_title"
-                android:layout_width="296dp"
+                android:layout_width="312dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:fontFamily="@font/audiowide"
+                android:layout_marginEnd="0dp"
+
                 android:gravity="center"
+                android:scaleType="fitCenter"
+                android:scaleX="3"
+                android:scaleY="3"
                 android:src="@drawable/padelmarchetitlebianco"
                 android:text="PadelMarche"
                 android:textColor="@android:color/white"
@@ -47,14 +49,13 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="411dp"
         android:layout_height="68dp"
-        app:menu="@menu/bottom_menu"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="664dp"
-        app:backgroundTint="@color/blu"/>
+        app:backgroundTint="@color/blu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
