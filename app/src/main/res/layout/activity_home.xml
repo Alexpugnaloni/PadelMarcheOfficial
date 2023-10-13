@@ -49,6 +49,8 @@
     </androidx.appcompat.widget.Toolbar>
 
 
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="411dp"
         android:layout_height="68dp"
@@ -56,6 +58,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <FrameLayout
+        android:layout_width="409dp"
+        android:layout_height="593dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="69dp">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="388dp"
+            android:layout_height="254dp"
+            android:background="@color/black"
+            app:srcCompat="@drawable/prenotaunapartitabutton" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="188dp"
+            android:layout_height="212dp"
+            app:srcCompat="@drawable/img" />
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
