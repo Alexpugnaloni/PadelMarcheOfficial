@@ -11,4 +11,11 @@
     <color name="colorAccent">#85D34D</color>
     <color name="gray">#FF2C2C2C</color>
     <color name="blu">#0865DF</color>
+    <color name="red">#FF0000</color>
+    <color name="LightRed">#ff5a36</color>
+    <color name="DarkRed">#c20000</color>
+    <color name="transparent">#00000000</color>
+    <color name="lightGray">#DDDDDD</color>
+    <color name="darkGray">#131313</color>
+    <color name="yellow">#ffff00</color>
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PersonalizedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:backgroundTint">@color/yellow</item>
+        <item name="rippleColor">@color/white </item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="FieldtoShow" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintTextColor">@color/yellow</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:color">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+    </style>
+</resources>

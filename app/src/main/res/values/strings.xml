@@ -1,31 +1,53 @@
 <resources>
-    <string name="app_name">Cork Tennis Club</string>
+
+    <!-- Cose di dibiase -->
+
+    <string name="app_name">Padel Marche</string>
+    <string name="email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="registrati">Registrati</string>
+    <string name="login_failed">"Login fallito"</string>
+    <string name="nav_header_title">Padel Marche</string>
+    <string name="nav_header_subtitle">La casa del Padel</string>
+    <string name="action_settings">Settings</string>
+    <string name="spinnerS">Sesso</string>
+    <string name="phone">Cellulare</string>
+
+
+
+    <string name="name">Nome</string>
+    <string name="surname">Cognome</string>
+    <string name="emailSignin">Email</string>
+    <string name="birthday">Data di nascita</string>
+    <string name="course">Corso di laurea</string>
+    <string name="Back">Annulla</string>
+    <string name="dataformat">GG-MM-AAAA</string>
+    <string name="DescriptionFoto">foto profilo</string>
+    <string name="changePhoto">Cambia la tua foto profilo</string>
+    <string name="modifica">Modifica</string>
+    <string name="idclasse">idClasse</string>
+    <string name="salva">Salva</string>
+    <string name="eliminafoto">Elimina la foto</string>
+    <string name="logout">Logout</string>
+    <string name="conferma">Conferma</string>
+
+
+
+
+    <!-- Cose di Cork -->
+
+
     <string name="add_result">Add Result</string>
     <string name="menu_cancel">Cancel</string>
     <string name="menu_results">Results</string>
     <string name="menu_members">Members</string>
     <string name="menu_contact">Contact</string>
     <string name="fill_in_all_fields">Please fill in all fields</string>
-    <string name="hint_first_name">First name</string>
-    <string name="hint_last_name">Last name</string>
-    <string name="hint_date_of_birth">D.O.B.</string>
-    <string name="select_member_image">Select member image</string>
-    <string name="button_add_image">Add Profile Picture</string>
-    <string name="change_member_image">Change member image</string>
-    <string name="contact_email">corktennisclub@gmail.com</string>
-    <string name="contact_phone">(+353) 086 123 4567</string>
-    <string name="contact_location">Cork Tennis Club, Bishopstown, Cork</string>
-    <string name="contact_title">Get in touch!</string>
     <string name="update_result">Update Result</string>
     <string name="update_member">Update Member</string>
     <string name="select_a_member">Select member:</string>
     <string name="add_result_players_label">Players:</string>
     <string name="add_result_score_label">Score:</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="hint_emailAddress">Email</string>
-    <string name="nav_header_title">Cork Tennis Club</string>
-    <string name="nav_header_subtitle">Your home of tennis</string>
     <string name="nav_header_desc">Menu</string>
     <string name="select_experience">Select experience:</string>
     <string name="results_not_found">No Results Yet...</string>
@@ -37,8 +59,8 @@
 
     <!-- START Firebase Resources-->
 
-    <string name="sign_out">Sign Out</string>
-    <string name="hint_password">Password</string>
-    <string name="auth_failed">Authentication failed</string>
+
+
+
     <string name="menu_editResult">Edit result</string>
 </resources>
