@@ -78,7 +78,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/name">
+                    android:hint="@string/nome">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name"
@@ -95,7 +95,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/surname">
+                    android:hint="@string/cognome">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/surname"
@@ -148,7 +148,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/birthday"
+                    android:hint="@string/compleanno"
                     app:helperText="@string/dataformat"
                     app:helperTextEnabled="true">
 
@@ -169,7 +169,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/phone">
+                    android:hint="@string/cellulare">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone"

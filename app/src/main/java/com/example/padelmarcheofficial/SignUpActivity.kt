@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
 
+@Suppress("DEPRECATION")
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityRegisterBinding
@@ -13,12 +15,13 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.textView.setOnClickListener{
+        binding.textview.setOnClickListener{
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
 
@@ -28,11 +31,11 @@ class SignUpActivity : AppCompatActivity() {
             val surname = binding.surname.text.toString()
             val email = binding.username.text.toString()
             val password = binding.password.text.toString()
-            val birth = binding.editTextDate.text.toString()
-            val phone = binding.phone.text.toString()
-            val sesso = binding.spinnerSesso.text.toString()
+            val compleanno = binding.editTextDate.text.toString()
+            val cellulare = binding.phone.text.toString()
+            val sesso = binding.spinnerSesso.toString()
 
-            if (name.isNotEmpty() && surname.isNotEmpty() && email.isNotEmpty() && password.isNotEMpty()){
+            if (name.isNotEmpty() && surname.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                     if (it.isSuccessful){
                         val intent = Intent(this, SignInActivity::class.java)

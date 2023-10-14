@@ -6,6 +6,7 @@ import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
 
 
 class SignInActivity : AppCompatActivity() {
@@ -18,15 +19,15 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.textVIew.setOnCLickListener{
+        binding.textview.setOnCLickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button.setOnCLickListener{
+        binding.button.setOnClickListener{
 
-            val email = binding.username.text.toString()
-            val password = binding.password.text.toString()
+            val email =     binding.username.text.toString()
+            val password =  binding.password.text.toString()
 
 
             if (email.isNotEmpty() && password.isNotEMpty()){

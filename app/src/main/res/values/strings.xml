@@ -11,14 +11,14 @@
     <string name="nav_header_subtitle">La casa del Padel</string>
     <string name="action_settings">Settings</string>
     <string name="spinnerS">Sesso</string>
-    <string name="phone">Cellulare</string>
+    <string name="cellulare">Cellulare</string>
 
 
 
-    <string name="name">Nome</string>
-    <string name="surname">Cognome</string>
+    <string name="nome">Nome</string>
+    <string name="cognome">Cognome</string>
     <string name="emailSignin">Email</string>
-    <string name="birthday">Data di nascita</string>
+    <string name="compleanno">Data di nascita</string>
     <string name="course">Corso di laurea</string>
     <string name="Back">Annulla</string>
     <string name="dataformat">GG-MM-AAAA</string>

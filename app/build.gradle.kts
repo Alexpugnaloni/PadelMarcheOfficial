@@ -7,6 +7,10 @@ plugins {
 android {
     namespace = "com.example.padelmarcheofficial"
     compileSdk = 33
+    buildFeatures{
+        dataBinding =true;
+        viewBinding =true;
+    }
 
     defaultConfig {
         applicationId = "com.example.padelmarcheofficial"
