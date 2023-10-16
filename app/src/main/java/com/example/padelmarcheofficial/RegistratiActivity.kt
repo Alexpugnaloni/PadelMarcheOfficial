@@ -1,13 +1,17 @@
 package com.example.padelmarcheofficial
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
-import android.widget.ProgressBar
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import androidx.databinding.DataBindingUtil
 import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
 import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
@@ -15,11 +19,13 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 @Suppress("DEPRECATION")
-class SignUpActivity : AppCompatActivity() {
+class RegistratiActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private  var operazioniSuFb = OperazioniSuFb()
+    private lateinit var btnReg: Button
+    private lateinit var btnBack: Button
 
     private val acc : Account by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +41,7 @@ class SignUpActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
       /*  binding.button.setOnClickListener{
-            val intent = Intent(this, SignInActivity::class.java)
+            val intent = Intent(this, AccediActivity::class.java)
             startActivity(intent)
 
         }*/
@@ -79,14 +85,28 @@ class SignUpActivity : AppCompatActivity() {
 
 
 //------CLASSE
-     /*   spinnerG = findViewById(R.id.spinnerGroup)
-        binding.spinnerGroup.onItemSelectedListener= object : OnItemSelectedListener {
+
+        val spinner: Spinner = findViewById(R.id.spinnerSesso)
+// Create an ArrayAdapter using the string array and a default spinner layout.
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.sesso_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears.
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner.
+            spinner.adapter = adapter
+        }
+
+       // spinnerG = findViewById(R.id.spinnerGroup)
+        binding.spinnerSesso.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                acc.changeValue(7, binding.spinnerGroup.selectedItem.toString())
+                acc.changeValue(7, binding.spinnerSesso.selectedItem.toString())
             }
         }
-        val gruppoObserver = Observer<String> { newValue ->
+    /*    val gruppoObserver = Observer<String> { newValue ->
             for(i in 0 until listClassi.size) {
                 if (newValue == listClassi[i]) {
                     binding.spinnerGroup.setSelection(i)
@@ -122,11 +142,11 @@ class SignUpActivity : AppCompatActivity() {
 
         //funzione utilizzata per la registrazione previa check delle informazioni inserite
         //per la registrazione viene richiamata la funzione della classe Account che va ad inserire l'account su firebase
-        btnReg = findViewById(R.id.button)
+        btnReg = findViewById<Button>(R.id.button)
         btnReg.setOnClickListener {
-            if(SigninViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(), binding.editTextDate.text.toString())){
-                if(spinnerC.selectedItem != null&& spinnerC.selectedItem.toString().isNotBlank()&&spinnerC.selectedItemPosition!=0){
-                    if(spinnerG.selectedItem != null&& spinnerG.selectedItem.toString().isNotBlank()&&spinnerG.selectedItemPosition!=0){
+            if(RegistratiViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(),binding.editTextDate.toString(), binding.phone.text.toString())){
+            //    if(spinnerC.selectedItem != null&& spinnerC.selectedItem.toString().isNotBlank()&&spinnerC.selectedItemPosition!=0){
+              //      if(spinner.selectedItem != null&& spinner.selectedItem.toString().isNotBlank()&&spinner.selectedItemPosition!=0){
                         acc.inserisciAccount()
                         val alertDialog = AlertDialog.Builder(this)
                         alertDialog.setTitle("INFORMAZIONI")
@@ -137,15 +157,15 @@ class SignUpActivity : AppCompatActivity() {
                         }
                         alertDialog.show()
                     }
-                    else
-                        Toast.makeText(baseContext, "Anno iscrizione mancante",Toast.LENGTH_SHORT).show()
+                 //   else
+                  //      Toast.makeText(baseContext, "Anno iscrizione mancante",Toast.LENGTH_SHORT).show()
                 }
-                else
-                    Toast.makeText(baseContext, "Corso mancante",Toast.LENGTH_SHORT).show()
+             //   else
+              //      Toast.makeText(baseContext, "Corso mancante",Toast.LENGTH_SHORT).show()
             }
-        }
+        }/*
     }
-        binding.button.setOnClickListener{
+          binding.button.setOnClickListener{
           /*  val name = binding.name.text.toString()
             val surname = binding.surname.text.toString()
             val email = binding.email.text.toString()
@@ -157,7 +177,7 @@ class SignUpActivity : AppCompatActivity() {
             if (name.isNotEmpty() && surname.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()){
                 operazioniSuFb.inserimentoNuovoAccountInFirebaseAuth()
                     if (it.isSuccessful){
-                        val intent = Intent(this, SignInActivity::class.java)
+                        val intent = Intent(this, AccediActivity::class.java)
                         startActivity(intent)
                     }else{
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -168,4 +188,4 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
-}
+}*/

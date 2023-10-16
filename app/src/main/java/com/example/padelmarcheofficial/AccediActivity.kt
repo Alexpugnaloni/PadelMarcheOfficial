@@ -2,8 +2,6 @@ package com.example.padelmarcheofficial
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
 
 
-class SignInActivity : AppCompatActivity() {
+class AccediActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -26,11 +24,11 @@ class SignInActivity : AppCompatActivity() {
         val buttonclickregister = findViewById<Button>(R.id.button2)
         buttonclickregister.setOnClickListener {
             print("dajeee")
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, RegistratiActivity::class.java)
             startActivity(intent)  }
 
      /*   binding.button2.setOnClickListener(){
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, RegistratiActivity::class.java)
             startActivity(intent)
         }*/
 

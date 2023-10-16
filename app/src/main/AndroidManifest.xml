@@ -16,7 +16,7 @@
 
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".AccediActivity"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
 
         </activity>
 
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".RegistratiActivity"></activity>
 
         <activity
             android:name=".MainActivity"

@@ -31,6 +31,12 @@
     <string name="logout">Logout</string>
     <string name="conferma">Conferma</string>
 
+    <string-array name="sesso_array">
+        <item>Uomo</item>
+        <item>Donna</item>
+        <item>Altro</item>
+    </string-array>
+
 
 
 
