@@ -6,6 +6,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
 import com.example.padelmarcheofficial.dataclass.Account
@@ -38,8 +39,108 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
 
         }*/
+        //------NOME
+        binding.textFieldname.editText?.doOnTextChanged { _, _, _, _ ->
+            acc.changeValue(1, binding.textFielddddname.editText?.text?.toString())// Respond to input text change
+        }
+        //------COGNOME
+        binding.textFieldsurname.editText?.doOnTextChanged { _, _, _, _ ->
+            acc.changeValue(2, binding.textFieldddddsurname.editText?.text.toString())// Respond to input text change
+        }
+        //------EMAIL
+        binding.textFieldusername.editText?.doOnTextChanged { _, _, _, _ ->
+            acc.changeValue(3, binding.textFieldusername.editText?.text.toString())// Respond to input text change
+        /*    if (binding.textFieldusername.editText?.text.toString().isNotEmpty() && !binding.textFieldusername.editText?.text.toString().endsWith("@studenti.univpm.it")){
+                binding.textFieldusername.isErrorEnabled = true
+                binding.textFieldusername.error = "email non valida"
+            }else {
+                binding.textFieldusername.error = null
+                binding.textFieldusername.isErrorEnabled =false
+            }*/
+        }
+//------PASSWORD
+        binding.textFieldpassword.editText?.doOnTextChanged { _, _, _, _ ->
+            acc.changeValue(4, binding.textFieldpassword.editText?.text.toString())// Respond to input text change
+        }
+//------COMPLEANNO
+        binding.textFieldeditTextDate.editText?.doOnTextChanged { inputText, before, _, _ ->
+            val finalCursorPosition= binding.textFieldeditTextDate.editText?.selectionStart!!
+            if((inputText?.length==2||inputText?.length==5)&&finalCursorPosition>before) {
+                binding.textFieldeditTextDate.editText?.setText("${binding.textFieldeditTextDate.editText!!.text}-")
+                binding.textFieldeditTextDate.editText?.setSelection(binding.textFieldeditTextDate.editText?.text.toString().length)
+            }
+            acc.changeValue(5, binding.textFieldeditTextDate.editText?.text.toString())// Respond to input text change
+        }
+
+//------CLASSE
+     /*   spinnerG = findViewById(R.id.spinnerGroup)
+        binding.spinnerGroup.onItemSelectedListener= object : OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                acc.changeValue(7, binding.spinnerGroup.selectedItem.toString())
+            }
+        }
+        val gruppoObserver = Observer<String> { newValue ->
+            for(i in 0 until listClassi.size) {
+                if (newValue == listClassi[i]) {
+                    binding.spinnerGroup.setSelection(i)
+                    binding.spinnerGroup.post {
+                        if (i < binding.spinnerGroup.size)
+                            binding.spinnerGroup.setSelection(i)
+                    }
+                    break
+                }
+            }
+        }
+        acc.idClasse.observe(this,gruppoObserver) */
+//------IMMAGINE
+  /*      imgAccount = findViewById<>(R.id.imgAccount)
+        val imageObserver = Observer<Bitmap> { newValue ->
+            binding.imgAccount.setImageBitmap(newValue)
+        }
+        acc.imgbitmap.observe(this, imageObserver)
+
+        imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
+        imgAccount.clipToOutline = true
+        imgAccount.scaleType = ImageView.ScaleType.CENTER_CROP
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        imgAccount.setOnClickListener {
+            val intent=Intent(this, ManagingPHOTO::class.java)
+            intent.putExtra("Rounded",true)
+            startActivityForResult(intent,managingPHOTO)
+        } */
+
+        //funzione utilizzata per la registrazione previa check delle informazioni inserite
+        //per la registrazione viene richiamata la funzione della classe Account che va ad inserire l'account su firebase
+        btnReg = findViewById(R.id.button)
+        btnReg.setOnClickListener {
+            if(SigninViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(), binding.editTextDate.text.toString())){
+                if(spinnerC.selectedItem != null&& spinnerC.selectedItem.toString().isNotBlank()&&spinnerC.selectedItemPosition!=0){
+                    if(spinnerG.selectedItem != null&& spinnerG.selectedItem.toString().isNotBlank()&&spinnerG.selectedItemPosition!=0){
+                        acc.inserisciAccount()
+                        val alertDialog = AlertDialog.Builder(this)
+                        alertDialog.setTitle("INFORMAZIONI")
+                        alertDialog.setMessage("Conferma l'email per effettuare il login")
+                        alertDialog.setPositiveButton("OK") { _, _ ->
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        }
+                        alertDialog.show()
+                    }
+                    else
+                        Toast.makeText(baseContext, "Anno iscrizione mancante",Toast.LENGTH_SHORT).show()
+                }
+                else
+                    Toast.makeText(baseContext, "Corso mancante",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
         binding.button.setOnClickListener{
-            val name = binding.name.text.toString()
+          /*  val name = binding.name.text.toString()
             val surname = binding.surname.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
@@ -57,7 +158,8 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
 
-            } else Toast.makeText(this, "Completa i campi", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Completa i campi", Toast.LENGTH_SHORT).show() */
         }
+
     }
 }
