@@ -64,9 +64,8 @@ class UserValue {
      * @param sesso     da assegnare a **[UserValue.sesso]**
 
      */
-    fun set(user: FirebaseUser? = null, id: String, nome: String, cognome: String, corso: String,
-        classe: String, email: String, cellulare: String, sesso: String
-    ) {
+    fun set(user: FirebaseUser? = null, id: String, nome: String, cognome: String,
+         email: String, cellulare: String, sesso: String) {
         UserValue.user = user
         UserValue.id = id
         UserValue.nome = nome
@@ -91,6 +90,17 @@ class UserValue {
         cellulare       = account.cellulare.value.toString()
         sesso           = account.sesso.value.toString()
 
+    }
+
+    fun set(user : FirebaseUser?= null, id: String, nome: String, cognome: String, email: String, cellulare: String, sesso: String, inserimentoInFirestore: Unit) {
+
+        UserValue.user = user
+        UserValue.id = id
+        UserValue.nome = nome
+        UserValue.cognome = cognome
+        UserValue.email = email
+        UserValue.cellulare = cellulare
+        UserValue.sesso = sesso
     }
 
 }
