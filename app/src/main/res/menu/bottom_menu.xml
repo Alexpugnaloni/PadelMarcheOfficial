@@ -4,12 +4,14 @@
     <item
         android:id="@+id/ic_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"/>
+        android:title="Home"
+        android:iconTint="@color/white"/>
 
     <item
         android:id="@+id/ic_prenotazioni"
         android:icon="@drawable/ic_prenotazioni"
-        android:title="Prenotazioni"/>
+        android:title="Prenotazioni"
+        android:iconTint="@color/white"/>
 
    <!-- <item
         android:id="@+id/ic_likes"
@@ -19,6 +21,7 @@
     <item
         android:id="@+id/ic_profilo"
         android:icon="@drawable/ic_users"
-        android:title="Profilo"/>
+        android:title="Profilo"
+        android:iconTint="@color/white"/>
 
 </menu>
