@@ -35,7 +35,7 @@ class AccediActivity : AppCompatActivity() {
         binding.button.setOnClickListener{
 
             val email =     binding.editTextTextEmailAddress3.text.toString()
-            val password =  binding.editTextNumberPassword.text.toString()
+            val password =  binding.editTextTextPassword.text.toString()
 
 
             if (email.isNotEmpty() && password.isNotEmpty()){
