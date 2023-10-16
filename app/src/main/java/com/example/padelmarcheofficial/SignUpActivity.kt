@@ -41,11 +41,11 @@ class SignUpActivity : AppCompatActivity() {
         }*/
         //------NOME
         binding.textFieldname.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(1, binding.textFielddddname.editText?.text?.toString())// Respond to input text change
+            acc.changeValue(1, binding.textFieldname.editText?.text?.toString())// Respond to input text change
         }
         //------COGNOME
         binding.textFieldsurname.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(2, binding.textFieldddddsurname.editText?.text.toString())// Respond to input text change
+            acc.changeValue(2, binding.textFieldsurname.editText?.text.toString())// Respond to input text change
         }
         //------EMAIL
         binding.textFieldusername.editText?.doOnTextChanged { _, _, _, _ ->
@@ -71,6 +71,12 @@ class SignUpActivity : AppCompatActivity() {
             }
             acc.changeValue(5, binding.textFieldeditTextDate.editText?.text.toString())// Respond to input text change
         }
+
+        //------CELLULARE
+        binding.textFieldphone.editText?.doOnTextChanged { _, _, _, _ ->
+            acc.changeValue(6, binding.textFieldphone.editText?.text?.toString())// Respond to input text change
+        }
+
 
 //------CLASSE
      /*   spinnerG = findViewById(R.id.spinnerGroup)

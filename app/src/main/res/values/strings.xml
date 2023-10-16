@@ -17,7 +17,7 @@
 
     <string name="nome">Nome</string>
     <string name="cognome">Cognome</string>
-    <string name="emailSignin">Email</string>
+    <string name="emailSignup">Email</string>
     <string name="compleanno">Data di nascita</string>
     <string name="course">Corso di laurea</string>
     <string name="Back">Annulla</string>
