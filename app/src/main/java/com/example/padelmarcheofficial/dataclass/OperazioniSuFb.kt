@@ -62,7 +62,7 @@ class OperazioniSuFb {
                     //Se le credenziali vengono inserite correttamente, allora salvo le info dell'account nel db
                     inserimentoInFirestore(acc)
                     //Invio l'email di verifica
-                    inviaEmail(user)
+                   // inviaEmail(user)
                 }
             }
 
@@ -164,7 +164,7 @@ class OperazioniSuFb {
      * Elimina l'account passato come argomento dalla raccolta di utenti in *Firestore*
      * @param acc l'account da rimuovere
      */
-    fun aggiornaAccount(acc: Account) {
+  /* fun aggiornaAccount(acc: Account) {
         db.collection("Accounts").document(acc.idD)
             .delete()
             .addOnSuccessListener {
@@ -178,7 +178,7 @@ class OperazioniSuFb {
 
                     inserimentoInFirestore(acc))
             }
-    }
+    } */
     /**
      * Scarica da *Firestore* i dati relativi all'account e li inserisce all'interno della classe
      * **[UserValue]**, richiamabili in tutte le diverse istanze di classe

@@ -92,15 +92,6 @@ class UserValue {
 
     }
 
-    fun set(user : FirebaseUser?= null, id: String, nome: String, cognome: String, email: String, cellulare: String, sesso: String, inserimentoInFirestore: Unit) {
 
-        UserValue.user = user
-        UserValue.id = id
-        UserValue.nome = nome
-        UserValue.cognome = cognome
-        UserValue.email = email
-        UserValue.cellulare = cellulare
-        UserValue.sesso = sesso
-    }
 
 }

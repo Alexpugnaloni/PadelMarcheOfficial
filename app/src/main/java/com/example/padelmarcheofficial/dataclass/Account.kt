@@ -247,6 +247,6 @@ class Account : ViewModel(), Serializable {
      */
     fun update(){
         presenzaImg = _imgbitmap.value!=null
-        operazioni.aggiornaAccount(this)
+      //  operazioni.aggiornaAccount(this)
     }
 }
