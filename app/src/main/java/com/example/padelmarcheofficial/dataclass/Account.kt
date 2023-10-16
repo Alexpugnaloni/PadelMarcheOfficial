@@ -9,6 +9,7 @@ import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.Serializable
+import android.content.Context
 
 /**
  * * Classe per i dati e la gestione di un account.

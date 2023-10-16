@@ -5,17 +5,26 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.
+
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.io.ByteArrayOutputStream
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.StorageException
+import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.tasks.await
+import java.util.*
+import kotlin.collections.HashMap
+
+
 
 class OperazioniSuFb {
     /**
      * Riferimento per *Firestore*
      */
-    private val db = Firebase
+
+    private val db = Firebase.firestore
 
     /**
      * Riferimento per *FirebaseAuth*
@@ -62,10 +71,10 @@ class OperazioniSuFb {
     /**
      * Funzione per inviare email di verifica
      * @param user l'utente *FirebaseUser* al quale rinviare l'email di verifica
-
+*/
     fun inviaEmail(user: FirebaseUser) {
     user.sendEmailVerification()
-    }*/
+    }
 
     /**
      * Funzione per inserire in *Firestore* l'account
@@ -178,16 +187,13 @@ class OperazioniSuFb {
         try {
             val docRef = db.collection("Accounts").document(auth.currentUser!!.uid).get().await()
             val data = docRef.data!!
-            UserValue().set(
-                user = auth.currentUser!!,
+            UserValue().set(user = auth.currentUser!!,
                 id = auth.currentUser!!.uid,
                 nome = data["nome"].toString(),
                 cognome = data["cognome"].toString(),
                 email = auth.currentUser!!.email!!,
                 cellulare = data["cellulare"].toString(),
-                sesso = data["sesso"].toString(),
-
-                )
+                sesso = data["sesso"].toString())
             return true
         }catch (e: Exception){
             return false

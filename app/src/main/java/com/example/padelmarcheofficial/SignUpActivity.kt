@@ -4,24 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
+import com.google.firebase.auth.FirebaseAuth
+
 
 @Suppress("DEPRECATION")
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityRegisterBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.textview.setOnClickListener{
+        binding.button.setOnClickListener{
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
 
@@ -29,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.button.setOnClickListener{
             val name = binding.name.text.toString()
             val surname = binding.surname.text.toString()
-            val email = binding.username.text.toString()
+            val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val compleanno = binding.editTextDate.text.toString()
             val cellulare = binding.phone.text.toString()
