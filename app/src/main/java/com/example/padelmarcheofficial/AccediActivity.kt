@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
+import com.example.padelmarcheofficial.home.HomeActivity
 
 
 class AccediActivity : AppCompatActivity() {
@@ -20,10 +21,10 @@ class AccediActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        print("fuori")
+    //    print("fuori")
         val buttonclickregister = findViewById<Button>(R.id.button2)
         buttonclickregister.setOnClickListener {
-            print("dajeee")
+        //    print("dajeee")
             val intent = Intent(this, RegistratiActivity::class.java)
             startActivity(intent)  }
 
