@@ -1,4 +1,7 @@
 package com.example.padelmarcheofficial
 
-class PrenotaUnaPartitaActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class PrenotaUnaPartitaActivity : AppCompatActivity(){
+
 }
