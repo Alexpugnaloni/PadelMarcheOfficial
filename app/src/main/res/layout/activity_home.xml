@@ -12,12 +12,12 @@
         android:layout_height="68dp"
         android:background="@color/blu"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/toolbar_menu"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white">
+        app:menu="@menu/toolbar_menu">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_menu"
-                app:tint="@color/white"/>
+                app:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/toolbar_title"
