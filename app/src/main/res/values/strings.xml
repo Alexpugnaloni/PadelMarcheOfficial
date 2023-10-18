@@ -19,7 +19,6 @@
     <string name="cellulare">Cellulare</string>
 
 
-
     <string name="nome">Nome</string>
     <string name="cognome">Cognome</string>
     <string name="emailSignup">Email</string>
@@ -38,6 +37,7 @@
 
 
 
+
     <string name="spinnerP">Seleziona la provincia </string>
 
     <string-array name="provincia_array">
@@ -47,10 +47,6 @@
         <item>Fermo</item>
         <item>Ascoli Piceno</item>
     </string-array>
-
-
-
-
 
 
     <!-- Cose di Cork -->
@@ -79,7 +75,10 @@
     <!-- START Firebase Resources-->
 
 
-
-
     <string name="menu_editResult">Edit result</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_prenotazioni">Prenotazioni</string>
+    <string name="title_profilo">Profilo</string>
+    <string name="sharedPreferences">DatiUtentePadel</string>
 </resources>

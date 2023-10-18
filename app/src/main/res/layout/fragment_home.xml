@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="593dp"
+        android:layout_marginEnd="1dp"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+        </Space>
+
+
+        <ImageButton
+            android:id="@+id/prenotaunapartitaButton"
+            android:layout_width="352dp"
+            android:layout_height="241dp"
+            android:layout_gravity="center"
+
+            android:adjustViewBounds="true"
+            android:background="@drawable/roundcorner"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/prenotaunapartitabutton" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+        </Space>
+
+        <ImageButton
+            android:id="@+id/prenotasolitariaButton"
+            android:layout_width="352dp"
+            android:layout_height="241dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@drawable/roundcorner"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/img" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

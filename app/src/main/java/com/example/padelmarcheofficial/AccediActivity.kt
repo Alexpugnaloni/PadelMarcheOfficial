@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
-import com.example.padelmarcheofficial.home.HomeActivity
+
 
 
 class AccediActivity : AppCompatActivity() {
@@ -42,8 +42,10 @@ class AccediActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                     if (it.isSuccessful){
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
+                        setResult(1)
+                        finish()
+                     //   val intent = Intent(this, MainActivity::class.java)
+                     //   startActivity(intent)
                     }else{
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
