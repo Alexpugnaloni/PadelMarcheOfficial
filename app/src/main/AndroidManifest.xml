@@ -26,6 +26,8 @@
 
         </activity>
 
+
+
         <activity android:name=".PrenotaUnaPartitaActivity"></activity>
 
         <activity android:name=".RegistratiActivity"></activity>

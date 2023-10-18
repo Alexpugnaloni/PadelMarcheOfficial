@@ -20,11 +20,11 @@ class HomeActivity : AppCompatActivity() {
 
         var bottomNav = binding.bottomNavigationView
         setContentView(binding.root)
-        binding.bottomNavigationView.selectTabById(R.id.ic_home,true)
+     //   binding.bottomNavigationView.selectedItemId(R.id.ic_home,true)  //C'ERA SELECTTABBYID
       //  replaceFragment(homepageFragment) // La home si aprirà sul fragment principale
 
 
-        bottomNav.setOnTabSelectListener(object : BottomNavigationView {
+    /*    bottomNav.setOnTabSelectListener(object : BottomNavigationView {
             override fun onTabSelected(
                 lastIndex: Int,
                 lastTab: BottomNavigationView.Tab?,
@@ -44,12 +44,12 @@ class HomeActivity : AppCompatActivity() {
             }
 
 
-        })
+        }) */
 
-    /*    binding.prenotaunapartitaButton.setOnClickListener{
-            val intent = Intent(this, PrenotaUnaPartitaActivity::class.java) CLASSE CREATA MA BISOGNA COLLEGARE ACTIVITY
+        binding.prenotaunapartitaButton.setOnClickListener{
+            val intent = Intent(this, PrenotaUnaPartitaActivity::class.java)
             startActivity(intent)
-        } */
+        }
 
     /*    binding.prenotasolitariaButton.setOnClickListener {
             val intent = Intent(this, PrenotaSolitariaActivity::class.java)  DA CREARE LA CLASSE
@@ -73,14 +73,14 @@ class HomeActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.nav_host_fragment, fragment)
+         //   replace(R.id.nav_host_fragment, fragment)
             commit()
         }
     }
 
-    private fun openProfilo(){
+   /* private fun openProfilo(){
         startActivity(Intent(this, ProfiloActivity::class.java))
         finish()
-    }
+    } */
 
 }
