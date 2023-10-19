@@ -7,9 +7,9 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_messaggi"
-            android:icon="@drawable/ic_message"
-            android:title="Messaggi"/>
+            android:id="@+id/nav_profilo"
+            android:icon="@drawable/ic_users"
+            android:title="Profilo"/>
         <item
             android:id="@+id/nav_prenotazioni"
             android:icon="@drawable/ic_prenotazioni"
