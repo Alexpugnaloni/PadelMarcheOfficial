@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_prenotazioni" />
 
     <fragment
-        android:id="@+id/navigation_profilo"
-        android:name="com.example.padelmarcheofficial.ui.profilo.ProfiloFragment"
-        android:label="@string/title_profilo"
-        tools:layout="@layout/fragment_profilo" />
+        android:id="@+id/navigation_messaggi"
+        android:name="com.example.padelmarcheofficial.ui.profilo.MessaggiFragment"
+        android:label="@string/title_messaggi"
+        tools:layout="@layout/fragment_messaggi" />
 </navigation>

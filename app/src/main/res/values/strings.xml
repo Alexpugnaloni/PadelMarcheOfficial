@@ -79,7 +79,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_prenotazioni">Prenotazioni</string>
-    <string name="title_profilo">Profilo</string>
+    <string name="title_messaggi">Messaggi</string>
     <string name="sharedPreferences">DatiUtentePadel</string>
     <string name="le_tue_prenotazioni">Le Tue Prenotazioni</string>
 </resources>
