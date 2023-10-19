@@ -1,8 +1,23 @@
 package com.example.padelmarcheofficial
 
+import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.databinding.DataBindingUtil
+import com.example.padelmarcheofficial.databinding.ActivityMainBinding
+import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
+import com.google.android.material.card.MaterialCardView
 
 class ProfiloActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityProfiloBinding
 
     /**
      * variabile utilizzata per inserire il contorno alla foto del profilo
@@ -48,7 +63,7 @@ class ProfiloActivity : AppCompatActivity() {
     /**
      * variabile utilizzata per il settaggio di ciò che viene mostrato a video
      */
-    private val accAppoggio : com.example.mysocialunivpm.dataclass.Account by viewModels()
+    private val accAppoggio : com.example.padelmarcheofficial.dataclass.Account by viewModels()
 
     /**
      * codice per la richiesta di inserimento di una foto da ProfileActivity
@@ -74,8 +89,10 @@ class ProfiloActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_profile)
-        val binding = DataBindingUtil.setContentView<ActivityProfileBinding>(this, layout.activity_profile)
+        binding = ActivityProfiloBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+      //  setContentView(layout.activity_profilo)
+        val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
 
         //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
