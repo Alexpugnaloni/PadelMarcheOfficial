@@ -42,7 +42,7 @@
                 android:scaleX="3"
                 android:scaleY="3"
                 android:src="@drawable/padelmarchetitlebianco"
-                android:text="PadelMarche"
+
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -79,3 +79,4 @@
         app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
