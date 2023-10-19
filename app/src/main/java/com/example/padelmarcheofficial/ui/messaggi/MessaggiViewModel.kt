@@ -1,4 +1,4 @@
-package com.example.padelmarcheofficial.ui.profilo
+package com.example.padelmarcheofficial.ui.messaggi
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

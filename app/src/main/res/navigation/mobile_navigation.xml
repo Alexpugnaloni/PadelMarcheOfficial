@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_messaggi"
-        android:name="com.example.padelmarcheofficial.ui.profilo.MessaggiFragment"
+        android:name="com.example.padelmarcheofficial.ui.messaggi.MessaggiFragment"
         android:label="@string/title_messaggi"
         tools:layout="@layout/fragment_messaggi" />
 </navigation>

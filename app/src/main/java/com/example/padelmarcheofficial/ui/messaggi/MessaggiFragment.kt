@@ -1,4 +1,4 @@
-package com.example.padelmarcheofficial.ui.profilo
+package com.example.padelmarcheofficial.ui.messaggi
 
 import android.os.Bundle
 import android.view.LayoutInflater
