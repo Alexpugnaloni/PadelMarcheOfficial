@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn ="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_messaggi"
+            android:icon="@drawable/ic_message"
+            android:title="Messaggi"/>
+        <item
+            android:id="@+id/nav_prenotazioni"
+            android:icon="@drawable/ic_prenotazioni"
+            android:title="Prenotazioni"/>
+        <item
+            android:id="@+id/nav_inostricentri"
+            android:icon="@drawable/ic_place"
+            android:title="I Nostri Centri"/>
+        <item
+            android:id="@+id/nav_contattaci"
+            android:icon="@drawable/ic_call"
+            android:title="Contattaci"/>
+
+    </group>
+
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+
+
+</menu>
