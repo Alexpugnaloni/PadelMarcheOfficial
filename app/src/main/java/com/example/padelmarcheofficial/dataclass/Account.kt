@@ -232,7 +232,7 @@ class Account : ViewModel(), Serializable {
 
         when(idVariabile){
             0->_imgbitmap.value=imgvalue
-            1->_nome.value=value
+            1->_nome.value= value
             2->_cognome.value=value
             3->_email.value=value
             4->_psw.value=value

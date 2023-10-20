@@ -1,19 +1,34 @@
 package com.example.padelmarcheofficial
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
 import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
+import com.example.padelmarcheofficial.dataclass.Funzionalita
+import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ProfiloActivity : AppCompatActivity() {
 
@@ -92,7 +107,7 @@ class ProfiloActivity : AppCompatActivity() {
         binding = ActivityProfiloBinding.inflate(layoutInflater)
         setContentView(binding.root)
       //  setContentView(layout.activity_profilo)
-        val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
+      //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
 
         //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
@@ -105,7 +120,7 @@ class ProfiloActivity : AppCompatActivity() {
         //collego la variabile del layout con la variabile del ViewModel associtata
         binding.account = accAppoggio
         binding.lifecycleOwner = this
-        sharedPref = this.getSharedPreferences(getString(R.string.shared_prefs), Context.MODE_PRIVATE)
+        sharedPref = this.getSharedPreferences(getString(R.string.sharedPreferences), Context.MODE_PRIVATE)
 
         descFoto = findViewById(R.id.myImageViewText)
         btnRimImg = findViewById(R.id.btnCancImg)
@@ -124,20 +139,20 @@ class ProfiloActivity : AppCompatActivity() {
 
 //------NOME
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
-        binding.CardNameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
+        binding.CardNameModificabile.editText?.doOnTextChanged{ inputText, _, _, _ ->
             if(enabledmodifyng) {
-                accAppoggio.changeValue(1, inputText.toString())// Respond to input text change
+            //    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
                 //updateSharedPref("nome", inputText.toString())
             }
         }
 //------COGNOME
         binding.CardSurnameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
+      //      accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
             //updateSharedPref("cognome", inputText.toString())
         }
 //------COMPLEANNO
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            accAppoggio.changeValue(5,inputText.toString())// Respond to input text change
+        //    accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
             //updateSharedPref("data", inputText.toString())
         }
 //------IMMAGINE
@@ -169,7 +184,7 @@ class ProfiloActivity : AppCompatActivity() {
         btnMod.isVisible=true
 
         //Gestione della comunicazione di eventuali errori nelle informazioni del profilo non modificabili
-        binding.repErr.setOnClickListener{
+    /*    binding.repErr.setOnClickListener{
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:"+"MySocialUNIVPM@gmail.com")
             intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT ERRORE")
@@ -177,7 +192,7 @@ class ProfiloActivity : AppCompatActivity() {
             if (intent.resolveActivity(packageManager) != null) {
                 startActivity(intent)
             }
-        }
+        } */
         btnMod.setOnClickListener {
             if(Funzionalita().isOnline(it.context))
                 enable()
@@ -229,7 +244,7 @@ class ProfiloActivity : AppCompatActivity() {
 
         enabledmodifyng=false
 
-        contornofoto.strokeColor= resources.getColor(color.DarkRed,theme)
+      //  contornofoto.strokeColor= resources.getColor(color.DarkRed,theme) NON FUNZIONA IL COLORE DEL CONTORNO
 
         nomeM.isVisible=false
         nomeNM.isVisible=true
@@ -340,7 +355,7 @@ class ProfiloActivity : AppCompatActivity() {
             //recuper0 dell'immagine salvata dalla classe managingPhoto da storage locale
             imageBitMap = BitmapFactory.decodeStream(openFileInput("myImage"))
             imgAccount.setImageBitmap(imageBitMap)
-            accAppoggio.changeValue(0, null, imageBitMap)
+         //   accAppoggio.changeValue(0, null, imageBitMap)  COMMENTATA IO
             //accAppoggio.cambiata = true
             btnRimImg.isClickable = true
             btnRimImg.isEnabled = true
@@ -379,15 +394,11 @@ class ProfiloActivity : AppCompatActivity() {
             val temp =UserValue().getAccount()
             accAppoggio._nome.value= temp.nome.value
             accAppoggio._cognome.value= temp.cognome.value
-            accAppoggio._idCorso.value= temp.idCorso.value
-            accAppoggio._idClasse.value= temp.idClasse.value
             accAppoggio._email.value= temp.email.value
-            accAppoggio._matricola.value= temp.matricola.value
             accAppoggio._compleanno.value= temp.compleanno.value
-            accAppoggio._nPost.value= temp.nPost.value
-            accAppoggio._nCommenti.value= temp.nCommenti.value
-            accAppoggio._dataUltimoPost.value= temp.dataUltimoPost.value
-            accAppoggio._dataUltimoCommento.value= temp.dataUltimoCommento.value
+            accAppoggio._cellulare.value= temp.cellulare.value
+            accAppoggio._sesso.value= temp.sesso.value
+
         }
     }
 

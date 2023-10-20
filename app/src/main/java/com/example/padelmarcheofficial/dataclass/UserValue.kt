@@ -92,6 +92,63 @@ class UserValue {
 
     }
 
+    /**
+     * Restituisce l'id dell'utente
+     * @return **[UserValue.id]**
+     */
+    fun getId():String = id
+    /**
+     * Restituisce il nome dell'utente
+     * @return **[UserValue.nome]**
+     */
+    fun getNome():String= nome
+    /**
+     * Restituisce il cognome dell'utente
+     * @return **[UserValue.cognome]**
+     */
+    fun getCognome():String= cognome
+
+    /**
+     * Restituisce l'emaol dell'utente
+     * @return **[UserValue.email]**
+     */
+
+    fun getEmail():String= email
+    /**
+     * Restituisce il compleanno dell'utente
+     * @return **[UserValue.compleanno]**
+     */
+    fun getCompleanno():String= compleanno
+
+    /**
+     * Restituisce il cellulare dell'utente
+     * @return **[UserValue.cellulare]**
+     */
+    fun getCellulare():String= cellulare
+
+    /**
+     * Restituisce il sesso dell'utente
+     * @return **[UserValue.sesso]**
+     */
+    fun getSesso():String= sesso
+
+
+
+    /**
+     * Restituisce un account con i valori delle variabili contenute nella classe
+     * @return una variabile account inizializzata
+     */
+    fun getAccount():Account{
+        val account = Account()
+        account._nome.value=nome
+        account._cognome.value=cognome
+        account._email.value=email
+        account._compleanno.value= compleanno
+        account._cellulare.value = cellulare
+        account._sesso.value = sesso
+        return account
+    }
+
 
 
 }
