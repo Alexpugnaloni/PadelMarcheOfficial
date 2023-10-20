@@ -199,4 +199,57 @@ class OperazioniSuFb {
             return false
         }
     }
+
+
+
+
+
+
+    /**
+     * Funzione che restituisce la lista degli utenti che contengono la stringa passata come parametro
+     * @param nomeRicercato nome e/o cognome da cercare
+     * @Return: MutableList di MutableMaps che contengono i nomi e cognomi, corso e classe, id, matricola e immagini degli utenti selezionati
+     */
+    suspend fun ricercaUtenti(nomeRicercato: String): MutableList<MutableMap<String, Any>> {
+        val listacompleta = mutableListOf<MutableMap<String, Any>>()
+        //Ricerca case insensitive
+        val data = db.collection("Accounts").get().await()
+        for (document in data) {
+            //rimuovo gli spazi all'interno del nome e del cognome, creo due varianti: nome+cognome
+            // e cognome+nome per soddisfare la ricerca con nome e cognome intercambiabili. Elimino
+            // gli spazi anche nel nome ricercato dall'utente
+            val nomeSanificato = document.getString("nome").toString().replace(" ","").toLowerCase(Locale.ROOT)
+            val cognomeSanificato = document.getString("cognome").toString().replace(" ", "").toLowerCase(Locale.ROOT)
+            val nomeVersoNormale = nomeSanificato + cognomeSanificato
+            val nomeVersoContrario = cognomeSanificato + nomeSanificato
+            val senzaSpazi = nomeRicercato.replace(" ", "").toLowerCase(Locale.ROOT)
+            //Se almeno una delle due varianti contiene il nome ricercato salvo le sue variabili e
+            // le aggiungo alla lista da restituire
+            if (nomeVersoNormale.contains(senzaSpazi)||nomeVersoContrario.contains(senzaSpazi)){
+                val utente: MutableMap<String, Any> = mutableMapOf()
+                utente["nome"] = document.getString("nome").toString() + " " + document.getString("cognome").toString()
+                utente["corso"] = document.getString("idCorso").toString() + " " + document.getString("idClasse").toString()
+                utente["id"] = document.id
+                utente["matricola"] = document.getString("matricola").toString()
+                try {
+                    val imgdata = storageRef.child("/Foto profilo/" + document.id).getBytes(oneMGBYTE).await()
+                    utente["immagine"] = BitmapFactory.decodeByteArray(imgdata, 0, imgdata.size)
+                    listacompleta.add(utente)
+                }
+                catch (e: StorageException) {
+                    val stockimg = storageRef.child("/Foto profilo/0.png").getBytes(oneMGBYTE).await()
+                    utente["immagine"] = BitmapFactory.decodeByteArray(stockimg, 0, stockimg.size)
+                    listacompleta.add(utente)
+                }
+            }
+        }
+        return listacompleta
+    }
+
+
+
+
+
+
+
 }

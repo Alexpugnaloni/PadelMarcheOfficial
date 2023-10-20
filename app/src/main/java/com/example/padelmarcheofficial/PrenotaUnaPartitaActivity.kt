@@ -16,8 +16,8 @@ class PrenotaUnaPartitaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrenotaunapartitaBinding
 
-  //  val btnDatePicker = findViewById<Button>(R.id.btnDatePicker)
-  //  var ScegliData = findViewById<TextView>(R.id.tvDate)
+    val btnDatePicker = findViewById<Button>(R.id.btnDatePicker)
+    var ScegliData = findViewById<TextView>(R.id.tvDate)
 
     val myCalendar = Calendar.getInstance()
 
@@ -40,12 +40,12 @@ class PrenotaUnaPartitaActivity : AppCompatActivity() {
         binding = ActivityPrenotaunapartitaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-    /*    btnDatePicker.setOnClickListener {
+       btnDatePicker.setOnClickListener {
             DatePickerDialog(
                 this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
-        } */
+        }
 
     }
 }
