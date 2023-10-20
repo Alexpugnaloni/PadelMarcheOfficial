@@ -82,4 +82,9 @@
     <string name="title_messaggi">Messaggi</string>
     <string name="sharedPreferences">DatiUtentePadel</string>
     <string name="le_tue_prenotazioni">Le Tue Prenotazioni</string>
+    <string name="ruota_a_sinistra">Ruota a sinistra</string>
+
+    <string name="ritaglia">Ritaglia</string>
+    <string name="ruota_a_destra">Ruota a destra</string>
+    <string name="immagine_in_fase_pre_caricamento">Immagine in fase pre-caricamento</string>
 </resources>
