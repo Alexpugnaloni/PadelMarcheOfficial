@@ -111,12 +111,12 @@
                         android:text="Data"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:textStyle="bold"/>
                         <!--
                         app:layout_constraintBottom_toBottomof="parent"
                         app:layout_constraintEnd_toEndof="parent"
                         app:layout_constraintStart_tostartof="parent"
-                        app:layout_constraintTop_toTopof="parent" --> />
+                        app:layout_constraintTop_toTopof="parent" -->
 
                     <Button
                         android:id="@+id/btnDatePicker"
@@ -124,12 +124,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Scegli un giorno"
-                        android:textAllCaps="false"
+                        android:textAllCaps="false"/>
                     <!--
                     app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent" -->/>
+                    app:layout_constraintTop_toTopof="parent" -->
 
                 <TextView
                     android:id="@+id/Orario"
@@ -138,23 +138,23 @@
                     android:text="Fascia Orararia"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textStyle="bold"/>
                     <!--
                     app:layout_constraintBottom_toBottomof="parent"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent"--> />
+                    app:layout_constraintTop_toTopof="parent"-->
                 <Button
                     android:id="@+id/fasciaoraria1"
                     android:layout_width="368dp"
                     android:layout_height="65dp"
                     android:layout_marginTop="10dp"
                     android:text="Ora dalle 9:00 alle 10:00"
-                    android:textAllCaps="false"
+                    android:textAllCaps="false"/>
                     <!-- app:layout_constraintBottom_toBottomof="@id/tvDate"
                      app:layout_constraintEnd_toEndof="parent"
                      app:layout_constraintStart_tostartof="parent"
-                     app:layout_constraintTop_toTopof="parent"--> />
+                     app:layout_constraintTop_toTopof="parent"-->
 
                  <Button
                      android:id="@+id/fasciaoraria2"
@@ -162,11 +162,11 @@
                      android:layout_height="65dp"
                      android:layout_marginTop="10dp"
                      android:text="Ora dalle 10:00 alle 11:00"
-                     android:textAllCaps="false"
+                     android:textAllCaps="false"/>
                     <!--app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent" --> />
+                    app:layout_constraintTop_toTopof="parent" -->
 
                 <Button
                     android:id="@+id/fasciaoraria3"
@@ -174,11 +174,11 @@
                     android:layout_height="65dp"
                     android:layout_marginTop="10dp"
                     android:text="Ora dalle 11:00 alle 12:00"
-                    android:textAllCaps="false"
+                    android:textAllCaps="false"/>
                     <!--app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent"--> />
+                    app:layout_constraintTop_toTopof="parent"-->
 
                 <Button
                     android:id="@+id/fasciaoraria4"
@@ -186,11 +186,11 @@
                     android:layout_height="65dp"
                     android:layout_marginTop="10dp"
                     android:text="Ora dalle 15:00 alle 16:00"
-                    android:textAllCaps="false"
+                    android:textAllCaps="false"/>
                     <!--app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent"--> />
+                    app:layout_constraintTop_toTopof="parent"-->
 
                 <Button
                     android:id="@+id/fasciaoraria5"
@@ -198,11 +198,11 @@
                     android:layout_height="65dp"
                     android:layout_marginTop="10dp"
                     android:text="Ora dalle 16:00 alle 17:00"
-                    android:textAllCaps="false"
+                    android:textAllCaps="false"/>
                     <!--app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent" -->/>
+                    app:layout_constraintTop_toTopof="parent" -->
 
                 <Button
                     android:id="@+id/fasciaoraria6"
@@ -210,11 +210,11 @@
                     android:layout_height="65dp"
                     android:layout_marginTop="10dp"
                     android:text="Ora dalle 17:00 alle 18:00"
-                    android:textAllCaps="false"
+                    android:textAllCaps="false"/>
                     <!--app:layout_constraintBottom_toBottomof="@id/tvDate"
                     app:layout_constraintEnd_toEndof="parent"
                     app:layout_constraintStart_tostartof="parent"
-                    app:layout_constraintTop_toTopof="parent" -->/>
+                    app:layout_constraintTop_toTopof="parent" -->
 
             </LinearLayout>
 

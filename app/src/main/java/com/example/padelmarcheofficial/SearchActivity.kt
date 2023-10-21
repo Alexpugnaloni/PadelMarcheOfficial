@@ -18,7 +18,9 @@ import com.example.padelmarcheofficial.dataclass.Funzionalita
  *
  * @author Di Biase Alessandro, Donnini Valerio, Sopranzetti Lorenzo
  */
-class SearchActivity : AppCompatActivity() {
+
+
+class SearchActivity : AppCompatActivity() {  /*
     /**
      * Variabile SearchViewModel
      */
@@ -88,5 +90,5 @@ class SearchActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         val appoggio = Query ?: ""
         outState.putString("query",appoggio)
-    }
+    } */
 }

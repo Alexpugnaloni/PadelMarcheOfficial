@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
          * un viewmodel per gestire il passaggio della stringa fornita dagli utenti
          * @param item ciò che viene cliccato
          */
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+       /* override fun onOptionsItemSelected(item: MenuItem): Boolean {   DICE CHE NON VUOLE L'OVERRIDE
 
             when (item.itemId) {
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 //si avvia l'intent per la visualizzazione e modifica del proprio pofilo
                 R.id.nav_profilo -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
+                    val intent = Intent(this, ProfiloActivity::class.java)
                     //Log.d("PRIMA INTENT", "Verifica")
                     startActivity(intent)
                 }
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
             return super.onOptionsItemSelected(item)
 
-        }
+        } */
 
     }
 }
