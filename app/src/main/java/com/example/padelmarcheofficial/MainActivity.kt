@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
+import com.example.padelmarcheofficial.databinding.AppBarMainBinding
 import com.example.padelmarcheofficial.databinding.ContentMainBinding
 import com.example.padelmarcheofficial.ui.search.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
@@ -27,6 +28,8 @@ import java.util.prefs.Preferences
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bindingBottom: ContentMainBinding
+    private lateinit var bindingIntermedio : AppBarMainBinding
 
     private var model =MainActivityViewModel()
 
@@ -43,12 +46,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AccediActivity::class.java))
         }
 
-     //   val navViewBottom: BottomNavigationView = bottomBinding.navViewbottom
+        val navViewBottom: BottomNavigationView = findViewById(R.id.nav_viewbottom)
 
         val navViewDrawer : NavigationView = binding.navViewdrawer
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main2)
-      //  navViewBottom.setupWithNavController(navController)
+        navViewBottom.setupWithNavController(navController)
 
 
 
