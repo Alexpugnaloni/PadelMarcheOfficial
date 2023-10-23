@@ -12,7 +12,7 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class PrenotaUnaPartitaActivity : AppCompatActivity() {
+class PrenotaUnaPartitaActivity : AppCompatActivity() { /*
 
     private lateinit var binding: ActivityPrenotaunapartitaBinding
 
@@ -47,5 +47,5 @@ class PrenotaUnaPartitaActivity : AppCompatActivity() {
             ).show()
         }
 
-    }
+    } */
 }

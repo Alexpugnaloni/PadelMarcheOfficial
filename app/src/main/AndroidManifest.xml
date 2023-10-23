@@ -27,9 +27,9 @@
             android:exported="false">
 
         </activity>
-        <activity android:name=".PrenotaUnaPartitaActivity" />
+      <!--  <activity android:name=".PrenotaUnaPartitaActivity" /> -->
         <activity android:name=".RegistratiActivity" />
-        <activity android:name=".home.HomeActivity" />
+
 
     </application>
 
