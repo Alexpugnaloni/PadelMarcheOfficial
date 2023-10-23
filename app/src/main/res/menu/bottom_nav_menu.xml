@@ -14,9 +14,9 @@
         android:iconTint="@color/white"/>
 
     <item
-        android:id="@+id/navigation_messaggi"
-        android:icon="@drawable/ic_message"
-        android:title="@string/title_messaggi"
+        android:id="@+id/navigation_amici"
+        android:icon="@drawable/ic_users"
+        android:title="@string/title_amici"
         android:iconTint="@color/white"/>
 
 

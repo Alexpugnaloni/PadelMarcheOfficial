@@ -1,24 +1,17 @@
-package com.example.padelmarcheofficial.ui.messaggi
+package com.example.padelmarcheofficial.ui.amici
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.padelmarcheofficial.databinding.FragmentMessaggiBinding
-import com.example.padelmarcheofficial.R
+import com.example.padelmarcheofficial.databinding.FragmentAmiciBinding
 
-class MessaggiFragment : Fragment()/*,RecyclerAdapter.ViewHolder.ClickListener */{
+class AmiciFragment : Fragment()/*,RecyclerAdapter.ViewHolder.ClickListener */{
 
-    private var _binding: FragmentMessaggiBinding? = null
+    private var _binding: FragmentAmiciBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -63,14 +56,14 @@ class MessaggiFragment : Fragment()/*,RecyclerAdapter.ViewHolder.ClickListener *
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val messaggiViewModel =
-            ViewModelProvider(this).get(MessaggiViewModel::class.java)
+        val amiciViewModel =
+            ViewModelProvider(this).get(AmiciViewModel::class.java)
 
-        _binding = FragmentMessaggiBinding.inflate(inflater, container, false)
+        _binding = FragmentAmiciBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
-        messaggiViewModel.text.observe(viewLifecycleOwner) {
+        amiciViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
