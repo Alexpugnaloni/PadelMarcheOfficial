@@ -61,4 +61,5 @@ dependencies {
     implementation ("com.google.firebase:firebase-storage-ktx")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation ("androidx.activity:activity-ktx:1.8.0")
+    implementation ("com.google.firebase:firebase-messaging:20.2.3")
 }

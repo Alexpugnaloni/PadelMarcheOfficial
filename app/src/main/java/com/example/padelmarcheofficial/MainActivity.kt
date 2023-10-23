@@ -69,6 +69,29 @@ class MainActivity : AppCompatActivity() {
       //  supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
+        navViewDrawer.setNavigationItemSelectedListener {it:MenuItem ->
+            when(it.itemId){
+                R.id.nav_logout -> {
+                    model.logOut()
+                    startActivity(Intent(this,AccediActivity::class.java))
+                    finish()
+                    true
+                }
+                else -> {true}
+            }
+
+        }
+       /* navViewBottom.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.ic_profilo ->  openProfilo()
+                R.id.ic_logout -> {
+                    model.logOut()
+                    startActivity(Intent(this, InizioActivity::class.java))
+                    finish()
+                }
+            }
+            true
+        } */
 
 
 /*

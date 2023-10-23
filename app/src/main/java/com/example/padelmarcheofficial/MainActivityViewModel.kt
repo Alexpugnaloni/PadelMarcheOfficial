@@ -15,4 +15,8 @@ class MainActivityViewModel : ViewModel(){
             return true
         return false
     }
+
+    fun logOut() {
+        auth.signOut()
+    }
 }
