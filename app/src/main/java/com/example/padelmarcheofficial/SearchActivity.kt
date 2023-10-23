@@ -20,7 +20,7 @@ import com.example.padelmarcheofficial.dataclass.Funzionalita
  */
 
 
-class SearchActivity : AppCompatActivity() {  /*
+class SearchActivity : AppCompatActivity() {
     /**
      * Variabile SearchViewModel
      */

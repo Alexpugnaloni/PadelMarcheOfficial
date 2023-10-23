@@ -42,14 +42,14 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
 
-
+/*
 
         /**
          * Questa funzione gestisce la ricerca: quando si fa click sul pulsante della ricerca si naviga al fragment che gestice la ricerca utilizzando
          * un viewmodel per gestire il passaggio della stringa fornita dagli utenti
          * @param item ciò che viene cliccato
          */
-       /* override fun onOptionsItemSelected(item: MenuItem): Boolean {   DICE CHE NON VUOLE L'OVERRIDE
+       override fun onOptionsItemSelected(item: MenuItem): Boolean {   /*DICE CHE NON VUOLE L'OVERRIDE*/
 
             when (item.itemId) {
 
