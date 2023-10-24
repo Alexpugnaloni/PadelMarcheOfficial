@@ -1,21 +1,19 @@
 package com.example.padelmarcheofficial.dataclass
 
-import android.graphics.Bitmap
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.io.ByteArrayOutputStream
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
 import java.util.*
-import kotlin.collections.HashMap
 
 
 
@@ -88,11 +86,11 @@ class OperazioniSuFb {
             "dataDiNascita"     to acc.compleanno.value.toString(),
             "cellulare"         to acc.cellulare.value.toString(),
             "sesso"             to acc.sesso.value.toString(),
-            "verificato"        to acc.seiVerificato,
+        //    "verificato"        to acc.seiVerificato,
             "presenzaImg"       to acc.presenzaImg // so in dubbio
         )
         //Decommentare per verificare i dati presenti nella variabile acc
-        //acc.stampa()
+        acc.stampa()
         //Il documento ha nome pari all'id in Firebase.auth
         db.collection("Accounts").document(acc.idD)
             .set(profilo)

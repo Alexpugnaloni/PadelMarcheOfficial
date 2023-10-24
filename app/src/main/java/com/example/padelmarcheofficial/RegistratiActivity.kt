@@ -1,19 +1,18 @@
 package com.example.padelmarcheofficial
 
-import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
 import com.example.padelmarcheofficial.dataclass.Account
+import com.example.padelmarcheofficial.dataclass.GestioneAccount
 import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
 import com.google.firebase.auth.FirebaseAuth
 
@@ -147,15 +146,19 @@ class RegistratiActivity : AppCompatActivity() {
             if(RegistratiViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(),binding.editTextDate.toString(), binding.phone.text.toString())){
             //    if(spinnerC.selectedItem != null&& spinnerC.selectedItem.toString().isNotBlank()&&spinnerC.selectedItemPosition!=0){
               //      if(spinner.selectedItem != null&& spinner.selectedItem.toString().isNotBlank()&&spinner.selectedItemPosition!=0){
-                        acc.inserisciAccount()
-                        val alertDialog = AlertDialog.Builder(this)
-                        alertDialog.setTitle("INFORMAZIONI")
-                        alertDialog.setMessage("Conferma l'email per effettuare il login")
-                        alertDialog.setPositiveButton("OK") { _, _ ->
-                            setResult(Activity.RESULT_OK)
-                            finish()
-                        }
-                        alertDialog.show()
+                     val gestioneAccount = GestioneAccount()
+                Log.d("NOME", acc.nome.value.toString())
+                Log.d("COGNOME", acc.cognome.value.toString())
+                Log.d("EMAIL", acc.email.value.toString())
+                Log.d("PASSWORD", acc.psw.value.toString())
+                Log.d("COMPLEANNO", acc.compleanno.value.toString())
+
+                Log.d("CELLULARE",acc.cellulare.toString())
+                Log.d("SESSO", acc.sesso.toString())
+                        gestioneAccount.inserisciAccount(acc)
+
+
+
                     }
                  //   else
                   //      Toast.makeText(baseContext, "Anno iscrizione mancante",Toast.LENGTH_SHORT).show()

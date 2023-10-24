@@ -2,11 +2,9 @@ package com.example.padelmarcheofficial
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -18,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.padelmarcheofficial.databinding.ActivityMainBinding
 import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
 import com.example.padelmarcheofficial.dataclass.Funzionalita
 import com.example.padelmarcheofficial.dataclass.UserValue
@@ -30,7 +26,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class ProfiloActivity : AppCompatActivity() {
+class ProfiloActivity3 : AppCompatActivity() {
+
 
     private lateinit var binding: ActivityProfiloBinding
 
@@ -96,7 +93,9 @@ class ProfiloActivity : AppCompatActivity() {
     private var enabledmodifyng:Boolean=false
     private var check : Boolean = false
 
-    private lateinit var sharedPref: SharedPreferences
+
+
+
 
 
     /**
@@ -104,10 +103,12 @@ class ProfiloActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_profilo3)
         binding = ActivityProfiloBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setContentView(layout.activity_profilo)
-      //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
+
+//  setContentView(layout.activity_profilo)
+        //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
 
         //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
@@ -120,7 +121,7 @@ class ProfiloActivity : AppCompatActivity() {
         //collego la variabile del layout con la variabile del ViewModel associtata
         binding.account = accAppoggio
         binding.lifecycleOwner = this
-        sharedPref = this.getSharedPreferences(getString(R.string.sharedPreferences), Context.MODE_PRIVATE)
+
 
         descFoto = findViewById(R.id.myImageViewText)
         btnRimImg = findViewById(R.id.btnCancImg)
@@ -141,18 +142,18 @@ class ProfiloActivity : AppCompatActivity() {
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
         binding.CardNameModificabile.editText?.doOnTextChanged{ inputText, _, _, _ ->
             if(enabledmodifyng) {
-            //    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
+                //    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
                 //updateSharedPref("nome", inputText.toString())
             }
         }
 //------COGNOME
         binding.CardSurnameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-      //      accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
+            //      accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
             //updateSharedPref("cognome", inputText.toString())
         }
 //------COMPLEANNO
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-        //    accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
+            //    accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
             //updateSharedPref("data", inputText.toString())
         }
 //------IMMAGINE
@@ -167,7 +168,7 @@ class ProfiloActivity : AppCompatActivity() {
         }
         accAppoggio.imgbitmap.observe(this, imageObserver)
         imgAccount.setOnClickListener {
-            val intent=Intent(
+            val intent= Intent(
                 this,
                 ManagingPHOTO::class.java
             )
@@ -184,15 +185,15 @@ class ProfiloActivity : AppCompatActivity() {
         btnMod.isVisible=true
 
         //Gestione della comunicazione di eventuali errori nelle informazioni del profilo non modificabili
-    /*    binding.repErr.setOnClickListener{
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:"+"MySocialUNIVPM@gmail.com")
-            intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT ERRORE")
-            intent.putExtra(Intent.EXTRA_TEXT, "Ciao!\nSono ${accAppoggio._nome.value} ${accAppoggio._cognome.value}, matricola: ${accAppoggio._matricola.value}, e vorrei riportare: \n-")
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            }
-        } */
+        /*    binding.repErr.setOnClickListener{
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:"+"MySocialUNIVPM@gmail.com")
+                intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT ERRORE")
+                intent.putExtra(Intent.EXTRA_TEXT, "Ciao!\nSono ${accAppoggio._nome.value} ${accAppoggio._cognome.value}, matricola: ${accAppoggio._matricola.value}, e vorrei riportare: \n-")
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+            } */
         btnMod.setOnClickListener {
             if(Funzionalita().isOnline(it.context))
                 enable()
@@ -207,16 +208,12 @@ class ProfiloActivity : AppCompatActivity() {
             accAppoggio.cambiata = false
             accAppoggio.originale = false*/
             //accAppoggio.loadInfo(id!!, em!!)
-            initPoint(UserValue().getId(),UserValue().getEmail())
+            initPoint(UserValue().getId(), UserValue().getEmail())
             binding.account = accAppoggio
         }
         binding.btnSalvataggio.setOnClickListener {
             if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.editTextDateModificabile.text.toString())){
                 accAppoggio.update()
-                updateSharedPref("data", binding.editTextDateModificabile.text.toString())
-                updateSharedPref("cognome", binding.surnameModificabile.text.toString())
-                updateSharedPref("nome", binding.nameModificabile.text.toString())
-                disable()
             }
         }
         binding.btnCancImg.setOnClickListener {
@@ -244,7 +241,7 @@ class ProfiloActivity : AppCompatActivity() {
 
         enabledmodifyng=false
 
-      //  contornofoto.strokeColor= resources.getColor(color.DarkRed,theme) NON FUNZIONA IL COLORE DEL CONTORNO
+        //  contornofoto.strokeColor= resources.getColor(color.DarkRed,theme) NON FUNZIONA IL COLORE DEL CONTORNO
 
         nomeM.isVisible=false
         nomeNM.isVisible=true
@@ -355,7 +352,7 @@ class ProfiloActivity : AppCompatActivity() {
             //recuper0 dell'immagine salvata dalla classe managingPhoto da storage locale
             imageBitMap = BitmapFactory.decodeStream(openFileInput("myImage"))
             imgAccount.setImageBitmap(imageBitMap)
-         //   accAppoggio.changeValue(0, null, imageBitMap)  COMMENTATA IO
+            //   accAppoggio.changeValue(0, null, imageBitMap)  COMMENTATA IO
             //accAppoggio.cambiata = true
             btnRimImg.isClickable = true
             btnRimImg.isEnabled = true
@@ -391,7 +388,7 @@ class ProfiloActivity : AppCompatActivity() {
             }
         }else{
             //se il dispositivo non è online recupero le informazioni salvate in locale a meno dell'immagine del profilo
-            val temp =UserValue().getAccount()
+            val temp = UserValue().getAccount()
             accAppoggio._nome.value= temp.nome.value
             accAppoggio._cognome.value= temp.cognome.value
             accAppoggio._email.value= temp.email.value
@@ -403,18 +400,6 @@ class ProfiloActivity : AppCompatActivity() {
     }
 
 
-    private fun updateSharedPref(switch: String, value:String){
-        val editor = sharedPref.edit()
-        when (switch){
-            "nome" -> {
-                editor.putString("nome", value).apply()
-            }
-            "cognome" -> {
-                editor.putString("cognome", value).apply()
-            }
-            "data" -> {
-                editor.putString("nascita", value).apply()
-            }
-        }
-    }
+
 }
+

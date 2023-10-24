@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_profilo -> {
-                    startActivity(Intent(this,ProfiloActivity::class.java))
+                    startActivity(Intent(this,ProfiloActivity3::class.java))
                     true
 
                 }
