@@ -15,15 +15,7 @@
         <activity
             android:name=".ui.prenotazioni.PrenotaUnaPartita3Activity"
             android:exported="false" />
-        <activity
-            android:name=".PrenotaUnaPartita3"
-            android:exported="false"
-            android:label="@string/title_activity_prenota_una_partita3" />
-        <activity
-            android:name=".PreonotaUnaPartita2Activity"
-            android:exported="false"
-            android:label="@string/title_activity_preonota_una_partita2"
-            android:theme="@style/Theme.PadelMarcheOfficial" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
