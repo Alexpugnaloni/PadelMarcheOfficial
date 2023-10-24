@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.PrenotaSolitariaActivity
-import com.example.padelmarcheofficial.PrenotaUnaPartitaActivity
 import com.example.padelmarcheofficial.databinding.FragmentHomeBinding
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartita3Activity
 
 class HomeFragment : Fragment() {
 
@@ -36,7 +35,7 @@ class HomeFragment : Fragment() {
             textView.text = it
         } */
         binding.prenotaunapartitaButton.setOnClickListener{
-            val intent = Intent(this.context, PrenotaUnaPartitaActivity::class.java)
+            val intent = Intent(this.context, PrenotaUnaPartita3Activity::class.java)
             startActivity(intent)
         }
 
@@ -44,6 +43,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(this.context, PrenotaSolitariaActivity::class.java)
             startActivity(intent)
         }
+
         return root
     }
 

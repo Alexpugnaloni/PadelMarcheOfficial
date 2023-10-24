@@ -238,7 +238,7 @@ class Account : ViewModel(), Serializable {
             4->_psw.value=value
             5->_compleanno.value=value
             6->_cellulare.value=value
-            7->_sesso.value=value
+            7->_sesso.value=value.toString()
         }
     }
 

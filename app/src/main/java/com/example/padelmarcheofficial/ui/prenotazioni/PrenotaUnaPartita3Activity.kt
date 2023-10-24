@@ -1,28 +1,31 @@
-package com.example.padelmarcheofficial
+package com.example.padelmarcheofficial.ui.prenotazioni
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.example.padelmarcheofficial.databinding.ActivityPrenotaunapartitaBinding
+import com.example.padelmarcheofficial.R
+import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartita3Binding
 
 
-class PrenotaUnaPartitaActivity : AppCompatActivity() {
+class PrenotaUnaPartita3Activity : AppCompatActivity() {
 
-
-
-    private lateinit var binding: ActivityPrenotaunapartitaBinding
+    private lateinit var binding: ActivityPrenotaUnaPartita3Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityPrenotaunapartitaBinding.inflate(layoutInflater)
+        binding = ActivityPrenotaUnaPartita3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ArrayAdapter.createFromResource(this, R.array.provincia_array,android.R.layout.simple_spinner_item).also { arrayAdapter ->
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+            binding.spinnerProvincia.adapter=arrayAdapter
+        }
 
     }
 
 
-
-/*
+    /*
     private lateinit var binding: ActivityPrenotaunapartitaBinding
 
     val btnDatePicker = findViewById<Button>(R.id.btnDatePicker)
@@ -57,5 +60,6 @@ class PrenotaUnaPartitaActivity : AppCompatActivity() {
         val myFormat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.ITALY)
     }*/
+
 
 }

@@ -38,17 +38,8 @@
     <string name="name">Nome</string>
 
 
-
-
     <string name="spinnerP">Seleziona la provincia </string>
 
-    <string-array name="provincia_array">
-        <item>Pesaro Urbino</item>
-        <item>Ancona</item>
-        <item>Macerata</item>
-        <item>Fermo</item>
-        <item>Ascoli Piceno</item>
-    </string-array>
 
 
     <!-- Cose di Cork -->
@@ -89,6 +80,15 @@
     <string name="ritaglia">Ritaglia</string>
     <string name="ruota_a_destra">Ruota a destra</string>
     <string name="immagine_in_fase_pre_caricamento">Immagine in fase pre-caricamento</string>
+    <string name="title_activity_preonota_una_partita2">PreonotaUnaPartita2Activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+    <string name="title_activity_prenota_una_partita3">PrenotaUnaPartita3</string>
 
 
 

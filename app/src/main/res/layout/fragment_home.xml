@@ -29,6 +29,7 @@
 
             android:adjustViewBounds="true"
             android:background="@drawable/roundcorner"
+            android:onClick="prenotaunapartita"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/prenotaunapartitabutton" />
 

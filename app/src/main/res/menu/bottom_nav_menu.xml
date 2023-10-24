@@ -4,20 +4,21 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="@string/title_home"
-        android:iconTint="@color/white"/>
+        android:iconTint="@color/white"
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_prenotazioni"
         android:icon="@drawable/ic_prenotazioni"
-        android:title="@string/title_prenotazioni"
-        android:iconTint="@color/white"/>
+        android:iconTint="@color/white"
+        android:title="@string/title_prenotazioni" />
 
     <item
         android:id="@+id/navigation_amici"
         android:icon="@drawable/ic_users"
-        android:title="@string/title_amici"
-        android:iconTint="@color/white"/>
+        android:iconTint="@color/white"
+        android:title="@string/title_amici" />
+
 
 
 

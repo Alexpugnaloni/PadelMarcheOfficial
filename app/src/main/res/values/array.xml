@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="provincia_array">
+        <item>Pesaro Urbino</item>
+        <item>Ancona</item>
+        <item>Macerata</item>
+        <item>Fermo</item>
+        <item>Ascoli Piceno</item>
+    </string-array>
+</resources>
