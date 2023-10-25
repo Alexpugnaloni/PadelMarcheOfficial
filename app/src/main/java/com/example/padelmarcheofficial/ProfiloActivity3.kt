@@ -104,7 +104,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityProfilo3Binding>(this, R.layout.activity_profilo3)
 
 //  setContentView(layout.activity_profilo)
-        //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
+        //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)  BELLAAAAAA
 
         //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
