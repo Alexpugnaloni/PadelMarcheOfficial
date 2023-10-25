@@ -51,8 +51,26 @@
         android:layout_width="409dp"
         android:layout_height="59dp"
         android:layout_gravity="bottom"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         app:backgroundTint="@color/blu"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="410dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="1dp"
+        android:text="I nostri centri"
+        android:textAlignment="center"
+        android:textColor="@color/blu"
+        android:textSize="35dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
