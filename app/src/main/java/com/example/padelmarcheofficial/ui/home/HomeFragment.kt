@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.padelmarcheofficial.PrenotaSolitariaActivity
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaSolitariaActivity
 import com.example.padelmarcheofficial.databinding.FragmentHomeBinding
 import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartita3Activity
 

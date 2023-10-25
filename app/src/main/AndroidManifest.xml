@@ -27,6 +27,10 @@
         <activity
             android:name=".ui.prenotazioni.PrenotaUnaPartita3Activity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.prenotazioni.PrenotaSolitariaActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
