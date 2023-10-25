@@ -1,5 +1,6 @@
 package com.example.padelmarcheofficial
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -156,6 +157,10 @@ class RegistratiActivity : AppCompatActivity() {
                 Log.d("CELLULARE",acc.cellulare.toString())
                 Log.d("SESSO", acc.sesso.toString())
                         gestioneAccount.inserisciAccount(acc)
+               // if (it.isSuccessful){
+                    val intent = Intent(this, AccediActivity::class.java)
+                    startActivity(intent)
+             //   }
 
 
 

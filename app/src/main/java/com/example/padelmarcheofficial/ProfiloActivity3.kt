@@ -18,6 +18,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
 import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
 import com.example.padelmarcheofficial.dataclass.Funzionalita
 import com.example.padelmarcheofficial.dataclass.UserValue
@@ -123,7 +124,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         binding.lifecycleOwner = this
 
 
-        descFoto = findViewById(R.id.myImageViewText)
+     //   descFoto = findViewById(R.id.myImageViewText)
         btnRimImg = findViewById(R.id.btnCancImg)
         btnMod = findViewById(R.id.btnModifica)
         btnSave = findViewById(R.id.btnSalvataggio)
