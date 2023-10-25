@@ -232,12 +232,12 @@ class Account : ViewModel(), Serializable {
 
         when(idVariabile){
             0->_imgbitmap.value=imgvalue
-            1->_nome.value= value
-            2->_cognome.value=value
-            3->_email.value=value
-            4->_psw.value=value
-            5->_compleanno.value=value
-            6->_cellulare.value=value
+            1->_nome.value= value.toString()
+            2->_cognome.value=value.toString()
+            3->_email.value=value.toString()
+            4->_psw.value=value.toString()
+            5->_compleanno.value=value.toString()
+            6->_cellulare.value=value.toString()
             7->_sesso.value=value.toString()
         }
     }
@@ -247,6 +247,6 @@ class Account : ViewModel(), Serializable {
      */
     fun update(){
         presenzaImg = _imgbitmap.value!=null
-      //  operazioni.aggiornaAccount(this)
+        operazioni.aggiornaAccount(this)
     }
 }

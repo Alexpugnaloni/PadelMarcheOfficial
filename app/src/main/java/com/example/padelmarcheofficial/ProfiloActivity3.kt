@@ -9,13 +9,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
@@ -60,10 +60,6 @@ class ProfiloActivity3 : AppCompatActivity() {
      */
     private lateinit var imgAccount: ImageView
 
-    /**
-     * varibaile utilizzata per inserire delle direttive
-     */
-    private lateinit var descFoto: TextView
 
     /**
      * variabili utilizzate per il salvataggio/modifica/ annullamento di ciò che viene fatto in questa classe
@@ -105,8 +101,7 @@ class ProfiloActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profilo3)
-        binding = ActivityProfiloBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val binding = DataBindingUtil.setContentView<ActivityProfilo3Binding>(this, R.layout.activity_profilo3)
 
 //  setContentView(layout.activity_profilo)
         //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)
@@ -180,7 +175,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         btnRimImg.isClickable = false
         btnRimImg.isEnabled = false
         btnRimImg.isVisible = false
-        descFoto.isVisible = false
+
         btnSave.isVisible=false
         btnBack.isVisible=false
         btnMod.isVisible=true
@@ -215,6 +210,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         binding.btnSalvataggio.setOnClickListener {
             if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.editTextDateModificabile.text.toString())){
                 accAppoggio.update()
+                disable()
             }
         }
         binding.btnCancImg.setOnClickListener {
@@ -254,7 +250,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         compleannoNM.isVisible=true
 
         imgAccount.isClickable = false
-        descFoto.isVisible = false
+
 
         btnRimImg.isEnabled = false
         btnRimImg.isVisible = false
@@ -306,7 +302,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         compleannoNM.isVisible=false
 
         imgAccount.isClickable = true
-        descFoto.isVisible = true
+
 
         btnSave.isEnabled = true
         btnSave.isVisible = true

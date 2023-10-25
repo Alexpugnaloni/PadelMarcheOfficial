@@ -53,7 +53,6 @@ class GestioneAccount {
                         "dataDiNascita"     to acc.compleanno.value.toString(),
                         "cellulare"         to acc.cellulare.value.toString(),
                         "sesso"             to acc.sesso.value.toString(),
-
                         "presenzaImg"       to acc.presenzaImg // so in dubbio
                     )
                     Log.d("Operazione", "Ora lo inserisco")

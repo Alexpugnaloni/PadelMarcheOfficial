@@ -13,7 +13,7 @@ import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
-import java.util.*
+import java.util.Locale
 
 
 
@@ -86,7 +86,7 @@ class OperazioniSuFb {
             "dataDiNascita"     to acc.compleanno.value.toString(),
             "cellulare"         to acc.cellulare.value.toString(),
             "sesso"             to acc.sesso.value.toString(),
-        //    "verificato"        to acc.seiVerificato,
+
             "presenzaImg"       to acc.presenzaImg // so in dubbio
         )
         //Decommentare per verificare i dati presenti nella variabile acc
@@ -162,7 +162,7 @@ class OperazioniSuFb {
      * Elimina l'account passato come argomento dalla raccolta di utenti in *Firestore*
      * @param acc l'account da rimuovere
      */
-  /* fun aggiornaAccount(acc: Account) {
+   fun aggiornaAccount(acc: Account) {
         db.collection("Accounts").document(acc.idD)
             .delete()
             .addOnSuccessListener {
@@ -172,11 +172,10 @@ class OperazioniSuFb {
                     cognome = acc.cognome.value!!,
                     email = acc.email.value!!,
                     cellulare = acc.cellulare.value!!,
-                    sesso = acc.sesso.value!!,
-
-                    inserimentoInFirestore(acc))
+                    sesso = acc.sesso.value!!,)
+                    inserimentoInFirestore(acc)
             }
-    } */
+    }
     /**
      * Scarica da *Firestore* i dati relativi all'account e li inserisce all'interno della classe
      * **[UserValue]**, richiamabili in tutte le diverse istanze di classe
