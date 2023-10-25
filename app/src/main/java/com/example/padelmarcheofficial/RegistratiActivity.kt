@@ -170,7 +170,14 @@ class RegistratiActivity : AppCompatActivity() {
                 }
              //   else
               //      Toast.makeText(baseContext, "Corso mancante",Toast.LENGTH_SHORT).show()
+        btnBack = findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, AccediActivity::class.java)
+            startActivity(intent)
+        }
             }
+
+
         }/*
     }
           binding.button.setOnClickListener{

@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
          *
          */
 
+
         navViewDrawer.setNavigationItemSelectedListener {it:MenuItem ->
             when(it.itemId){
                 R.id.nav_logout -> {
