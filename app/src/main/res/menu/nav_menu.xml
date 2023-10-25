@@ -16,7 +16,7 @@
             android:title="Notifiche"/>
 
         <item
-            android:id="@+id/nav_inostricentri"
+            android:id="@+id/nav_nostricentri"
             android:icon="@drawable/ic_place"
             android:title="I Nostri Centri"/>
         <item

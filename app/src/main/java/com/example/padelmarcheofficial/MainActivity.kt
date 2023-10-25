@@ -109,6 +109,19 @@ class MainActivity : AppCompatActivity() {
                     true
 
                 }
+
+                R.id.nav_nostricentri -> {
+                    startActivity(Intent(this, NostriCentri_Activity::class.java))
+                    true
+
+                }
+
+                R.id.nav_contattaci -> {
+                    startActivity(Intent(this, Contattaci_Activity::class.java))
+                    true
+
+                }
+
                 else -> {true}
 
 
