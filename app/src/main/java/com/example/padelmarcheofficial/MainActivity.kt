@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_contattaci -> {
-                    startActivity(Intent(this, Contattaci_Activity::class.java))
+                    startActivity(Intent(this, ContattaciActivity::class.java))
                     true
 
                 }

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PadelMarcheOfficial"
         tools:targetApi="31">
         <activity
-            android:name=".Contattaci_Activity"
+            android:name=".ContattaciActivity"
             android:exported="false" />
         <activity
             android:name=".NostriCentri_Activity"
