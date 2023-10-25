@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_nostricentri -> {
-                    startActivity(Intent(this, NostriCentri_Activity::class.java))
+                    startActivity(Intent(this, NostriCentriActivity::class.java))
                     true
 
                 }

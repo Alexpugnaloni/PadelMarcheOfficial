@@ -16,7 +16,7 @@
             android:name=".ContattaciActivity"
             android:exported="false" />
         <activity
-            android:name=".NostriCentri_Activity"
+            android:name=".NostriCentriActivity"
             android:exported="false" />
         <activity
             android:name=".NotificheActivity"
