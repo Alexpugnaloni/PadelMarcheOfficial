@@ -138,18 +138,18 @@ class ProfiloActivity3 : AppCompatActivity() {
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
         binding.CardNameModificabile.editText?.doOnTextChanged{ inputText, _, _, _ ->
             if(enabledmodifyng) {
-                //    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
+                    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
                 //updateSharedPref("nome", inputText.toString())
             }
         }
 //------COGNOME
         binding.CardSurnameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            //      accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
+                  accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
             //updateSharedPref("cognome", inputText.toString())
         }
 //------COMPLEANNO
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            //    accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
+                accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
             //updateSharedPref("data", inputText.toString())
         }
 //------IMMAGINE
@@ -208,7 +208,8 @@ class ProfiloActivity3 : AppCompatActivity() {
             binding.account = accAppoggio
         }
         binding.btnSalvataggio.setOnClickListener {
-            if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.editTextDateModificabile.text.toString())){
+            if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
+            {   accAppoggio.stampa()
                 accAppoggio.update()
                 disable()
             }

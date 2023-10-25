@@ -163,7 +163,7 @@ class Account : ViewModel(), Serializable {
      * caratterizzano la variabile account
      */
     fun stampa() {
-        /*
+
         Log.d("NOME", nome.value.toString())
         Log.d("COGNOME", cognome.value.toString())
         Log.d("EMAIL", email.value.toString())
@@ -177,7 +177,7 @@ class Account : ViewModel(), Serializable {
         if (imgbitmap.value == null)
             Log.d("IMMAGINEPROFILO", "NON PRESENTE")
         else
-            Log.d("IMMAGINEPROFILO", "PRESENTE")*/
+            Log.d("IMMAGINEPROFILO", "PRESENTE")
     }
 
 
@@ -231,7 +231,7 @@ class Account : ViewModel(), Serializable {
         Log.d("Salvataggio","${idVariabile}- $value or $imgvalue")
 
         when(idVariabile){
-            0->_imgbitmap.value=imgvalue
+          //  0->_imgbitmap.value=imgvalue
             1->_nome.value= value.toString()
             2->_cognome.value=value.toString()
             3->_email.value=value.toString()
