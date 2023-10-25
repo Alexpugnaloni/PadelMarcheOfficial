@@ -46,4 +46,159 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
+    <TextView
+        android:id="@+id/contattaci"
+        android:layout_width="410dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="1dp"
+        android:text="Contattaci"
+        android:textAlignment="center"
+        android:textColor="@color/blu"
+        android:textSize="35dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="409dp"
+        android:layout_height="59dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:backgroundTint="@color/blu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textApplicazione"
+        android:layout_width="254dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="167dp"
+        android:layout_marginEnd="73dp"
+        android:gravity="center"
+        android:text="Applicazione ufficiale del portale PadelMarche"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textCap"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="84dp"
+        android:text="CAP: 60027"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textVia"
+        tools:layout_editor_absoluteY="298dp" />
+
+    <TextView
+        android:id="@+id/textPugnaloniAlex"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="228dp"
+        android:text="Pugnaloni Alex"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSviluppataDa" />
+
+    <TextView
+        android:id="@+id/textSedePrincipale"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="84dp"
+        android:text="Sede Principale: Ancona"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textApplicazione"
+        tools:layout_editor_absoluteY="244dp" />
+
+    <TextView
+        android:id="@+id/textVia"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginEnd="85dp"
+        android:text="Via: una via a caso 28"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSedePrincipale" />
+
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="84dp"
+        android:text="Email: info@padelmarche.com"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTelefono"
+        tools:layout_editor_absoluteY="352dp" />
+
+    <TextView
+        android:id="@+id/textTelefono"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="84dp"
+        android:text="Telefono: 0717823257"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCap"
+        tools:layout_editor_absoluteY="325dp" />
+
+    <TextView
+        android:id="@+id/textVaccariniElia"
+        android:layout_width="243dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="86dp"
+        android:text="Vaccarini Elia"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPugnaloniAlex"
+        tools:layout_editor_absoluteY="523dp" />
+
+    <TextView
+        android:id="@+id/textSviluppataDa"
+        android:layout_width="247dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="255dp"
+        android:gravity="center"
+        android:text="Sviluppata da:"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
