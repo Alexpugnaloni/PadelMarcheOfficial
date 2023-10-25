@@ -103,7 +103,15 @@ class MainActivity : AppCompatActivity() {
                     true
 
                 }
+
+                R.id.nav_notifiche -> {
+                    startActivity(Intent(this, NotificheFragment::class.java))
+                    true
+
+                }
                 else -> {true}
+
+
             }
         }
 
