@@ -3,6 +3,8 @@ package com.example.padelmarcheofficial
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -81,6 +83,11 @@ class MainActivity : AppCompatActivity() {
         /**
          *
          */
+        val headerView : View = navViewDrawer.getHeaderView(0)
+        val navNomeUtente : TextView = headerView.findViewById(R.id.nomeutente)
+        val navEmailUtente : TextView =headerView.findViewById(R.id.emailutente)
+        navNomeUtente.text = currentUser!!.uid.toString()
+        navEmailUtente.text = currentUser!!.email.toString()
 
 
         navViewDrawer.setNavigationItemSelectedListener {it:MenuItem ->

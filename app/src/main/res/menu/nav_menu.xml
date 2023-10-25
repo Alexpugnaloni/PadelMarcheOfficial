@@ -11,13 +11,10 @@
             android:icon="@drawable/ic_users"
             android:title="Profilo"/>
         <item
-            android:id="@+id/nav_amici"
-            android:icon="@drawable/ic_searchuser"
-            android:title="Amici"/>
-        <item
-            android:id="@+id/nav_prenotazioni"
-            android:icon="@drawable/ic_prenotazioni"
-            android:title="Prenotazioni"/>
+            android:id="@+id/nav_notifiche"
+            android:icon="@drawable/ic_notification_important"
+            android:title="Notifiche"/>
+
         <item
             android:id="@+id/nav_inostricentri"
             android:icon="@drawable/ic_place"

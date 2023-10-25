@@ -14,16 +14,18 @@
         android:src="@drawable/ic_baseline_account_circle_24"/>
 
     <TextView
+        android:id="@+id/nomeutente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome e Cognome Utente"
+
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/emailutente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email dell'utente"
+
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginBottom="16dp"/>
