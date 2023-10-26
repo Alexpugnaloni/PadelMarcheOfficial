@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".NotificheActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbargenerale"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titolotoolbar"
+        android:layout_width="241dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="686dp"
+        android:text="PadelMarche"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/imageView2"
@@ -22,8 +46,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="125dp"
         android:layout_marginEnd="125dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="126dp"
         android:text="TORNA INDIETRO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="409dp"
+        android:layout_height="59dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:backgroundTint="@color/blu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
