@@ -69,12 +69,12 @@
                 android:layout_margin="1dp"
                 android:gravity="center"
                 android:text="@string/changePhoto"
-                android:textColor="?attr/colorOnSecondary"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnCancImg"
-                style="@style/PersonalizedButton"
+                android:backgroundTint="@color/blu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
@@ -84,7 +84,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/nameNonModificabile"
-                style="@style/Base.CardView"
+                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
@@ -92,7 +92,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorOnPrimary"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -101,7 +101,7 @@
                         android:layout_marginTop="4dp"
                         android:paddingStart="15dp"
                         android:text="Nome"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blu"
                         tools:ignore="RtlSymmetry" />
 
                     <TextView
@@ -119,7 +119,7 @@
                         android:layout_height="2dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/DarkRed" />
+                        android:background="@color/blu" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -143,7 +143,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/surnameNonModificabile"
-                style="@style/Base.CardView"
+                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
@@ -151,7 +151,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorOnPrimary"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -160,7 +160,7 @@
                         android:layout_marginTop="4dp"
                         android:paddingStart="15dp"
                         android:text="@string/cognome"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blu"
                         tools:ignore="RtlSymmetry" />
 
                     <TextView
@@ -178,7 +178,7 @@
                         android:layout_height="2dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/DarkRed" />
+                        android:background="@color/blu" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -201,7 +201,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.cardview.widget.CardView
-                style="@style/Base.CardView"
+                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
@@ -209,7 +209,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorOnPrimary"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -218,7 +218,7 @@
                         android:layout_marginTop="4dp"
                         android:paddingStart="15dp"
                         android:text="@string/email"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blu"
                         tools:ignore="RtlSymmetry" />
 
                     <TextView
@@ -236,7 +236,7 @@
                         android:layout_height="2dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/DarkRed" />
+                        android:background="@color/blu" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -278,7 +278,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/editTextDateNonModificabile"
-                style="@style/Base.CardView"
+                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
@@ -286,7 +286,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorOnPrimary"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <TextView
@@ -295,7 +295,7 @@
                         android:layout_marginTop="4dp"
                         android:paddingStart="15dp"
                         android:text="@string/compleanno"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blu"
                         tools:ignore="RtlSymmetry" />
 
                     <TextView
@@ -313,7 +313,7 @@
                         android:layout_height="2dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/DarkRed" />
+                        android:background="@color/blu" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -420,7 +420,7 @@
 
                 <Button
                     android:id="@+id/btnModifica"
-                    style="@style/PersonalizedButton"
+                    android:backgroundTint="@color/blu"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -440,23 +440,25 @@
 
                 <Button
                     android:id="@+id/btnSalvataggio"
-                    style="@style/PersonalizedButton"
+                    android:backgroundTint="@color/blu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:enabled="false"
-                    android:text="@string/salva" />
+                    android:text="@string/salva"
+                    android:textColor="@color/white"/>
 
                 <Button
                     android:id="@+id/btnIndietro"
-                    style="@style/PersonalizedButton"
+                    android:backgroundTint="@color/blu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="2"
                     android:enabled="false"
-                    android:text="@string/Back" />
+                    android:text="@string/Back"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
