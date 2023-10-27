@@ -19,7 +19,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
-import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
 import com.example.padelmarcheofficial.dataclass.Funzionalita
 import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.card.MaterialCardView

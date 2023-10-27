@@ -47,7 +47,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/roundcorner"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img" />
+            app:srcCompat="@drawable/unisciti4" />
 
 
     </LinearLayout>
