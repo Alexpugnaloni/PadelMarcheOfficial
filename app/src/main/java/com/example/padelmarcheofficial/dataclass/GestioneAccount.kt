@@ -2,11 +2,14 @@ package com.example.padelmarcheofficial.dataclass
 
 import android.graphics.Bitmap
 import android.util.Log
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 
 class GestioneAccount {
@@ -94,5 +97,14 @@ class GestioneAccount {
 
     }
 
+    internal suspend fun downloadNomiSedi(): List<String> {
+        val centriPadelList = mutableListOf<String>()
+        val snapshot = db.collection("Centrisportivi").get().await()
+        for (doc in snapshot)
+            centriPadelList.add(doc["sede"].toString())
+        return centriPadelList.toList()
+    }
 }
+
+
 

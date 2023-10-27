@@ -4,16 +4,27 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartita3Binding
+import com.example.padelmarcheofficial.dataclass.GestioneAccount
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 import java.util.Calendar
 import java.util.Date
+
 
 data class UtenteRegistrato(val nome: String, val cognome: String, val email: String, val numeroTelefono: String)
 data class CentroSportivo(val nome: String, val indirizzo: String)
@@ -27,7 +38,7 @@ data class Prenotazione(
 )
 
 
-class PrenotaUnaPartita3Activity : AppCompatActivity() {
+class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var binding: ActivityPrenotaUnaPartita3Binding
     private var myCalendar: Calendar = Calendar.getInstance()
@@ -39,18 +50,33 @@ class PrenotaUnaPartita3Activity : AppCompatActivity() {
     private lateinit var fasciaoraria5: Button
     private lateinit var fasciaoraria6: Button
     private lateinit var btnDatePicker: Button
+    private lateinit var listesedi : List<String>
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewmodel = ViewModelProvider(this).get(PrenotaUnaPartitaViewModel::class.java)
+        CoroutineScope(Dispatchers.Main).launch {
+            viewmodel.init()
+        }
 
+        val lifecycleowner = this
         binding = ActivityPrenotaUnaPartita3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ArrayAdapter.createFromResource(this, R.array.provincia_array,android.R.layout.simple_spinner_item).also { arrayAdapter ->
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-            binding.spinnerProvincia.adapter=arrayAdapter
+
+        val adapter = ArrayAdapter(baseContext, android.R.layout.simple_spinner_item, viewmodel.listasedi.value!!)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerProvincia.adapter = adapter
+
+        viewmodel.listasedi.observe(lifecycleowner) {
+            val adapter = ArrayAdapter(baseContext, android.R.layout.simple_spinner_item, viewmodel.listasedi.value!!)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerProvincia.adapter = adapter
+            Log.d("ArrayAdapter", viewmodel.listasedi.value.toString())
         }
+
 
         // Inizializza i tuoi bottoni e altri elementi visivi dall'XML qui...
 
@@ -130,9 +156,9 @@ class PrenotaUnaPartita3Activity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 println("Errore durante il recupero delle prenotazioni: $e")
             }
-            */
+
     }
-/*
+
     // Metodo immaginario per ottenere le fasce orarie disponibili per una data specifica.
     fun getAvailableFasciaOrarieForDate(date: Date): List<FasciaOraria> {
         // Qui dovresti implementare la logica per ottenere le fasce orarie disponibili
@@ -193,9 +219,9 @@ class PrenotaUnaPartita3Activity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 println("Errore durante la verifica di disponibilità: $e")
-            }
+            } */
     }
 
-    */
+
 
 }
