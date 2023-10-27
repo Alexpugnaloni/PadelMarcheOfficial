@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter
 class ProfiloActivity3 : AppCompatActivity() {
 
 
-    private lateinit var binding: ActivityProfiloBinding
+
 
     /**
      * variabile utilizzata per inserire il contorno alla foto del profilo
@@ -54,6 +54,12 @@ class ProfiloActivity3 : AppCompatActivity() {
      */
     private lateinit var compleannoM: View
     private lateinit var compleannoNM: CardView
+
+    /**
+     * variabili utilizzate per la gestione del cellulare dell'utente
+     */
+    private lateinit var cellulareM: View
+    private lateinit var cellulareNM: CardView
 
     /**
      * variabile utilizzata per la visualizzazione dell'immagine profilo
@@ -133,6 +139,9 @@ class ProfiloActivity3 : AppCompatActivity() {
         cognomeNM = findViewById(R.id.surnameNonModificabile)
         compleannoM = findViewById(R.id.CardEditTextDateModificabile)
         compleannoNM = findViewById(R.id.editTextDateNonModificabile)
+        cellulareM = findViewById(R.id.CardCellulareModificabile)
+        cellulareNM = findViewById(R.id.cellulareNonModificabile)
+
 
 //------NOME
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
@@ -151,6 +160,12 @@ class ProfiloActivity3 : AppCompatActivity() {
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
                 accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
             //updateSharedPref("data", inputText.toString())
+        }
+
+//------CELLULARE
+        binding.CardCellulareModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
+            accAppoggio.changeValue(6,inputText.toString())// Respond to input text change
+            //updateSharedPref("cognome", inputText.toString())
         }
 //------IMMAGINE
         imgAccount = findViewById(R.id.imgAccount)
@@ -208,7 +223,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             binding.account = accAppoggio
         }
         binding.btnSalvataggio.setOnClickListener {
-            if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
+            if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.celluareModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
             {   accAppoggio.stampa()
                 accAppoggio.update()
                 disable()
@@ -249,6 +264,9 @@ class ProfiloActivity3 : AppCompatActivity() {
 
         compleannoM.isVisible=false
         compleannoNM.isVisible=true
+
+        cellulareM.isVisible=false
+        cellulareNM.isVisible=true
 
         imgAccount.isClickable = false
 
@@ -302,6 +320,9 @@ class ProfiloActivity3 : AppCompatActivity() {
         compleannoM.isVisible=true
         compleannoNM.isVisible=false
 
+        cellulareM.isVisible=true
+        cellulareNM.isVisible=false
+
         imgAccount.isClickable = true
 
 
@@ -322,13 +343,17 @@ class ProfiloActivity3 : AppCompatActivity() {
      * @param cognome il cognome dell'utente
      * @param compleanno la data di nascita dell'utente
      */
-    private fun verificaInserimento(nome: String, cognome: String, compleanno: String): Boolean {
+    private fun verificaInserimento(nome: String, cognome: String, compleanno: String, cellulare:String): Boolean {
         if(nome.isBlank()) {
             Toast.makeText(baseContext, "Nome mancante", Toast.LENGTH_SHORT).show()
             return false
         }
         if(cognome.isBlank()) {
             Toast.makeText(baseContext, "Cognome mancante", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(cellulare.isBlank()) {
+            Toast.makeText(baseContext, "Cellulare mancante", Toast.LENGTH_SHORT).show()
             return false
         }
         try {
@@ -342,6 +367,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             Toast.makeText(baseContext, "Data mancante o errata", Toast.LENGTH_SHORT).show()
             return false
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
