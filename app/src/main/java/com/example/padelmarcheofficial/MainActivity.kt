@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val navEmailUtente : TextView =headerView.findViewById(R.id.emailutente)
 
 
-        navNomeUtente.text = currentUser!!.uid.toString()
+        navNomeUtente.text = currentUser!!.uid
         navEmailUtente.text = currentUser!!.email.toString()
 
 
