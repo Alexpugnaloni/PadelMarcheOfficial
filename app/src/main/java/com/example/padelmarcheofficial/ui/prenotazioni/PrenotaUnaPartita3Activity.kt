@@ -28,13 +28,12 @@ import java.util.Date
 
 data class UtenteRegistrato(val nome: String, val cognome: String, val email: String, val numeroTelefono: String)
 data class CentroSportivo(val nome: String, val indirizzo: String)
-data class FasciaOraria(val inizio: Date, val fine: Date)
+//data class FasciaOraria(val inizio: Date, val fine: Date)
 
 data class Prenotazione(
     val utente: UtenteRegistrato,
     val centroSportivo: CentroSportivo,
-    val fasciaOraria: FasciaOraria,
-    val dataPrenotazione: Date
+   // val fasciaOraria: FasciaOraria
 )
 
 
@@ -75,6 +74,8 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerProvincia.adapter = adapter
             Log.d("ArrayAdapter", viewmodel.listasedi.value.toString())
+
+
         }
 
 
@@ -111,6 +112,7 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             )
             datePicker.show()
+            Log.d("prenotazioni", viewmodel.listaPrenotazioni.value.toString())
         }
 
     }

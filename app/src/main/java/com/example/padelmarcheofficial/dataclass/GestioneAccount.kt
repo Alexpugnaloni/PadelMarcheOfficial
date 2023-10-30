@@ -2,6 +2,7 @@ package com.example.padelmarcheofficial.dataclass
 
 import android.graphics.Bitmap
 import android.util.Log
+import com.example.padelmarcheofficial.ui.prenotazioni.Prenotazione
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -104,6 +105,24 @@ class GestioneAccount {
             centriPadelList.add(doc["sede"].toString())
         return centriPadelList.toList()
     }
+
+    internal suspend fun downloadPrenotazioni(centroSportivo: String, data: String): List<Prenotazione> {
+        val prenotazioniList = mutableListOf<Prenotazione>()
+        val snapshot = db.collection("Centrisportivi").document(centroSportivo).collection("Prenotazioni")
+          //  .whereEqualTo("sede.nome", centroSportivo)
+          //  .whereEqualTo("data", data)
+            .get()
+            .await()
+
+        for (doc in snapshot) {
+            val prenotazione = doc.toObject(Prenotazione::class.java)
+            prenotazioniList.add(prenotazione)
+        }
+
+        return prenotazioniList.toList()
+    }
+
+
 }
 
 
