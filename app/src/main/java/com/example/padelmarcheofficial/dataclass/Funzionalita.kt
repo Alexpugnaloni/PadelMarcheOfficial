@@ -17,6 +17,7 @@ class Funzionalita{
          * larghezza dello schermo in Pixel
          */
         private var width : Int = 0
+        //ahahahahahaha
 
         /**
          * altezza dello schermo in Pixel
