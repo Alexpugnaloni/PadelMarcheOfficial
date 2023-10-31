@@ -123,6 +123,17 @@ class GestioneAccount {
             prenotazioniList.add(Prenotazione(doc["idutente"].toString(),centroSportivo,doc.getDate("data") as Date))
          return prenotazioniList.toList()
     }
+
+    fun uploadPrenotazione(idcentrosportivo:String,data:Date){
+        val prenotazione = hashMapOf(
+            "idutente"  to auth.currentUser!!.uid,
+            "data"      to data,
+            "confermato" to true,
+            "utenti"       to hashMapOf<String, Any>(),
+
+        )
+        db.collection("Centrisportivi").document(idcentrosportivo).collection("Prenotazioni").add(prenotazione)
+    }
 }
 
 

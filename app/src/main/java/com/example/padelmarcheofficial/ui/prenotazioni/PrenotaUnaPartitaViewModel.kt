@@ -1,6 +1,8 @@
 package com.example.padelmarcheofficial.ui.prenotazioni
 
-import android.widget.DatePicker
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,68 +17,108 @@ import java.util.Locale
 
 class PrenotaUnaPartitaViewModel : ViewModel() {
 
-    private val _listasedi = MutableLiveData<List<String>>().apply {
+    private val _listaSedi = MutableLiveData<List<String>>().apply {
         value = listOf("")
 
     }
-    val listasedi: LiveData<List<String>> = _listasedi
+    val listaSedi: LiveData<List<String>> = _listaSedi
 
     private val _listaPrenotazioni = MutableLiveData<List<Prenotazione>>().apply {
-        value = listOf()//Prenotazione(UtenteRegistrato("Alex", "Pugnaloni", "prova@gmail.com", "3387826780"), CentroSportivo("Ancona", "via prova") )) // Inizializza con una lista che contiene un'istanza vuota di Prenotazione
+        value =
+            listOf()//Prenotazione(UtenteRegistrato("Alex", "Pugnaloni", "prova@gmail.com", "3387826780"), CentroSportivo("Ancona", "via prova") )) // Inizializza con una lista che contiene un'istanza vuota di Prenotazione
     }
 
     val listaPrenotazioni: LiveData<List<Prenotazione>> = _listaPrenotazioni
 
-    private var sedi : HashMap<String,CentroSportivo> = hashMapOf()
+    private var mappaSedi: HashMap<String, CentroSportivo> = hashMapOf()
 
-    val formatoGiorno = SimpleDateFormat("dd:MM:YYYY", Locale.getDefault())
+    val formatoIntero = SimpleDateFormat("hh:mm dd/MM/yyyy", Locale.getDefault())
+    val formatoGiorno = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val formatoOra = SimpleDateFormat("HH", Locale.getDefault())
 
-    private val _orariOccupati = MutableLiveData<List<Int>>().apply {
+    private val _fasceOccupate = MutableLiveData<List<Int>>().apply {
         value = listOf()
 
     }
-    val orariOccupati: LiveData<List<Int>> = _orariOccupati
+    val fasceOccupate: LiveData<List<Int>> = _fasceOccupate
 
+    private var _sedeSelezionata = ""
 
-    fun sedeSelezionata (sede: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-        if (sede != ""){
-            val prenotazioniDeferred = CoroutineScope(Dispatchers.IO).async {
-                GestioneAccount().downloadPrenotazioni(sedi[sede]!!.id, "27/10/2023")
-            }
-            val prenotazioni = prenotazioniDeferred.await()
-            _listaPrenotazioni.postValue(prenotazioni)
-        }
-        }
-
-    }
-
-    private val _dataPrenotazioni = MutableLiveData<Date>().apply {
+    private val _dataSelezionata = MutableLiveData<Date>().apply {
         value = Date()
     }
+    val dataSelezionata: LiveData<Date> = _dataSelezionata
 
-    val dataPrenotazioni: LiveData<Date> = _dataPrenotazioni
+    private val _fasciaSelezionata = MutableLiveData<Int>()
+    val fasciaSelezionata: LiveData<Int> = _fasciaSelezionata
 
-    fun dataSelezionata (date: Date) {
-        _dataPrenotazioni.postValue(date)
-        var listafiltrata = listaPrenotazioni.value?.filter {
-           formatoGiorno.format(it.date)== formatoGiorno.format(date)
-        }
-        var orari = mutableListOf<Int>()
-        if (listafiltrata != null) {
-            for( prenotazione in listafiltrata)
-                orari.add(formatoOra.format(prenotazione.date).toInt())
-            _orariOccupati.postValue(orari)
-        }
-
-
-        val oraComeStringa = formatoOra.format(date)
-        val oraComeIntero = oraComeStringa.toInt()
+    suspend fun init() {
+        mappaSedi = GestioneAccount().downloadSedi()
+        _listaSedi.postValue(GestioneAccount().downloadNomiSedi())
     }
 
-    suspend fun init(){
-        sedi=GestioneAccount().downloadSedi()
-        _listasedi.postValue(GestioneAccount().downloadNomiSedi())
+    fun sedeSelezionata(sede: String) {
+        if (sede != _sedeSelezionata){
+            _sedeSelezionata = sede
+            _fasciaSelezionata.postValue(0)
+            CoroutineScope(Dispatchers.Main).launch {
+                if (sede != "") {
+                    val prenotazioniDeferred = CoroutineScope(Dispatchers.IO).async {
+                        GestioneAccount().downloadPrenotazioni(mappaSedi[sede]!!.id, "27/10/2023")
+                    }
+                    val prenotazioni = prenotazioniDeferred.await()
+                    _listaPrenotazioni.postValue(prenotazioni)
+                }
+            }
+        }
+    }
+
+    fun dataSelezionata(date: Date) {
+        if (!date.equals(dataSelezionata.value)){
+            _fasciaSelezionata.postValue(0)
+            _dataSelezionata.postValue(date)
+            val listafiltrata = listaPrenotazioni.value?.filter {
+                formatoGiorno.format(it.date) == formatoGiorno.format(date)
+            }
+            val orari = mutableListOf<Int>()
+            if (listafiltrata != null) {
+                for (prenotazione in listafiltrata)
+                    orari.add(formatoOra.format(prenotazione.date).toInt())
+                _fasceOccupate.postValue(orari)
+            }
+        }
+    }
+
+    fun fasciaSelezionata(int: Int){
+        if(int != _fasciaSelezionata.value)
+        _fasciaSelezionata.postValue(int)
+    }
+
+    fun conferma(context: Context) {
+      if (_sedeSelezionata == ""){
+          Toast.makeText(context,"Sede non selezionata",Toast.LENGTH_LONG).show()
+      }else{
+          if(false/*_dataSelezionata*/){
+              Toast.makeText(context,"Sede non selezionata",Toast.LENGTH_LONG).show()
+          }else{
+              if(_fasciaSelezionata.value==0)
+                  Toast.makeText(context,"Fascia non selezionata",Toast.LENGTH_LONG).show()
+              else{
+                 try{
+                     var dataString = formatoGiorno.format(dataSelezionata.value)
+                     dataString = "${fasciaSelezionata.value}:00 $dataString"
+                     val data: Date = formatoIntero.parse(dataString)
+                     GestioneAccount().uploadPrenotazione(mappaSedi[_sedeSelezionata]!!.id,data)
+              }
+              catch (e: Exception)
+              {
+                  Log.d("data", "Errore durante il parsing della data: ${e.message}")
+              }
+
+              }
+
+          }
+
+      }
     }
 }

@@ -64,7 +64,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data"
+                android:text="Seleziona la provincia"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -89,15 +89,15 @@
                 android:text="Scegli un giorno"
                 android:textAllCaps="false" />
 
-
             <TextView
-                android:id="@+id/Orario"
+                android:id="@+id/giornoscelto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fascia Orararia"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
 
             <Button
                 android:id="@+id/fasciaoraria1"

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat
 
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 data class UtenteRegistrato(
@@ -32,7 +34,12 @@ data class UtenteRegistrato(
     val numeroTelefono: String
 )
 
-data class CentroSportivo(val id: String, val nome: String, val indirizzo: String, val civico: String)
+data class CentroSportivo(
+    val id: String,
+    val nome: String,
+    val indirizzo: String,
+    val civico: String
+)
 
 
 data class Prenotazione(
@@ -73,22 +80,20 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
         val adapter = ArrayAdapter(
             baseContext,
             android.R.layout.simple_spinner_item,
-            viewmodel.listasedi.value!!
+            viewmodel.listaSedi.value!!
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerProvincia.adapter = adapter
 
-        viewmodel.listasedi.observe(lifecycleowner) {
+        viewmodel.listaSedi.observe(lifecycleowner) {
             val adapter = ArrayAdapter(
                 baseContext,
                 android.R.layout.simple_spinner_item,
-                viewmodel.listasedi.value!!
+                viewmodel.listaSedi.value!!
             )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerProvincia.adapter = adapter
-            Log.d("ArrayAdapter", viewmodel.listasedi.value.toString())
-
-
+            Log.d("ArrayAdapter", viewmodel.listaSedi.value.toString())
         }
 
         binding.spinnerProvincia.onItemSelectedListener =
@@ -99,7 +104,7 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
                     position: Int,
                     id: Long
                 ) {
-                    val selectedItem = viewmodel.listasedi.value!![position]
+                    val selectedItem = viewmodel.listaSedi.value!![position]
                     viewmodel.sedeSelezionata(selectedItem)
                 }
 
@@ -110,7 +115,6 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
         // Inizializza i tuoi bottoni e altri elementi visivi dall'XML qui...
 
 
-
         // Includi gli altri bottoni e elementi visivi.
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
@@ -119,54 +123,32 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             startActivity(intent)
         }
 
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(this,{ datePicker: DatePicker, i: Int, i1: Int, i2: Int -> } , year, month, day)
+        binding.btnDatePicker.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(this,
+                { datePicker: DatePicker, i: Int, i1: Int, i2: Int -> },
+                year,
+                month,
+                day)
 
-        dpd.show()
-        dpd.setOnDateSetListener(){ view, year, monthOfYear, dayOfMonth ->
-            val dataString = "${dayOfMonth}-${monthOfYear +1}-$year"
-            val formatoData = SimpleDateFormat("dd-MM-YYYY")
+            dpd.show()
+            dpd.setOnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
+                val dataString = "${dayOfMonth}/${monthOfYear + 1}/$year"
 
-            try {
-                val data: Date = formatoData.parse(dataString)
-                viewmodel.dataSelezionata(data)
-            } catch (e: Exception) {
-                Log.d("data","Errore durante il parsing della data: ${e.message}")
+                try {
+                    val data: Date = viewmodel.formatoGiorno.parse(dataString)
+                    viewmodel.dataSelezionata(data)
+                } catch (e: Exception) {
+                    Log.d("data", "Errore durante il parsing della data: ${e.message}")
+                }
             }
         }
-        /*
-       binding.btnDatePicker.setOnClickListener {
-            val datePicker = DatePickerDialog(
-                this,
-                { _, year, monthOfYear, dayOfMonth ->
-                    val dataString = "${dayOfMonth}-${monthOfYear +1}-$year"
-                    val formatoData = SimpleDateFormat("dd-MM-YYYY")
 
-                    try {
-                        val data: Date = formatoData.parse(dataString)
-                       viewmodel.dataSelezionata(data)
-                    } catch (e: Exception) {
-                        Log.d("data","Errore durante il parsing della data: ${e.message}")
-                    }
-                    myCalendar.set(Calendar.YEAR, year)
-                    myCalendar.set(Calendar.MONTH, monthOfYear)
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                    // Chiamata per aggiornare i bottoni delle fasce orarie
-                    updateFasciaOrariaButtons()
-                },
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePicker.show()
-            Log.d("prenotazioni", viewmodel.listaPrenotazioni.value.toString())
-        }*/
-
-        viewmodel.orariOccupati.observe(lifecycleowner) {
+        viewmodel.fasceOccupate.observe(lifecycleowner) {
             toggleBottone(mappabottoni[9]!!, !it.contains(9))
             toggleBottone(mappabottoni[10]!!, !it.contains(10))
             toggleBottone(mappabottoni[11]!!, !it.contains(11))
@@ -177,124 +159,52 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
         }
 
 
-    }
+        viewmodel.dataSelezionata.observe(lifecycleowner) {
+            binding.giornoscelto.text = "Giorno Scelto: " + viewmodel.formatoGiorno.format(it)
+        }
 
-    fun toggleBottone(button: Button, abilita: Boolean) {
-        if (abilita) {
-            button.isEnabled = true
-            button.setBackgroundResource(R.color.blu)
-        } else {
-            button.isEnabled = false
-            button.setBackgroundResource(R.color.gray)
+        mappabottoni[9]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(9)
+        }
+        mappabottoni[10]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(10)
+        }
+        mappabottoni[11]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(11)
+        }
+        mappabottoni[15]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(15)
+        }
+        mappabottoni[16]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(16)
+        }
+        mappabottoni[17]!!.setOnClickListener{
+            viewmodel.fasciaSelezionata(17)
+        }
+
+        viewmodel.fasciaSelezionata.observe(lifecycleowner) {
+            val red =resources.getColor(R.color.LightRed)
+            val blu =resources.getColor(R.color.blu)
+            mappabottoni[9]!!.setBackgroundColor(if(it==9)red else blu)
+            mappabottoni[10]!!.setBackgroundColor(if(it==10)red else blu)
+            mappabottoni[11]!!.setBackgroundColor(if(it==11)red else blu)
+            mappabottoni[15]!!.setBackgroundColor(if(it==15)red else blu)
+            mappabottoni[16]!!.setBackgroundColor(if(it==16)red else blu)
+            mappabottoni[17]!!.setBackgroundColor(if(it==17)red else blu)
+        }
+
+        binding.btnConferma.setOnClickListener{
+            viewmodel.conferma(baseContext)
         }
     }
 
-    fun updateFasciaOrariaButtons() { /*
-        val db = FirebaseFirestore.getInstance()
-        val prenotazioniRef = db.collection("prenotazioni")
-
-        val fasciaOrarieButtons = listOf(fasciaoraria1, fasciaoraria2, fasciaoraria3, fasciaoraria4, fasciaoraria5, fasciaoraria6)
-
-        val selectedDate = myCalendar.time
-        val centroSportivoNome = centroSportivo.nome
-
-        prenotazioniRef
-            .whereEqualTo("centroSportivo.nome", centroSportivoNome)
-            .whereGreaterThanOrEqualTo("fasciaOraria.fine", selectedDate)
-            .whereLessThanOrEqualTo("fasciaOraria.inizio", selectedDate)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val prenotate = querySnapshot.documents.mapNotNull { document ->
-                    document.toObject(Prenotazione::class.java)
-                }
-
-                for (button in fasciaOrarieButtons) {
-                    val orarioButton = button as Button
-                    val fasciaOrariaTesto = orarioButton.text.toString()
-
-                    // Confronta il testo del pulsante con le fasce orarie prenotate.
-                    val isPrenotata = prenotate.any { prenotazione ->
-                        fasciaOrariaTesto.contains(prenotazione.fasciaOraria.inizio.toString()) &&
-                                fasciaOrariaTesto.contains(prenotazione.fasciaOraria.fine.toString())
-                    }
-
-                    orarioButton.isEnabled = !isPrenotata
-
-                    if (isPrenotata) {
-                        orarioButton.setTextColor(Color.GRAY)
-                    } else {
-                        orarioButton.setTextColor(Color.BLACK)
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                println("Errore durante il recupero delle prenotazioni: $e")
-            }
-
+    fun toggleBottone(button: Button, abilita: Boolean) {
+        button.isEnabled = abilita
+        val gray =resources.getColor(R.color.lightGray)
+        val blu =resources.getColor(R.color.blu)
+        button.setBackgroundColor(if(abilita) blu else gray)
     }
 
-    // Metodo immaginario per ottenere le fasce orarie disponibili per una data specifica.
-    fun getAvailableFasciaOrarieForDate(date: Date): List<FasciaOraria> {
-        // Qui dovresti implementare la logica per ottenere le fasce orarie disponibili
-        // in base alle prenotazioni esistenti.
-        // Restituisci una lista di fasce orarie disponibili per la data specifica.
-        return emptyList() // Sostituisci con la tua logica effettiva.
-    }
-
-    fun prenota() {
-        // ... Altri dati dell'utente, centro sportivo e fascia oraria ...
-
-        verificaDisponibilitaFasciaOraria(centroSportivo, fasciaOraria)
-    }
-
-    private fun verificaDisponibilitaFasciaOraria(centroSportivo: CentroSportivo, fasciaOraria: FasciaOraria) {
-        val db = FirebaseFirestore.getInstance()
-        val prenotazioniRef = db.collection("prenotazioni")
-
-        val query = prenotazioniRef
-            .whereEqualTo("centroSportivo.nome", centroSportivo.nome)
-            .whereGreaterThan("fasciaOraria.fine", fasciaOraria.inizio)
-            .whereLessThan("fasciaOraria.inizio", fasciaOraria.fine)
-
-        query.get()
-            .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.isEmpty) {
-                    // La fascia oraria è disponibile, puoi procedere con la prenotazione.
-
-                    // Creazione di un nuovo documento nel Firestore con i dati della prenotazione
-                    val prenotazione = hashMapOf(
-                        "utente" to hashMapOf(
-                            "nome" to utente.nome,
-                            "cognome" to utente.cognome,
-                            "email" to utente.email,
-                            "numeroTelefono" to utente.numeroTelefono
-                        ),
-                        "centroSportivo" to hashMapOf(
-                            "nome" to centroSportivo.nome,
-                            "indirizzo" to centroSportivo.indirizzo
-                        ),
-                        "fasciaOraria" to hashMapOf(
-                            "inizio" to fasciaOraria.inizio,
-                            "fine" to fasciaOraria.fine
-                        )
-                    )
-
-                    db.collection("prenotazioni")
-                        .add(prenotazione)
-                        .addOnSuccessListener { documentReference ->
-                            println("Prenotazione confermata con ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            println("Errore durante la prenotazione: $e")
-                        }
-                } else {
-                    println("Fascia oraria non disponibile per la prenotazione nel centro sportivo selezionato.")
-                }
-            }
-            .addOnFailureListener { e ->
-                println("Errore durante la verifica di disponibilità: $e")
-            } */
-    }
 
 
 }
