@@ -2,38 +2,43 @@ package com.example.padelmarcheofficial.ui.prenotazioni
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartita3Binding
-import com.example.padelmarcheofficial.dataclass.GestioneAccount
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 import java.util.Calendar
 import java.util.Date
 
 
-data class UtenteRegistrato(val nome: String, val cognome: String, val email: String, val numeroTelefono: String)
-data class CentroSportivo(val nome: String, val indirizzo: String)
-//data class FasciaOraria(val inizio: Date, val fine: Date)
+data class UtenteRegistrato(
+    val nome: String,
+    val cognome: String,
+    val email: String,
+    val numeroTelefono: String
+)
+
+data class CentroSportivo(val id: String, val nome: String, val indirizzo: String, val civico: String)
+
 
 data class Prenotazione(
-    val utente: UtenteRegistrato,
-    val centroSportivo: CentroSportivo,
-   // val fasciaOraria: FasciaOraria
+    val utente: String,//UtenteRegistrato,
+    val centroSportivo: String,//CentroSportivo,
+    val date: Date
 )
 
 
@@ -42,15 +47,8 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityPrenotaUnaPartita3Binding
     private var myCalendar: Calendar = Calendar.getInstance()
     private lateinit var frecciaBack: ImageButton
-    private lateinit var fasciaoraria1: Button
-    private lateinit var fasciaoraria2: Button
-    private lateinit var fasciaoraria3: Button
-    private lateinit var fasciaoraria4: Button
-    private lateinit var fasciaoraria5: Button
-    private lateinit var fasciaoraria6: Button
-    private lateinit var btnDatePicker: Button
-    private lateinit var listesedi : List<String>
-
+    private lateinit var listesedi: List<String>
+    private var mappabottoni: HashMap<Int, Button> = hashMapOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,13 +62,28 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
         binding = ActivityPrenotaUnaPartita3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mappabottoni.put(9, binding.fasciaoraria1)
+        mappabottoni.put(10, binding.fasciaoraria2)
+        mappabottoni.put(11, binding.fasciaoraria3)
+        mappabottoni.put(15, binding.fasciaoraria4)
+        mappabottoni.put(16, binding.fasciaoraria5)
+        mappabottoni.put(17, binding.fasciaoraria6)
 
-        val adapter = ArrayAdapter(baseContext, android.R.layout.simple_spinner_item, viewmodel.listasedi.value!!)
+
+        val adapter = ArrayAdapter(
+            baseContext,
+            android.R.layout.simple_spinner_item,
+            viewmodel.listasedi.value!!
+        )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerProvincia.adapter = adapter
 
         viewmodel.listasedi.observe(lifecycleowner) {
-            val adapter = ArrayAdapter(baseContext, android.R.layout.simple_spinner_item, viewmodel.listasedi.value!!)
+            val adapter = ArrayAdapter(
+                baseContext,
+                android.R.layout.simple_spinner_item,
+                viewmodel.listasedi.value!!
+            )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerProvincia.adapter = adapter
             Log.d("ArrayAdapter", viewmodel.listasedi.value.toString())
@@ -78,16 +91,26 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+        binding.spinnerProvincia.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = viewmodel.listasedi.value!![position]
+                    viewmodel.sedeSelezionata(selectedItem)
+                }
+
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
 
         // Inizializza i tuoi bottoni e altri elementi visivi dall'XML qui...
 
-        val btnDatePicker = findViewById<Button>(R.id.btnDatePicker)
-        val fasciaoraria1 = findViewById<Button>(R.id.fasciaoraria1)
-        val fasciaoraria2 = findViewById<Button>(R.id.fasciaoraria2)
-        val fasciaoraria3 = findViewById<Button>(R.id.fasciaoraria3)
-        val fasciaoraria4 = findViewById<Button>(R.id.fasciaoraria4)
-        val fasciaoraria5 = findViewById<Button>(R.id.fasciaoraria5)
-        val fasciaoraria6 = findViewById<Button>(R.id.fasciaoraria6)
+
+
         // Includi gli altri bottoni e elementi visivi.
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
@@ -96,10 +119,38 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             startActivity(intent)
         }
 
-        btnDatePicker.setOnClickListener {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val dpd = DatePickerDialog(this,{ datePicker: DatePicker, i: Int, i1: Int, i2: Int -> } , year, month, day)
+
+        dpd.show()
+        dpd.setOnDateSetListener(){ view, year, monthOfYear, dayOfMonth ->
+            val dataString = "${dayOfMonth}-${monthOfYear +1}-$year"
+            val formatoData = SimpleDateFormat("dd-MM-YYYY")
+
+            try {
+                val data: Date = formatoData.parse(dataString)
+                viewmodel.dataSelezionata(data)
+            } catch (e: Exception) {
+                Log.d("data","Errore durante il parsing della data: ${e.message}")
+            }
+        }
+        /*
+       binding.btnDatePicker.setOnClickListener {
             val datePicker = DatePickerDialog(
                 this,
-                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                { _, year, monthOfYear, dayOfMonth ->
+                    val dataString = "${dayOfMonth}-${monthOfYear +1}-$year"
+                    val formatoData = SimpleDateFormat("dd-MM-YYYY")
+
+                    try {
+                        val data: Date = formatoData.parse(dataString)
+                       viewmodel.dataSelezionata(data)
+                    } catch (e: Exception) {
+                        Log.d("data","Errore durante il parsing della data: ${e.message}")
+                    }
                     myCalendar.set(Calendar.YEAR, year)
                     myCalendar.set(Calendar.MONTH, monthOfYear)
                     myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -113,8 +164,29 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             )
             datePicker.show()
             Log.d("prenotazioni", viewmodel.listaPrenotazioni.value.toString())
+        }*/
+
+        viewmodel.orariOccupati.observe(lifecycleowner) {
+            toggleBottone(mappabottoni[9]!!, !it.contains(9))
+            toggleBottone(mappabottoni[10]!!, !it.contains(10))
+            toggleBottone(mappabottoni[11]!!, !it.contains(11))
+            toggleBottone(mappabottoni[15]!!, !it.contains(15))
+            toggleBottone(mappabottoni[16]!!, !it.contains(16))
+            toggleBottone(mappabottoni[17]!!, !it.contains(17))
+
         }
 
+
+    }
+
+    fun toggleBottone(button: Button, abilita: Boolean) {
+        if (abilita) {
+            button.isEnabled = true
+            button.setBackgroundResource(R.color.blu)
+        } else {
+            button.isEnabled = false
+            button.setBackgroundResource(R.color.gray)
+        }
     }
 
     fun updateFasciaOrariaButtons() { /*
@@ -223,7 +295,6 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
                 println("Errore durante la verifica di disponibilità: $e")
             } */
     }
-
 
 
 }

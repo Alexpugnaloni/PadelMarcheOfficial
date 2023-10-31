@@ -2,16 +2,17 @@ package com.example.padelmarcheofficial.dataclass
 
 import android.graphics.Bitmap
 import android.util.Log
+import com.example.padelmarcheofficial.ui.prenotazioni.CentroSportivo
 import com.example.padelmarcheofficial.ui.prenotazioni.Prenotazione
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class GestioneAccount {
 
@@ -98,6 +99,15 @@ class GestioneAccount {
 
     }
 
+
+
+    internal suspend fun downloadSedi(): HashMap<String,CentroSportivo> {
+        val centriPadel :HashMap<String,CentroSportivo> = hashMapOf()
+        val snapshot = db.collection("Centrisportivi").get().await()
+        for (doc in snapshot)
+            centriPadel.put(doc["sede"].toString(),CentroSportivo(doc.id,doc["sede"].toString(),doc["indirizzo"].toString(),doc["civico"].toString()))
+        return centriPadel
+    }
     internal suspend fun downloadNomiSedi(): List<String> {
         val centriPadelList = mutableListOf<String>()
         val snapshot = db.collection("Centrisportivi").get().await()
@@ -106,23 +116,13 @@ class GestioneAccount {
         return centriPadelList.toList()
     }
 
-    internal suspend fun downloadPrenotazioni(centroSportivo: String, data: String): List<Prenotazione> {
-        val prenotazioniList = mutableListOf<Prenotazione>()
-        val snapshot = db.collection("Centrisportivi").document(centroSportivo).collection("Prenotazioni")
-          //  .whereEqualTo("sede.nome", centroSportivo)
-          //  .whereEqualTo("data", data)
-            .get()
-            .await()
-
-        for (doc in snapshot) {
-            val prenotazione = doc.toObject(Prenotazione::class.java)
-            prenotazioniList.add(prenotazione)
-        }
-
-        return prenotazioniList.toList()
+     suspend fun downloadPrenotazioni(centroSportivo: String, data: String): List<Prenotazione> {
+         val prenotazioniList = mutableListOf<Prenotazione>()
+         val snapshot = db.collection("Centrisportivi").document(centroSportivo).collection("Prenotazioni").get().await()
+         for (doc in snapshot)
+            prenotazioniList.add(Prenotazione(doc["idutente"].toString(),centroSportivo,doc.getDate("data") as Date))
+         return prenotazioniList.toList()
     }
-
-
 }
 
 
