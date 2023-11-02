@@ -39,8 +39,8 @@
                     android:layout_width="114dp"
                     android:layout_height="114dp"
                     app:cardCornerRadius="60dp"
-                    app:rippleColor="@color/yellow"
-                    app:strokeColor="@color/yellow"
+                    app:rippleColor="@color/blu"
+                    app:strokeColor="@color/blu"
                     app:strokeWidth="3dp">
 
                     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -50,7 +50,7 @@
                         android:layout_marginStart="3dp"
                         android:layout_marginTop="3dp"
                         app:cardCornerRadius="60dp"
-                        app:rippleColor="@color/yellow"
+                        app:rippleColor="@color/blu"
                         app:strokeColor="@color/white"
                         app:strokeWidth="3dp">
 
@@ -201,18 +201,18 @@
 
                 <Button
                     android:id="@+id/button"
-                    style="@style/PersonalizedButton"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/blu"
                     android:text="@string/registrati" />
 
                 <Button
                     android:id="@+id/btnBack"
-                    style="@style/PersonalizedButton"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/blu"
                     android:text="@string/Back" />
             </LinearLayout>
         </ScrollView>
