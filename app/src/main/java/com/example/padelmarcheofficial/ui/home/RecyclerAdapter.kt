@@ -20,8 +20,7 @@ class RecyclerAdapter(private var elenco: MutableList<MutableMap<String,Any>>,pr
      * ViewHolder che gestisce il singolo elemento ottenuto dalla ricerca
      */
     class ViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
-        val textname : TextView = itemview.findViewById(R.id.row_name)
-        val imageview : ImageView = itemview.findViewById(R.id.row_image)
+        val textname : TextView = itemview.findViewById(R.id.row_data)
         var id : String = ""
 
         interface ClickListener {
@@ -31,7 +30,7 @@ class RecyclerAdapter(private var elenco: MutableList<MutableMap<String,Any>>,pr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //Si fa l'inflate del layout per ogni elemento della recyclerview
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.user_row,parent, false)
+        val layout = LayoutInflater.from(parent.context).inflate(R.layout.prenotazioni_row,parent, false)
         return ViewHolder(layout)
     }
 
@@ -41,7 +40,6 @@ class RecyclerAdapter(private var elenco: MutableList<MutableMap<String,Any>>,pr
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.id=elenco[position].get("id").toString()
         holder.textname.text= elenco[position].get("nome").toString()
-        holder.imageview.setImageBitmap(elenco[position].get("immagine")as Bitmap)
         holder.itemView.setOnClickListener {
             listener.onClickListener(elenco[position].get("id").toString(),"s${elenco[position].get("email").toString()}")
         }
