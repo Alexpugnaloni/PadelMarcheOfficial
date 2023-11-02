@@ -56,13 +56,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (!model.checkUtenteisLoggato()){
-            startActivity(Intent(this, AccediActivity::class.java))
-        }
-        else   {
-            currentUser=auth.currentUser
-            initPoint()
-        }
+
 
         val navViewBottom: BottomNavigationView = findViewById(R.id.nav_viewbottom)
 
@@ -80,16 +74,20 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        /**
-         *
-         */
         val headerView : View = navViewDrawer.getHeaderView(0)
         val navNomeUtente : TextView = headerView.findViewById(R.id.nomeutente)
         val navEmailUtente : TextView =headerView.findViewById(R.id.emailutente)
 
 
-        navNomeUtente.text = currentUser!!.uid
-        navEmailUtente.text = currentUser!!.email.toString()
+        if (!model.checkUtenteisLoggato()){
+            startActivity(Intent(this, AccediActivity::class.java))
+        }
+        else   {
+            currentUser=auth.currentUser
+            navNomeUtente.text = acc.nome.value.toString()
+            navEmailUtente.text = currentUser!!.email.toString()
+            initPoint()
+        }
 
 
         navViewDrawer.setNavigationItemSelectedListener {it:MenuItem ->
