@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
 import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
+import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private var database: OperazioniSuFb = OperazioniSuFb()
 
     private var auth: FirebaseAuth = Firebase.auth
+
+
 
     /**
      * Funzione alla creazione dell'interfaccia grafica del MainActivity
@@ -84,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         }
         else   {
             currentUser=auth.currentUser
-            navNomeUtente.text = acc.nome.value.toString()
+            navNomeUtente.text = UserValue().getNome()  // MANCA LA LETTURA DEL NOME
             navEmailUtente.text = currentUser!!.email.toString()
             initPoint()
         }
