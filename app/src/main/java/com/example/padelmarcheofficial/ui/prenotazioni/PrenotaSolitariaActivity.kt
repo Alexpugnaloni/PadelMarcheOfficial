@@ -1,5 +1,6 @@
 package com.example.padelmarcheofficial.ui.prenotazioni
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ import com.example.padelmarcheofficial.databinding.ActivityPrenotaSolitariaBindi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -99,23 +102,33 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
-            val dpd = DatePickerDialog(
-                this,
+            val dpd = DatePickerDialog(this,
                 { datePicker: DatePicker, i: Int, i1: Int, i2: Int -> },
                 year,
                 month,
-                day
-            )
+                day)
+
+            val dataOdierna =  Date()//Calendar.getInstance()
+            //   dataOdierna.timeInMillis
+            val formatoData = SimpleDateFormat("dd/MM/yyyy")
 
             dpd.show()
             dpd.setOnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 val dataString = "${dayOfMonth}/${monthOfYear + 1}/$year"
 
-                try {
-                    val data: Date = viewmodel.formatoGiorno.parse(dataString)
-                    viewmodel.dataSelezionata(data)
-                } catch (e: Exception) {
-                    Log.d("data", "Errore durante il parsing della data: ${e.message}")
+                val dataInserita = formatoData.parse(dataString)
+
+
+                if (dataInserita.before(dataOdierna)) {
+                    Toast.makeText(this, "Non è possibile selezionare una data passata", Toast.LENGTH_LONG).show()
+                } else {
+
+                    try {
+                        val data: Date = viewmodel.formatoGiorno.parse(dataString)
+                        viewmodel.dataSelezionata(data)
+                    } catch (e: Exception) {
+                        Log.d("data", "Errore durante il parsing della data: ${e.message}")
+                    }
                 }
             }
         }
@@ -166,8 +179,22 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
             mappabottoni[17]!!.setBackgroundColor(if (it == 17) red else blu)
         }
 
-        binding.btnConferma.setOnClickListener {
+        binding.btnConferma.setOnClickListener{
             viewmodel.conferma(baseContext)
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("Prenotazione Confermata")
+                .setMessage("La tua prenotazione è stata confermata con successo.")
+                .setPositiveButton("OK") { _, _ ->
+                    // Quando l'utente fa clic su "OK", avvia l'Activity principale
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Chiudi questa Activity
+                }
+                .setCancelable(false) // Impedisce all'utente di chiudere l'AlertDialog toccando all'esterno
+
+            val dialog = alertDialog.create()
+            dialog.show()
+
         }
     }
 

@@ -10,12 +10,9 @@
         android:id="@+id/toolbargenerale"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="667dp"
         android:background="@color/blu"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titolotoolbar"
@@ -52,8 +49,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="64dp">
+        android:layout_marginTop="65dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +62,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Scegli la provincia"
+                android:text="Seleziona la provincia"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -91,7 +87,6 @@
                 android:text="Scegli un giorno"
                 android:textAllCaps="false" />
 
-
             <TextView
                 android:id="@+id/giornoscelto"
                 android:layout_width="wrap_content"
@@ -100,6 +95,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
 
             <Button
                 android:id="@+id/fasciaoraria1"
@@ -116,7 +112,8 @@
                 android:text="/4"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
 
             <Button
@@ -172,6 +169,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
+
             <Button
                 android:id="@+id/fasciaoraria5"
                 android:layout_width="368dp"
@@ -215,6 +214,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
+
             <Button
                 android:id="@+id/btnConferma"
                 android:layout_width="wrap_content"
@@ -223,8 +224,10 @@
                 android:text="CONFERMA"
                 android:textAllCaps="false" />
 
+
         </LinearLayout>
 
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
