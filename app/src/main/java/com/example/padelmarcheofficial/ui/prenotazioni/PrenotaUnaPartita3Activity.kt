@@ -134,15 +134,27 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
                 month,
                 day)
 
+            val dataOdierna =  Date()//Calendar.getInstance()
+         //   dataOdierna.timeInMillis
+            val formatoData = SimpleDateFormat("dd/MM/yyyy")
+
             dpd.show()
             dpd.setOnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
                 val dataString = "${dayOfMonth}/${monthOfYear + 1}/$year"
 
-                try {
-                    val data: Date = viewmodel.formatoGiorno.parse(dataString)
-                    viewmodel.dataSelezionata(data)
-                } catch (e: Exception) {
-                    Log.d("data", "Errore durante il parsing della data: ${e.message}")
+                val dataInserita = formatoData.parse(dataString)
+
+
+                if (dataInserita.before(dataOdierna)) {
+                    Toast.makeText(this, "Non è possibile selezionare una data passata", Toast.LENGTH_LONG).show()
+                } else {
+
+                    try {
+                        val data: Date = viewmodel.formatoGiorno.parse(dataString)
+                        viewmodel.dataSelezionata(data)
+                    } catch (e: Exception) {
+                        Log.d("data", "Errore durante il parsing della data: ${e.message}")
+                    }
                 }
             }
         }
