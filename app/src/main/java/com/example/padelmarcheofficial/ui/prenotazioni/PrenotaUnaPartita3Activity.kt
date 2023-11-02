@@ -1,5 +1,6 @@
 package com.example.padelmarcheofficial.ui.prenotazioni
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -207,6 +208,20 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
         binding.btnConferma.setOnClickListener{
             viewmodel.conferma(baseContext)
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("Prenotazione Confermata")
+                .setMessage("La tua prenotazione è stata confermata con successo.")
+                .setPositiveButton("OK") { _, _ ->
+                    // Quando l'utente fa clic su "OK", avvia l'Activity principale
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Chiudi questa Activity
+                }
+                .setCancelable(false) // Impedisce all'utente di chiudere l'AlertDialog toccando all'esterno
+
+            val dialog = alertDialog.create()
+            dialog.show()
+
         }
     }
 
