@@ -351,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="?attr/colorOnPrimary"
-                android:hint="@string/nome">
+                android:hint="@string/cellulare">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/celluareModificabile"

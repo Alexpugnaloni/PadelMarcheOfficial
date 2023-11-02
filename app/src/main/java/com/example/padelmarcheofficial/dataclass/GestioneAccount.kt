@@ -1,7 +1,10 @@
 package com.example.padelmarcheofficial.dataclass
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
 import android.util.Log
+import android.widget.Toast
 import com.example.padelmarcheofficial.ui.prenotazioni.CentroSportivo
 import com.example.padelmarcheofficial.ui.prenotazioni.Prenotazione
 import com.google.firebase.auth.FirebaseAuth
@@ -42,7 +45,14 @@ class GestioneAccount {
      */
     private val oneMGBYTE: Long = 1024 * 1024 * 5
 
-
+    fun isOnline(cont: Context): Boolean {
+        val cm = cont.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        if(netInfo != null && netInfo.isConnectedOrConnecting)
+            return true
+        Toast.makeText(cont, "Non è presente una connessione a internet", Toast.LENGTH_SHORT).show()
+        return false
+    }
     fun inserisciAccount(acc: Account) {
 
         auth.createUserWithEmailAndPassword(acc.email.value.toString(), acc.psw.value.toString())

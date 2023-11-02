@@ -1,3 +1,5 @@
+
+
 package com.example.padelmarcheofficial
 
 import android.content.Context
@@ -124,7 +126,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         binding.lifecycleOwner = this
 
 
-     //   descFoto = findViewById(R.id.myImageViewText)
+        //   descFoto = findViewById(R.id.myImageViewText)
         btnRimImg = findViewById(R.id.btnCancImg)
         btnMod = findViewById(R.id.btnModifica)
         btnSave = findViewById(R.id.btnSalvataggio)
@@ -146,18 +148,18 @@ class ProfiloActivity3 : AppCompatActivity() {
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
         binding.CardNameModificabile.editText?.doOnTextChanged{ inputText, _, _, _ ->
             if(enabledmodifyng) {
-                    accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
+                accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
                 //updateSharedPref("nome", inputText.toString())
             }
         }
 //------COGNOME
         binding.CardSurnameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-                  accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
+            accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
             //updateSharedPref("cognome", inputText.toString())
         }
 //------COMPLEANNO
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-                accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
+            accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
             //updateSharedPref("data", inputText.toString())
         }
 
@@ -176,15 +178,15 @@ class ProfiloActivity3 : AppCompatActivity() {
                 check = true
             }
         }
-        accAppoggio.imgbitmap.observe(this, imageObserver)
+    /*    accAppoggio.imgbitmap.observe(this, imageObserver)
         imgAccount.setOnClickListener {
             val intent= Intent(
                 this,
-                ManagingPHOTO::class.java
+                ManagingPHOTO::class.java COMMENTATA ORA
             )
             intent.putExtra("Rounded",true)
             startActivityForResult(intent,managingPHOTO)
-        }
+        } */
 
         btnRimImg.isClickable = false
         btnRimImg.isEnabled = false
@@ -342,7 +344,7 @@ class ProfiloActivity3 : AppCompatActivity() {
      * @param cognome il cognome dell'utente
      * @param compleanno la data di nascita dell'utente
      */
-    private fun verificaInserimento(nome: String, cognome: String, compleanno: String, cellulare:String): Boolean {
+    private fun verificaInserimento(nome: String, cognome: String, cellulare:String, compleanno: String): Boolean {
         if(nome.isBlank()) {
             Toast.makeText(baseContext, "Nome mancante", Toast.LENGTH_SHORT).show()
             return false
@@ -355,17 +357,19 @@ class ProfiloActivity3 : AppCompatActivity() {
             Toast.makeText(baseContext, "Cellulare mancante", Toast.LENGTH_SHORT).show()
             return false
         }
-        try {
+      //  try {
             val date = LocalDate.parse(compleanno, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-            if ((date.year < 1920) || (date.year > 2002)) {
+            if (date != null) {
+                return true
+            } else {
                 Toast.makeText(baseContext, "Data di nascita non corretta", Toast.LENGTH_SHORT).show()
                 return false
             }
-            return true
-        } catch (e: Exception) {
+
+     /*   } catch (e: Exception) {
             Toast.makeText(baseContext, "Data mancante o errata", Toast.LENGTH_SHORT).show()
             return false
-        }
+        } */
 
     }
 
@@ -425,4 +429,5 @@ class ProfiloActivity3 : AppCompatActivity() {
 
 
 }
+
 
