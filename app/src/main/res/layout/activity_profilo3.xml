@@ -29,58 +29,20 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:id="@+id/externalcardview"
-                android:layout_width="114dp"
-                android:layout_height="114dp"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="60dp"
-                app:rippleColor="@color/blu"
-                app:strokeColor="@color/white"
-                app:strokeWidth="3dp">
 
-                <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                    android:id="@+id/imgAccountcontainer"
-                    android:layout_width="108dp"
-                    android:layout_height="108dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="3dp"
-                    app:cardCornerRadius="60dp"
-                    app:rippleColor="@color/blu"
-                    app:strokeColor="@color/white"
-                    app:strokeWidth="3dp">
+            <ImageView
+                android:id="@+id/imgAccount"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
+                android:background="@color/white"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@drawable/ic_baseline_account_circle_24"
+                android:backgroundTint="@color/white"/>
 
-                    <ImageView
-                        android:id="@+id/imgAccount"
-                        android:layout_width="108dp"
-                        android:layout_height="108dp"
-                        android:background="@color/white"
-                        android:clickable="false"
-                        android:contentDescription="@string/DescriptionFoto"
-                        android:scaleType="centerCrop"
-                        tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
-                </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-            <TextView
-                android:id="@+id/myImageViewText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="@string/changePhoto"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
 
-            <Button
-                android:id="@+id/btnCancImg"
-                android:backgroundTint="@color/blu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:autofillHints="@string/nome"
-                android:selectAllOnFocus="true"
-                android:text="@string/eliminafoto" />
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/nameNonModificabile"

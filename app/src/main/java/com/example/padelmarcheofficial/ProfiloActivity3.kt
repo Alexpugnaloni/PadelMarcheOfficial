@@ -1,14 +1,9 @@
 package com.example.padelmarcheofficial
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,26 +11,15 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
-import com.example.padelmarcheofficial.dataclass.Funzionalita
 import com.example.padelmarcheofficial.dataclass.GestioneAccount
 import com.example.padelmarcheofficial.dataclass.UserValue
-import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ProfiloActivity3 : AppCompatActivity() {
-
-
-
-
-    /**
-     * variabile utilizzata per inserire il contorno alla foto del profilo
-     */
-  //  private lateinit var contornofoto: MaterialCardView
 
     /**
      * variabili utilizzate per la gestione del nome dell'utente
@@ -62,15 +46,8 @@ class ProfiloActivity3 : AppCompatActivity() {
     private lateinit var cellulareNM: CardView
 
     /**
-     * variabile utilizzata per la visualizzazione dell'immagine profilo
-     */
- //   private lateinit var imgAccount: ImageView
-
-
-    /**
      * variabili utilizzate per il salvataggio/modifica/ annullamento di ciò che viene fatto in questa classe
      */
-  //  private lateinit var btnRimImg : Button
     private lateinit var btnSave: Button
     private lateinit var btnMod: Button
     private lateinit var btnBack : Button
@@ -80,25 +57,12 @@ class ProfiloActivity3 : AppCompatActivity() {
      */
     private val accAppoggio : com.example.padelmarcheofficial.dataclass.Account by viewModels()
 
-    /**
-     * codice per la richiesta di inserimento di una foto da ProfileActivity
-     */
- //   private val managingPHOTO=1234
-
-    /**
-     * variabile usata per salvare l'immagine inserita
-     */
- //   private var imageBitMap: Bitmap?= null
 
     /**
      * variabili utilizzata per la gestione della visualizzazione dei bottoni
      */
     private var enabledmodifyng:Boolean=false
     private var check : Boolean = false
-
-
-
-
 
 
     /**
@@ -109,8 +73,6 @@ class ProfiloActivity3 : AppCompatActivity() {
         setContentView(R.layout.activity_profilo3)
         val binding = DataBindingUtil.setContentView<ActivityProfilo3Binding>(this, R.layout.activity_profilo3)
 
-//  setContentView(layout.activity_profilo)
-        //  val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, layout.activity_profilo)  BELLAAAAAA
 
         //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
@@ -125,13 +87,10 @@ class ProfiloActivity3 : AppCompatActivity() {
         binding.lifecycleOwner = this
 
 
-        //   descFoto = findViewById(R.id.myImageViewText)
-     //   btnRimImg = findViewById(R.id.btnCancImg)
         btnMod = findViewById(R.id.btnModifica)
         btnSave = findViewById(R.id.btnSalvataggio)
         btnBack = findViewById(R.id.btnIndietro)
 
-    //    contornofoto = findViewById<CardView>(R.id.externalcardview) as MaterialCardView
 
         nomeM = findViewById(R.id.CardNameModificabile)
         nomeNM = findViewById(R.id.nameNonModificabile)
@@ -147,66 +106,35 @@ class ProfiloActivity3 : AppCompatActivity() {
         //se cambia il campo di testo associato al nome, cambio anche la proprietà dell'istanza di Account associata
         binding.CardNameModificabile.editText?.doOnTextChanged{ inputText, _, _, _ ->
             if(enabledmodifyng) {
-                accAppoggio.changeValue(1, inputText.toString())// Respond to input text change  COMMENTATA IO
-                //updateSharedPref("nome", inputText.toString())
+                accAppoggio.changeValue(1, inputText.toString())
+
             }
         }
 //------COGNOME
         binding.CardSurnameModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            accAppoggio.changeValue(2,inputText.toString())// Respond to input text change
-            //updateSharedPref("cognome", inputText.toString())
+            accAppoggio.changeValue(2,inputText.toString())
+
         }
 //------COMPLEANNO
         binding.CardEditTextDateModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            accAppoggio.changeValue(5,inputText.toString())// Respond to input text change     COMMENTATA IO
-            //updateSharedPref("data", inputText.toString())
+            accAppoggio.changeValue(5,inputText.toString())
+
         }
 
 //------CELLULARE
         binding.CardCellulareModificabile.editText?.doOnTextChanged { inputText, _, _, _ ->
-            accAppoggio.changeValue(6,inputText.toString())// Respond to input text change
-            //updateSharedPref("cognome", inputText.toString())
-        }
-//------IMMAGINE
-    /*    imgAccount = findViewById(R.id.imgAccount)
-        imgAccount.isClickable = false
-        val imageObserver = Observer<Bitmap> { newValue ->
-            binding.imgAccount.setImageBitmap(newValue)
-            if (!check) {
-                binding.imgAccount.isClickable = false
-                check = true
-            }
-        } */
-    /*    accAppoggio.imgbitmap.observe(this, imageObserver)
-        imgAccount.setOnClickListener {
-            val intent= Intent(
-                this,
-                ManagingPHOTO::class.java COMMENTATA ORA
-            )
-            intent.putExtra("Rounded",true)
-            startActivityForResult(intent,managingPHOTO)
-        } */
+            accAppoggio.changeValue(6,inputText.toString())
 
-    /*    btnRimImg.isClickable = false
-        btnRimImg.isEnabled = false
-        btnRimImg.isVisible = false */
+        }
+
 
         btnSave.isVisible=false
         btnBack.isVisible=false
         btnMod.isVisible=true
 
-        //Gestione della comunicazione di eventuali errori nelle informazioni del profilo non modificabili
-        /*    binding.repErr.setOnClickListener{
-                val intent = Intent(Intent.ACTION_SENDTO)
-                intent.data = Uri.parse("mailto:"+"MySocialUNIVPM@gmail.com")
-                intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT ERRORE")
-                intent.putExtra(Intent.EXTRA_TEXT, "Ciao!\nSono ${accAppoggio._nome.value} ${accAppoggio._cognome.value}, matricola: ${accAppoggio._matricola.value}, e vorrei riportare: \n-")
-                if (intent.resolveActivity(packageManager) != null) {
-                    startActivity(intent)
-                }
-            } */
+
         btnMod.setOnClickListener {
-            if(Funzionalita().isOnline(it.context))
+            if(GestioneAccount().isOnline(it.context))
                 enable()
         }
         //se annullo le modifiche fatte, riporto il tutto alla condizione iniziale,
@@ -214,33 +142,18 @@ class ProfiloActivity3 : AppCompatActivity() {
         //e risettando nuovamente il binding
         binding.btnIndietro.setOnClickListener {
             disable()
-            /*accAppoggio.check = false
-            accAppoggio.rimossa = false
-            accAppoggio.cambiata = false
-            accAppoggio.originale = false*/
-            //accAppoggio.loadInfo(id!!, em!!)
+
             initPoint(UserValue().getId(), UserValue().getEmail())
             binding.account = accAppoggio
         }
         binding.btnSalvataggio.setOnClickListener {
-            if (Funzionalita().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.celluareModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
+            if (GestioneAccount().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.celluareModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
             {   accAppoggio.stampa()
                 accAppoggio.update()
                 disable()
             }
         }
-        binding.btnCancImg.setOnClickListener {
-            if(GestioneAccount().isOnline(it.context)) {
-                accAppoggio._imgbitmap.value = null
-            //    imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                //accAppoggio.presenzaImg = false
-                /*
-                accAppoggio.rimozioneImmagine()
-                btnRimImg.isClickable = false*/
-            //    btnRimImg.isEnabled = false
-            //    btnRimImg.isVisible = false
-            }
-        }
+
         if(enabledmodifyng)
             enable()
         else
@@ -254,7 +167,6 @@ class ProfiloActivity3 : AppCompatActivity() {
 
         enabledmodifyng=false
 
-        //  contornofoto.strokeColor= resources.getColor(color.DarkRed,theme) NON FUNZIONA IL COLORE DEL CONTORNO
 
         nomeM.isVisible=false
         nomeNM.isVisible=true
@@ -268,12 +180,6 @@ class ProfiloActivity3 : AppCompatActivity() {
         cellulareM.isVisible=false
         cellulareNM.isVisible=true
 
-    //    imgAccount.isClickable = false
-
-
-    /*    btnRimImg.isEnabled = false
-        btnRimImg.isVisible = false
-        btnRimImg.isClickable = false  */
 
         btnSave.isEnabled = false
         btnSave.isVisible = false
@@ -290,26 +196,7 @@ class ProfiloActivity3 : AppCompatActivity() {
      * Abilito tutte le funzionalità per la modifica
      */
     private fun enable(){
-    /*    if(accAppoggio._imgbitmap.value!= null){
-            btnRimImg.isClickable = true
-            btnRimImg.isEnabled = true
-            btnRimImg.isVisible = true
-        }
-        /*
-        if (!accAppoggio.originale){
-            btnRimImg.isClickable = true
-            btnRimImg.isEnabled = true
-            btnRimImg.isVisible = true
-        }*/
-        else{
-            btnRimImg.isEnabled = false
-            btnRimImg.isVisible = false
-            btnRimImg.isClickable = false
-        }  */
-
         enabledmodifyng=true
-
-    //    contornofoto.strokeColor= Color.GRAY
 
         nomeM.isVisible=true
         nomeNM.isVisible=false
@@ -322,9 +209,6 @@ class ProfiloActivity3 : AppCompatActivity() {
 
         cellulareM.isVisible=true
         cellulareNM.isVisible=false
-
-    //    imgAccount.isClickable = true
-
 
         btnSave.isEnabled = true
         btnSave.isVisible = true
@@ -356,7 +240,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             Toast.makeText(baseContext, "Cellulare mancante", Toast.LENGTH_SHORT).show()
             return false
         }
-      //  try {
+
             val date = LocalDate.parse(compleanno, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
             if (date != null) {
                 return true
@@ -365,26 +249,10 @@ class ProfiloActivity3 : AppCompatActivity() {
                 return false
             }
 
-     /*   } catch (e: Exception) {
-            Toast.makeText(baseContext, "Data mancante o errata", Toast.LENGTH_SHORT).show()
-            return false
-        } */
+
 
     }
 
- /*   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==RESULT_OK && requestCode == managingPHOTO){
-            //recuper0 dell'immagine salvata dalla classe managingPhoto da storage locale
-            imageBitMap = BitmapFactory.decodeStream(openFileInput("myImage"))
-            imgAccount.setImageBitmap(imageBitMap)
-            //   accAppoggio.changeValue(0, null, imageBitMap)  COMMENTATA IO
-            //accAppoggio.cambiata = true
-            btnRimImg.isClickable = true
-            btnRimImg.isEnabled = true
-            btnRimImg.isVisible = true
-        }
-    }  */
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -405,14 +273,8 @@ class ProfiloActivity3 : AppCompatActivity() {
             lifecycleScope.launch {
                 accAppoggio.salva()
                 accAppoggio.stampa()
-                //    accAppoggio.seiVerificato = true
                 accAppoggio._email.value = em
-                //    if(!accAppoggio.presenzaImg) {
-                    //accAppoggio._imgbitmap.value = null
-                //    imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
-              //  }
             }
-    //    }else{
                 //se il dispositivo non è online recupero le informazioni salvate in locale a meno dell'immagine del profilo
                 val temp = UserValue().getAccount()
                 accAppoggio._nome.value = temp.nome.value

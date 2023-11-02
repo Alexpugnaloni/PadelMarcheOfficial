@@ -1,17 +1,6 @@
 package com.example.padelmarcheofficial.ui.search
 
-import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.dataclass.Funzionalita
 
 /**
  * * Classe per gestire l'Activity della ricerca utenti
