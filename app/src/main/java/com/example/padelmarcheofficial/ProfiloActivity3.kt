@@ -1,5 +1,3 @@
-
-
 package com.example.padelmarcheofficial
 
 import android.content.Context
@@ -22,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
 import com.example.padelmarcheofficial.dataclass.Funzionalita
+import com.example.padelmarcheofficial.dataclass.GestioneAccount
 import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
@@ -36,7 +35,7 @@ class ProfiloActivity3 : AppCompatActivity() {
     /**
      * variabile utilizzata per inserire il contorno alla foto del profilo
      */
-    private lateinit var contornofoto: MaterialCardView
+  //  private lateinit var contornofoto: MaterialCardView
 
     /**
      * variabili utilizzate per la gestione del nome dell'utente
@@ -65,13 +64,13 @@ class ProfiloActivity3 : AppCompatActivity() {
     /**
      * variabile utilizzata per la visualizzazione dell'immagine profilo
      */
-    private lateinit var imgAccount: ImageView
+ //   private lateinit var imgAccount: ImageView
 
 
     /**
      * variabili utilizzate per il salvataggio/modifica/ annullamento di ciò che viene fatto in questa classe
      */
-    private lateinit var btnRimImg : Button
+  //  private lateinit var btnRimImg : Button
     private lateinit var btnSave: Button
     private lateinit var btnMod: Button
     private lateinit var btnBack : Button
@@ -84,12 +83,12 @@ class ProfiloActivity3 : AppCompatActivity() {
     /**
      * codice per la richiesta di inserimento di una foto da ProfileActivity
      */
-    private val managingPHOTO=1234
+ //   private val managingPHOTO=1234
 
     /**
      * variabile usata per salvare l'immagine inserita
      */
-    private var imageBitMap: Bitmap?= null
+ //   private var imageBitMap: Bitmap?= null
 
     /**
      * variabili utilizzata per la gestione della visualizzazione dei bottoni
@@ -127,12 +126,12 @@ class ProfiloActivity3 : AppCompatActivity() {
 
 
         //   descFoto = findViewById(R.id.myImageViewText)
-        btnRimImg = findViewById(R.id.btnCancImg)
+     //   btnRimImg = findViewById(R.id.btnCancImg)
         btnMod = findViewById(R.id.btnModifica)
         btnSave = findViewById(R.id.btnSalvataggio)
         btnBack = findViewById(R.id.btnIndietro)
 
-        contornofoto = findViewById<CardView>(R.id.externalcardview) as MaterialCardView
+    //    contornofoto = findViewById<CardView>(R.id.externalcardview) as MaterialCardView
 
         nomeM = findViewById(R.id.CardNameModificabile)
         nomeNM = findViewById(R.id.nameNonModificabile)
@@ -169,7 +168,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             //updateSharedPref("cognome", inputText.toString())
         }
 //------IMMAGINE
-        imgAccount = findViewById(R.id.imgAccount)
+    /*    imgAccount = findViewById(R.id.imgAccount)
         imgAccount.isClickable = false
         val imageObserver = Observer<Bitmap> { newValue ->
             binding.imgAccount.setImageBitmap(newValue)
@@ -177,7 +176,7 @@ class ProfiloActivity3 : AppCompatActivity() {
                 binding.imgAccount.isClickable = false
                 check = true
             }
-        }
+        } */
     /*    accAppoggio.imgbitmap.observe(this, imageObserver)
         imgAccount.setOnClickListener {
             val intent= Intent(
@@ -188,9 +187,9 @@ class ProfiloActivity3 : AppCompatActivity() {
             startActivityForResult(intent,managingPHOTO)
         } */
 
-        btnRimImg.isClickable = false
+    /*    btnRimImg.isClickable = false
         btnRimImg.isEnabled = false
-        btnRimImg.isVisible = false
+        btnRimImg.isVisible = false */
 
         btnSave.isVisible=false
         btnBack.isVisible=false
@@ -231,15 +230,15 @@ class ProfiloActivity3 : AppCompatActivity() {
             }
         }
         binding.btnCancImg.setOnClickListener {
-            if(Funzionalita().isOnline(it.context)) {
+            if(GestioneAccount().isOnline(it.context)) {
                 accAppoggio._imgbitmap.value = null
-                imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            //    imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
                 //accAppoggio.presenzaImg = false
                 /*
                 accAppoggio.rimozioneImmagine()
                 btnRimImg.isClickable = false*/
-                btnRimImg.isEnabled = false
-                btnRimImg.isVisible = false
+            //    btnRimImg.isEnabled = false
+            //    btnRimImg.isVisible = false
             }
         }
         if(enabledmodifyng)
@@ -269,12 +268,12 @@ class ProfiloActivity3 : AppCompatActivity() {
         cellulareM.isVisible=false
         cellulareNM.isVisible=true
 
-        imgAccount.isClickable = false
+    //    imgAccount.isClickable = false
 
 
-        btnRimImg.isEnabled = false
+    /*    btnRimImg.isEnabled = false
         btnRimImg.isVisible = false
-        btnRimImg.isClickable = false
+        btnRimImg.isClickable = false  */
 
         btnSave.isEnabled = false
         btnSave.isVisible = false
@@ -291,7 +290,7 @@ class ProfiloActivity3 : AppCompatActivity() {
      * Abilito tutte le funzionalità per la modifica
      */
     private fun enable(){
-        if(accAppoggio._imgbitmap.value!= null){
+    /*    if(accAppoggio._imgbitmap.value!= null){
             btnRimImg.isClickable = true
             btnRimImg.isEnabled = true
             btnRimImg.isVisible = true
@@ -306,11 +305,11 @@ class ProfiloActivity3 : AppCompatActivity() {
             btnRimImg.isEnabled = false
             btnRimImg.isVisible = false
             btnRimImg.isClickable = false
-        }
+        }  */
 
         enabledmodifyng=true
 
-        contornofoto.strokeColor= Color.GRAY
+    //    contornofoto.strokeColor= Color.GRAY
 
         nomeM.isVisible=true
         nomeNM.isVisible=false
@@ -324,7 +323,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         cellulareM.isVisible=true
         cellulareNM.isVisible=false
 
-        imgAccount.isClickable = true
+    //    imgAccount.isClickable = true
 
 
         btnSave.isEnabled = true
@@ -373,7 +372,7 @@ class ProfiloActivity3 : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+ /*   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==RESULT_OK && requestCode == managingPHOTO){
             //recuper0 dell'immagine salvata dalla classe managingPhoto da storage locale
@@ -385,7 +384,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             btnRimImg.isEnabled = true
             btnRimImg.isVisible = true
         }
-    }
+    }  */
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -399,35 +398,35 @@ class ProfiloActivity3 : AppCompatActivity() {
      * @param id identificativo dell'utente
      * @param em l'email dell'utente
      */
-    private fun initPoint(id:String, em:String){
+    private fun initPoint(id:String, em:String) {
         //se il dispositivo è online recupero le info da firebase
-        if(Funzionalita().isOnline(cont = this)){
+        if (GestioneAccount().isOnline(cont = this)) {
             accAppoggio.idD = id
-            lifecycleScope.launch{
+            lifecycleScope.launch {
                 accAppoggio.salva()
                 accAppoggio.stampa()
-                accAppoggio.seiVerificato = true
+                //    accAppoggio.seiVerificato = true
                 accAppoggio._email.value = em
-                if(!accAppoggio.presenzaImg) {
+                //    if(!accAppoggio.presenzaImg) {
                     //accAppoggio._imgbitmap.value = null
-                    imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                }
+                //    imgAccount.setImageResource(R.drawable.ic_baseline_account_circle_24)
+              //  }
             }
-        }else{
-            //se il dispositivo non è online recupero le informazioni salvate in locale a meno dell'immagine del profilo
-            val temp = UserValue().getAccount()
-            accAppoggio._nome.value= temp.nome.value
-            accAppoggio._cognome.value= temp.cognome.value
-            accAppoggio._email.value= temp.email.value
-            accAppoggio._compleanno.value= temp.compleanno.value
-            accAppoggio._cellulare.value= temp.cellulare.value
-            accAppoggio._sesso.value= temp.sesso.value
+    //    }else{
+                //se il dispositivo non è online recupero le informazioni salvate in locale a meno dell'immagine del profilo
+                val temp = UserValue().getAccount()
+                accAppoggio._nome.value = temp.nome.value
+                accAppoggio._cognome.value = temp.cognome.value
+                accAppoggio._email.value = temp.email.value
+                accAppoggio._compleanno.value = temp.compleanno.value
+                accAppoggio._cellulare.value = temp.cellulare.value
+                accAppoggio._sesso.value = temp.sesso.value
 
+            }
         }
+
     }
 
 
-
-}
 
 
