@@ -144,6 +144,8 @@ class GestioneAccount {
         )
         db.collection("Centrisportivi").document(idcentrosportivo).collection("Prenotazioni").add(prenotazione)
     }
+
+
 }
 
 

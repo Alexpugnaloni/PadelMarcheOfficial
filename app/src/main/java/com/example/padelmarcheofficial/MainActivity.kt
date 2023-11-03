@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         }
         else   {
             currentUser=auth.currentUser
-            navNomeUtente.text = UserValue().getNome()  // MANCA LA LETTURA DEL NOME
+            navNomeUtente.text = UserValue().getNome() +" "+ UserValue().getCognome()
             navEmailUtente.text = currentUser!!.email.toString()
             initPoint()
         }
