@@ -27,29 +27,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
-data class UtenteRegistrato(
-    val nome: String,
-    val cognome: String,
-    val email: String,
-    val numeroTelefono: String
-)
-
-data class CentroSportivo(
-    val id: String,
-    val nome: String,
-    val indirizzo: String,
-    val civico: String
-)
-
-
-data class Prenotazione(
-    val utente: String,//UtenteRegistrato,
-    val centroSportivo: String,//CentroSportivo,
-    val date: Date
-)
-
-
 class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var binding: ActivityPrenotaUnaPartita3Binding
@@ -160,20 +137,10 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             }
         }
 
-
-        viewmodel.fasceOccupate.observe(lifecycleowner) {
-            toggleBottone(mappabottoni[9]!!, !it.contains(9))
-            toggleBottone(mappabottoni[10]!!, !it.contains(10))
-            toggleBottone(mappabottoni[11]!!, !it.contains(11))
-            toggleBottone(mappabottoni[15]!!, !it.contains(15))
-            toggleBottone(mappabottoni[16]!!, !it.contains(16))
-            toggleBottone(mappabottoni[17]!!, !it.contains(17))
-
-        }
-
-
         viewmodel.dataSelezionata.observe(lifecycleowner) {
             binding.giornoscelto.text = "Giorno Scelto: " + viewmodel.formatoGiorno.format(it)
+            for (fascia in listOf(9,10,11,15,16,17))
+                toggleBottone(mappabottoni[fascia]!!, viewmodel.fasceOccupate.contains(fascia), viewmodel.fasciaSelezionata.value==fascia)
         }
 
         mappabottoni[9]!!.setOnClickListener{
@@ -196,18 +163,16 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
         }
 
         viewmodel.fasciaSelezionata.observe(lifecycleowner) {
-            val red =resources.getColor(R.color.LightRed)
-            val blu =resources.getColor(R.color.blu)
-            mappabottoni[9]!!.setBackgroundColor(if(it==9)red else blu)
-            mappabottoni[10]!!.setBackgroundColor(if(it==10)red else blu)
-            mappabottoni[11]!!.setBackgroundColor(if(it==11)red else blu)
-            mappabottoni[15]!!.setBackgroundColor(if(it==15)red else blu)
-            mappabottoni[16]!!.setBackgroundColor(if(it==16)red else blu)
-            mappabottoni[17]!!.setBackgroundColor(if(it==17)red else blu)
+            for (fascia in listOf(9,10,11,15,16,17))
+                toggleBottone(mappabottoni[fascia]!!, viewmodel.fasceOccupate.contains(fascia), viewmodel.fasciaSelezionata.value==fascia)
         }
 
         binding.btnConferma.setOnClickListener{
-            viewmodel.conferma(baseContext)
+            viewmodel.conferma(baseContext,false)
+        }
+
+        viewmodel.terminato.observe(lifecycleowner){
+            if (it == true){
             val alertDialog = AlertDialog.Builder(this)
                 .setTitle("Prenotazione Confermata")
                 .setMessage("La tua prenotazione è stata confermata con successo.")
@@ -221,15 +186,17 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
             val dialog = alertDialog.create()
             dialog.show()
+        }
 
         }
     }
 
-    fun toggleBottone(button: Button, abilita: Boolean) {
-        button.isEnabled = abilita
-        val gray =resources.getColor(R.color.lightGray)
-        val blu =resources.getColor(R.color.blu)
-        button.setBackgroundColor(if(abilita) blu else gray)
+    fun toggleBottone(button: Button, disabilitata: Boolean, selezionata:Boolean) {
+        button.isEnabled = !disabilitata
+        val gray =resources.getColor(R.color.lightGray,theme)
+        val blu =resources.getColor(R.color.blu,theme)
+        val red = resources.getColor(R.color.LightRed,theme)
+        button.setBackgroundColor(if (selezionata) red else if(!disabilitata) blu else gray)
     }
 
 
