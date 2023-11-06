@@ -95,7 +95,7 @@ class RegistratiActivity : AppCompatActivity() {
         //per la registrazione viene richiamata la funzione della classe Account che va ad inserire l'account su firebase
         btnReg = findViewById<Button>(R.id.button)
         btnReg.setOnClickListener {
-            if(RegistratiViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(),binding.editTextDate.toString(), binding.phone.text.toString())){
+            if(RegistratiViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(),binding.editTextDate.text.toString(), binding.phone.text.toString())){
 
                      val gestioneAccount = GestioneAccount()
                 Log.d("NOME", acc.nome.value.toString())

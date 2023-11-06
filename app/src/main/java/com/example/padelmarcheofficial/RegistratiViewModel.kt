@@ -33,8 +33,7 @@ class RegistratiViewModel(context: Context?=null) {
         psw: String,
         compleanno: String,
         cellulare: String): Boolean {
-        //    val primaParteEmail = email.split("@")
-        //    val matricola = primaParteEmail[0]
+
         if (nome.isBlank()) {
             makeToast("Nome mancante", Toast.LENGTH_SHORT)
             return false
@@ -43,19 +42,14 @@ class RegistratiViewModel(context: Context?=null) {
             makeToast("Cognome mancante", Toast.LENGTH_SHORT)
             return false
         }
-        if (email.isBlank()) {
-            makeToast("Email mancante", Toast.LENGTH_SHORT)
-            return false
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
+        if (!email.matches(emailPattern.toRegex())) {
+            makeToast("Email non valida", Toast.LENGTH_SHORT)
+            return false
         }
 
-        /*    val primaParte = email.split("@")
-        var senzaLettere = primaParte[0].replace("s","")
-        senzaLettere = senzaLettere.replace("S","")
-        if (senzaLettere.length != 7){
-            makeToast( "Matricola non valida", Toast.LENGTH_SHORT)
-            return false
-        }*/
+
         if (psw.isBlank()) {
             makeToast("Password mancante", Toast.LENGTH_SHORT)
             return false
@@ -64,28 +58,30 @@ class RegistratiViewModel(context: Context?=null) {
             makeToast("La password deve avere almeno 8 caratteri", Toast.LENGTH_LONG)
             return false
         }
+        val formatoData = "\\d{2}-\\d{2}-\\d{4}".toRegex()
+        if (compleanno.isEmpty() || !compleanno.matches(formatoData)) {
+            makeToast("Data Mancante o errata", Toast.LENGTH_LONG)
+            return false
+        }
 
-        if (compleanno.isBlank()) {
-            makeToast("Data Mancante", Toast.LENGTH_LONG)
-            return false
-        }
+        val formatoNumeroTelefono = "\\d{10}".toRegex()
         if (cellulare.isBlank()) {
-            makeToast("Celluare mancante", Toast.LENGTH_LONG)
+            // Numero di telefono vuoto
+            makeToast("Cellulare Mancante", Toast.LENGTH_SHORT)
             return false
-        }
-     /*   try {
-            val date = LocalDate.parse(compleanno, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-            if ((date.year < 1920) || (date.year > 2002)) {
-                makeToast( "Data di nascita non corretta", Toast.LENGTH_SHORT)
-                return false
-            }
+        } else if (!cellulare.matches(formatoNumeroTelefono)) {
+            // Numero di telefono con meno di 10 cifre
+            makeToast("Cellulare Errato", Toast.LENGTH_SHORT)
+            return false
+        } else {
             return true
-        } catch (e: Exception) {
-            makeToast("Data mancante o errata", Toast.LENGTH_SHORT)
-            return false
-        } */
-        return true
         }
+    }
+
+
+
+
+
 
 
     /**
