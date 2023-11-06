@@ -1,6 +1,7 @@
 package com.example.padelmarcheofficial
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -51,6 +52,7 @@ class ProfiloActivity3 : AppCompatActivity() {
     private lateinit var btnSave: Button
     private lateinit var btnMod: Button
     private lateinit var btnBack : Button
+    private lateinit var btnHomeBack : Button
 
     /**
      * variabile utilizzata per il settaggio di ciò che viene mostrato a video
@@ -88,6 +90,7 @@ class ProfiloActivity3 : AppCompatActivity() {
 
 
         btnMod = findViewById(R.id.btnModifica)
+        btnHomeBack = findViewById(R.id.btnBackHome)
         btnSave = findViewById(R.id.btnSalvataggio)
         btnBack = findViewById(R.id.btnIndietro)
 
@@ -131,7 +134,13 @@ class ProfiloActivity3 : AppCompatActivity() {
         btnSave.isVisible=false
         btnBack.isVisible=false
         btnMod.isVisible=true
+        btnHomeBack.isVisible= true
 
+        btnHomeBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+        }
 
         btnMod.setOnClickListener {
             if(GestioneAccount().isOnline(it.context))
@@ -190,6 +199,10 @@ class ProfiloActivity3 : AppCompatActivity() {
         btnMod.isEnabled = true
         btnMod.isClickable = true
         btnMod.isVisible = true
+
+        btnHomeBack.isEnabled = true
+        btnHomeBack.isClickable = true
+        btnHomeBack.isVisible = true
     }
 
     /**
@@ -219,6 +232,10 @@ class ProfiloActivity3 : AppCompatActivity() {
         btnMod.isEnabled = false
         btnMod.isClickable = false
         btnMod.isVisible = false
+
+        btnHomeBack.isEnabled = false
+        btnHomeBack.isClickable = false
+        btnHomeBack.isVisible = false
     }
 
     /**

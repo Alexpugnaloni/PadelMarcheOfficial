@@ -103,6 +103,7 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
 
         binding.btnDatePicker.setOnClickListener {
             val c = Calendar.getInstance()
+            c.add(Calendar.DAY_OF_YEAR, 1)
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
@@ -115,6 +116,15 @@ class PrenotaUnaPartita3Activity : AppCompatActivity(), LifecycleOwner {
             val dataOdierna =  Date()//Calendar.getInstance()
          //   dataOdierna.timeInMillis
             val formatoData = SimpleDateFormat("dd/MM/yyyy")
+    /////////////////////
+            val cal = Calendar.getInstance()
+            cal.time = dataOdierna // Imposta la data corrente
+
+            cal.add(Calendar.DAY_OF_YEAR, +1) // Sottrae un giorno
+
+            val dataDomani = cal.time
+//////////////////
+
 
             dpd.show()
             dpd.setOnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
