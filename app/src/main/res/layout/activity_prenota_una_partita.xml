@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.prenotazioni.PrenotaUnaPartita3Activity">
+    tools:context=".ui.prenotazioni.PrenotaUnaPartitaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbargenerale"

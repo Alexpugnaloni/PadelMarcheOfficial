@@ -22,14 +22,14 @@
             android:name=".NotificheActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfiloActivity3"
+            android:name=".ProfiloActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.prenotazioni.PrenotaUnaPartita3Activity"
+            android:name=".ui.prenotazioni.PrenotaUnaPartitaActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.prenotazioni.PrenotaSolitariaActivity"
+            android:name=".ui.prenotazioni.UniscitiPartitaActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

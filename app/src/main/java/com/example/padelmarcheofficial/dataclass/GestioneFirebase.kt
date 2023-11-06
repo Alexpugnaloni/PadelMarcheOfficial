@@ -1,28 +1,17 @@
 package com.example.padelmarcheofficial.dataclass
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.graphics.Bitmap
 import android.net.ConnectivityManager
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayOutputStream
 import java.util.Date
-import java.util.logging.Handler
 
-class GestioneAccount {
+class GestioneFirebase {
 
     /**
      * Riferimento per *Firestore*
@@ -36,22 +25,27 @@ class GestioneAccount {
     private var auth: FirebaseAuth = Firebase.auth
 
     /**
-     * Lo *storage* di *Firebase*
+     * Funzione per inserire nuovo utente in *FirebaseAuth*
+     * @param acc l'account da inserire in *FirebaseAuth*
      */
-    private val storage = Firebase.storage
+    /* fun inserimentoNuovoAccountInFirebaseAuth(acc: Account) {
+         auth = Firebase.auth
+         auth.createUserWithEmailAndPassword(acc.email.value.toString(), acc.psw.value.toString())
+             .addOnCompleteListener { task ->
+                 if (task.isSuccessful) {
+                     // Registrazione avvenuta, aggiorno i dati dell'utente
+                     val user = auth.currentUser
+                     acc.idD=user!!.uid
+                     //Se le credenziali vengono inserite correttamente, allora salvo le info dell'account nel db
+                     inserimentoInFirestore(acc)
 
+                 }
+             }
+
+     } */
     /**
-     * Riferimento per lo *storage* di *Firebase*
+     * Funzione per verificare se il dispositivo è online
      */
-    private var storageRef = storage.reference
-
-    /**
-     * Ridimensionamento immagini per il caricamento
-     */
-    private val oneMGBYTE: Long = 1024 * 1024 * 5
-
-
-
     fun isOnline(cont: Context): Boolean {
         val cm = cont.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netInfo = cm.activeNetworkInfo
@@ -61,6 +55,42 @@ class GestioneAccount {
         return false
     }
 
+    /**
+     * Funzione per recuperare le informazioni dell'account contenente l'id del quale richiedere le informazioni
+     * ritorna una mutableMap contenente tutte le informazioni scaricate da *Firestore* relative all'account
+     */
+    suspend fun scaricaInformazioniAccount(account: Account): MutableMap<String, Any>? {
+        val docRef = db.collection("Accounts").document(account.idD).get().await()
+        return docRef.data
+    }
+
+    /**
+     * Scarica da *Firestore* i dati relativi all'account e li inserisce all'interno della classe
+
+     */
+    suspend fun initUservalue(): Boolean {
+        try {
+            val docRef = db.collection("Accounts").document(auth.currentUser!!.uid).get().await()
+            val data = docRef.data!!
+            UserValue().set(
+                user = auth.currentUser!!,
+                id = auth.currentUser!!.uid,
+                nome = data["nome"].toString(),
+                cognome = data["cognome"].toString(),
+                email = auth.currentUser!!.email!!,
+                cellulare = data["cellulare"].toString(),
+                sesso = data["sesso"].toString()
+            )
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
+    /**
+     * Funzione che registra il nuovo utente tramite username e password ed crea un hashmap
+     * con i dati da caricare sul server
+     */
     fun inserisciAccount(acc: Account) {
 
         auth.createUserWithEmailAndPassword(acc.email.value.toString(), acc.psw.value.toString())
@@ -76,7 +106,6 @@ class GestioneAccount {
                         "dataDiNascita" to acc.compleanno.value.toString(),
                         "cellulare" to acc.cellulare.value.toString(),
                         "sesso" to acc.sesso.value.toString(),
-                        "presenzaImg" to acc.presenzaImg // so in dubbio
                     )
                     Log.d("Operazione", "Ora lo inserisco")
 
@@ -84,11 +113,8 @@ class GestioneAccount {
                     db.collection("Accounts").document(acc.idD)
                         .set(profilo)
                         .addOnSuccessListener {
-                            //Se presente l'immagine, la salvo nello storage
-                            //if (acc.presenzaImg) {
                             Log.d("Operazione", "sono dentro il success")
-                            salvaImg(acc.imgbitmap.value, acc)
-                            //}
+
                         }
                         .addOnFailureListener { exception ->
                             Log.d("Operazione", exception.toString())
@@ -101,24 +127,29 @@ class GestioneAccount {
             }
     }
 
-    private fun salvaImg(imgBTM: Bitmap? = null, acc: Account) {
-        //Directory della posizione della foto profilo
-        val fotoProfiloRef = storageRef.child("Foto profilo/${acc.idD}")
-        //acc.check = true
-        //se è presente una foto che deve essere eliminata la elimino e resetto la variabile rimossa
-        try {
-            fotoProfiloRef.delete()
-        } catch (exc: Exception) {
-        }
-        if (imgBTM != null) {
-            val baos = ByteArrayOutputStream()
-            imgBTM.compress(Bitmap.CompressFormat.JPEG, 50, baos)
-            fotoProfiloRef.putBytes(baos.toByteArray()).addOnSuccessListener {}
-        }
+    /**
+     * Funzione per inserire in *Firestore* l'account
+     */
+    private fun inserimentoInFirestore(acc: Account) {
+        //inserisco tutti i dati in un hashMap che poi carico sul server
+        val profilo = hashMapOf(
+            "nome" to acc.nome.value.toString(),
+            "cognome" to acc.cognome.value.toString(),
+            "dataDiNascita" to acc.compleanno.value.toString(),
+            "cellulare" to acc.cellulare.value.toString(),
+            "sesso" to acc.sesso.value.toString(),
 
+            )
+        acc.stampa()
+        db.collection("Accounts").document(acc.idD)
+            .set(profilo)
+            .addOnSuccessListener {
+            }
     }
 
-
+    /**
+     * Funzione per effettuare download delle sedi dei centri sportivi
+     */
     internal suspend fun downloadSedi(): HashMap<String, CentroSportivo> {
         val centriPadel: HashMap<String, CentroSportivo> = hashMapOf()
         val snapshot = db.collection("Centrisportivi").get().await()
@@ -135,6 +166,9 @@ class GestioneAccount {
         return centriPadel
     }
 
+    /**
+     * Funzione per effettuare download dei nomi delle sedi dei centri sportivi
+     */
     internal suspend fun downloadNomiSedi(): List<String> {
         val centriPadelList = mutableListOf<String>()
         val snapshot = db.collection("Centrisportivi").get().await()
@@ -143,6 +177,10 @@ class GestioneAccount {
         return centriPadelList.toList()
     }
 
+    /**
+     * Funzione per effettuare download delle prenotazioni una volta passate come informazioni il
+     * centro sportivo e la data
+     */
     suspend fun downloadPrenotazioni(centroSportivo: String, data: Date): List<Prenotazione> {
         val prenotazioniList = mutableListOf<Prenotazione>()
         val snapshot =
@@ -169,6 +207,10 @@ class GestioneAccount {
 
     }
 
+    /**
+     * Funzione per effettuare upload della prenotazione una volta passato l'id del centro sportivo,
+     * la data e se si tratta di una partita privata (singola)
+     */
     fun uploadPrenotazione(idcentrosportivo: String, data: Date, solitaria: Boolean) {
         val prenotazione = hashMapOf(
             "idutente" to auth.currentUser!!.uid,
@@ -181,7 +223,15 @@ class GestioneAccount {
             .add(prenotazione)
     }
 
-    suspend fun updatePrenotazione(idcentrosportivo: String, prenotazione: Prenotazione, context: Context) {
+    /**
+     * Funzione per effettuare l'update della prenotazione una volta passato l'id del centro sportivo e
+     * la prenotazione di riferimento
+     */
+    suspend fun updatePrenotazione(
+        idcentrosportivo: String,
+        prenotazione: Prenotazione,
+        context: Context
+    ) {
         db.runTransaction {
             val prenotazione = db.collection("Centrisportivi").document(idcentrosportivo)
                 .collection("Prenotazioni").document(prenotazione.id)
@@ -202,9 +252,34 @@ class GestioneAccount {
         }.await()
     }
 
+    /**
+     * restituisce l'id dell'utente
+     */
     fun getIdUtente(): String {
         return auth.uid.toString()
     }
+
+    /**
+     * Funzione che aggiorna le informazioni dell'account ed effettua l'upload
+     * su Firestore
+     */
+    fun aggiornaAccount(acc: Account) {
+        db.collection("Accounts").document(acc.idD)
+            .delete()
+            .addOnSuccessListener {
+                UserValue().set(
+                    auth.currentUser!!,
+                    id = acc.idD,
+                    nome = acc.nome.value!!,
+                    cognome = acc.cognome.value!!,
+                    email = acc.email.value!!,
+                    cellulare = acc.cellulare.value!!,
+                    sesso = acc.sesso.value!!,
+                )
+                inserimentoInFirestore(acc)
+            }
+    }
+
 }
 
 

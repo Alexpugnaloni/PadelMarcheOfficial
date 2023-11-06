@@ -3,9 +3,7 @@ package com.example.padelmarcheofficial
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
-import com.example.padelmarcheofficial.databinding.ActivityContattaciBinding
 import com.example.padelmarcheofficial.databinding.ActivityNostriCentriBinding
 
 class NostriCentriActivity : AppCompatActivity() {

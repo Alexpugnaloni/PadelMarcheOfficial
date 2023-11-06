@@ -13,17 +13,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.padelmarcheofficial.databinding.ActivityRegisterBinding
 import com.example.padelmarcheofficial.dataclass.Account
-import com.example.padelmarcheofficial.dataclass.GestioneAccount
-import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.google.firebase.auth.FirebaseAuth
 
-
+/**
+ * Classe che gestisce la registrazione di un nuovo utente
+ */
 @Suppress("DEPRECATION")
 class RegistratiActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private  var operazioniSuFb = OperazioniSuFb()
+    private  var gestioneFirebase = GestioneFirebase()
     private lateinit var btnReg: Button
     private lateinit var btnBack: Button
 
@@ -38,39 +39,39 @@ class RegistratiActivity : AppCompatActivity() {
 
         //------NOME
         binding.textFieldname.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(1, binding.textFieldname.editText?.text?.toString())// Respond to input text change
+            acc.changeValue(1, binding.textFieldname.editText?.text?.toString())
         }
         //------COGNOME
         binding.textFieldsurname.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(2, binding.textFieldsurname.editText?.text.toString())// Respond to input text change
+            acc.changeValue(2, binding.textFieldsurname.editText?.text.toString())
         }
         //------EMAIL
         binding.textFieldusername.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(3, binding.textFieldusername.editText?.text.toString())// Respond to input text change
+            acc.changeValue(3, binding.textFieldusername.editText?.text.toString())
 
         }
-//------PASSWORD
+        //------PASSWORD
         binding.textFieldpassword.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(4, binding.textFieldpassword.editText?.text.toString())// Respond to input text change
+            acc.changeValue(4, binding.textFieldpassword.editText?.text.toString())
         }
 
-//------COMPLEANNO
+        //------COMPLEANNO
         binding.textFieldeditTextDate.editText?.doOnTextChanged { inputText, before, _, _ ->
             val finalCursorPosition= binding.textFieldeditTextDate.editText?.selectionStart!!
             if((inputText?.length==2||inputText?.length==5)&&finalCursorPosition>before) {
                 binding.textFieldeditTextDate.editText?.setText("${binding.textFieldeditTextDate.editText!!.text}-")
                 binding.textFieldeditTextDate.editText?.setSelection(binding.textFieldeditTextDate.editText?.text.toString().length)
             }
-            acc.changeValue(5, binding.textFieldeditTextDate.editText?.text.toString())// Respond to input text change
+            acc.changeValue(5, binding.textFieldeditTextDate.editText?.text.toString())
         }
 
-//------CELLULARE
+        //------CELLULARE
         binding.textFieldphone.editText?.doOnTextChanged { _, _, _, _ ->
-            acc.changeValue(6, binding.textFieldphone.editText?.text?.toString())// Respond to input text change
+            acc.changeValue(6, binding.textFieldphone.editText?.text?.toString())
         }
 
 
-//------SESSO
+        //------SESSO
 
         val spinner: Spinner = findViewById(R.id.spinnerSesso)
 
@@ -92,21 +93,20 @@ class RegistratiActivity : AppCompatActivity() {
         }
 
         //funzione utilizzata per la registrazione previa check delle informazioni inserite
-        //per la registrazione viene richiamata la funzione della classe Account che va ad inserire l'account su firebase
+
         btnReg = findViewById<Button>(R.id.button)
         btnReg.setOnClickListener {
             if(RegistratiViewModel(baseContext).verificaInserimento(binding.name.text.toString(), binding.surname.text.toString(), binding.username.text.toString(), binding.password.text.toString(),binding.editTextDate.text.toString(), binding.phone.text.toString())){
 
-                     val gestioneAccount = GestioneAccount()
+                     val gestioneFirebase = GestioneFirebase()
                 Log.d("NOME", acc.nome.value.toString())
                 Log.d("COGNOME", acc.cognome.value.toString())
                 Log.d("EMAIL", acc.email.value.toString())
                 Log.d("PASSWORD", acc.psw.value.toString())
                 Log.d("COMPLEANNO", acc.compleanno.value.toString())
-
                 Log.d("CELLULARE",acc.cellulare.toString())
                 Log.d("SESSO", acc.sesso.toString())
-                        gestioneAccount.inserisciAccount(acc)
+                        gestioneFirebase.inserisciAccount(acc)
 
                     val intent = Intent(this, AccediActivity::class.java)
                     startActivity(intent)

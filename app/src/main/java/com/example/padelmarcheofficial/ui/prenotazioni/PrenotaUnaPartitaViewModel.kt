@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.padelmarcheofficial.dataclass.CentroSportivo
-import com.example.padelmarcheofficial.dataclass.GestioneAccount
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.Prenotazione
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -59,10 +59,19 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
 
     var listafiltrata = listOf<Prenotazione>()
 
+    /**
+     * Funzione che istanzia le sedi effettuando download da Firebase
+     */
     suspend fun init() {
-        mappaSedi = GestioneAccount().downloadSedi()
-        _listaSedi.postValue(GestioneAccount().downloadNomiSedi())
+        mappaSedi = GestioneFirebase().downloadSedi()
+        _listaSedi.postValue(GestioneFirebase().downloadNomiSedi())
     }
+
+    /**
+     * Funzione che prende in input la sede selezionata dall'ArrayAdapter nella vista
+     * ed effettua il download delle prenotazioni della sede di riferimento e le carica in
+     * listaprenotazioni
+     */
 
     fun sedeSelezionata(sede: String) {
         if (sede != _sedeSelezionata) {
@@ -71,7 +80,7 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
             CoroutineScope(Dispatchers.Main).launch {
                 if (sede != "") {
                     val prenotazioniDeferred = CoroutineScope(Dispatchers.IO).async {
-                        GestioneAccount().downloadPrenotazioni(
+                        GestioneFirebase().downloadPrenotazioni(
                             mappaSedi[sede]!!.id,
                             Date.from(Instant.now())
                         )
@@ -81,7 +90,10 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
             }
         }
     }
-
+    /**
+     * Funzione che prende in input la data selezionata dal DatePicker nella vista
+     *
+     */
     fun dataSelezionata(date: Date) {
         if (!date.equals(dataSelezionata.value)) {
             listafiltrata = listaPrenotazioni.filter {
@@ -99,16 +111,24 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Funzione utlizzata nelle mappe dei bottoni per verificare se la fascia è disponibile o meno
+     */
     fun fasciaSelezionata(int: Int) {
         if (int != _fasciaSelezionata.value)
             _fasciaSelezionata.postValue(int)
     }
 
+    /**
+     * Funzione che controlla ed effettua la prenotazione, caricandola in seguito su Firebase
+     * Inoltre l'utente può effettuare prenotazioni multiple quando si trova in unisciti ad una partita,
+     * anch'esse con i relativi controlli
+     */
     fun conferma(context: Context, solitaria: Boolean) {
         if (_sedeSelezionata == "") {
             Toast.makeText(context, "Sede non selezionata", Toast.LENGTH_LONG).show()
         } else {
-            if (false/*_dataSelezionata*/) {
+            if (false) {
                 Toast.makeText(context, "Sede non selezionata", Toast.LENGTH_LONG).show()
             } else {
                 if (_fasciaSelezionata.value == 0)
@@ -123,7 +143,7 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
                                 prenotazione = p
                         if (prenotazione == null)
                             CoroutineScope(Dispatchers.Main).launch {
-                                GestioneAccount().uploadPrenotazione(
+                                GestioneFirebase().uploadPrenotazione(
                                     mappaSedi[_sedeSelezionata]!!.id,
                                     data,
                                     solitaria
@@ -144,7 +164,6 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
                                 val dialog = builder.create()
                                 dialog.show()
 
-                                Log.d("afagga", "jfbaiuciauchau")
                             } else {
                                 updatePrenotazione(context)
                             }
@@ -156,9 +175,15 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Funzione che aggiorna una prenotazione già esistende andando ad aggiungere un ulteriore posto
+     * ad una partita in una determinata fascia oraria ed in una determinata sede
+     * Viene utilizzata nella classe unisciti ad una partita
+     */
+
     fun updatePrenotazione(context: Context){
         CoroutineScope(Dispatchers.Main).launch {
-            GestioneAccount().updatePrenotazione(
+            GestioneFirebase().updatePrenotazione(
                 mappaSedi[_sedeSelezionata]!!.id,
                 prenotazione!!,
                 context
@@ -172,8 +197,12 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
         ).show()
     }
 
+    /**
+     * Funzione che conta le prenotazioni in unisciti ad una partita
+     */
+
     private fun contaPrenotazioni(prenotazione: Prenotazione): Int {
-        val idutente = GestioneAccount().getIdUtente()
+        val idutente = GestioneFirebase().getIdUtente()
         var count = 0
         if (prenotazione.utente.equals(idutente))
             count++

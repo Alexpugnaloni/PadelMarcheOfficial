@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.databinding.FragmentAmiciBinding
 
-class AmiciFragment : Fragment()/*,RecyclerAdapter.ViewHolder.ClickListener */{
+class AmiciFragment : Fragment() {
 
     private var _binding: FragmentAmiciBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
 
 
     override fun onCreateView(

@@ -2,11 +2,8 @@ package com.example.padelmarcheofficial.dataclass
 
 import com.google.firebase.auth.FirebaseUser
 
-
 /**
  * * Classe per ottenere i dati utente solo istanziandola
- *
- * @author
  */
 class UserValue {
     companion object {
@@ -49,8 +46,6 @@ class UserValue {
          * Genere dell'utente
          */
         private var sesso: String = ""
-
-
     }
 
     /**
@@ -64,8 +59,10 @@ class UserValue {
      * @param sesso     da assegnare a **[UserValue.sesso]**
 
      */
-    fun set(user: FirebaseUser? = null, id: String, nome: String, cognome: String,
-         email: String, cellulare: String, sesso: String) {
+    fun set(
+        user: FirebaseUser? = null, id: String, nome: String, cognome: String,
+        email: String, cellulare: String, sesso: String
+    ) {
         UserValue.user = user
         UserValue.id = id
         UserValue.nome = nome
@@ -81,14 +78,14 @@ class UserValue {
      * @param user parametro per il recupero dell'id
      */
     fun set(account: Account, user: FirebaseUser?) {
-        UserValue.user  = user
-        id              = user!!.uid
-        nome            = account._nome.value.toString()
-        cognome         = account._cognome.value.toString()
-        email           = user.email!!
-        compleanno      = account._compleanno.value.toString()
-        cellulare       = account.cellulare.value.toString()
-        sesso           = account.sesso.value.toString()
+        UserValue.user = user
+        id = user!!.uid
+        nome = account._nome.value.toString()
+        cognome = account._cognome.value.toString()
+        email = user.email!!
+        compleanno = account._compleanno.value.toString()
+        cellulare = account.cellulare.value.toString()
+        sesso = account.sesso.value.toString()
 
     }
 
@@ -96,60 +93,58 @@ class UserValue {
      * Restituisce l'id dell'utente
      * @return **[UserValue.id]**
      */
-    fun getId():String = id
+    fun getId(): String = id
+
     /**
      * Restituisce il nome dell'utente
      * @return **[UserValue.nome]**
      */
-    fun getNome():String= nome
+    fun getNome(): String = nome
+
     /**
      * Restituisce il cognome dell'utente
      * @return **[UserValue.cognome]**
      */
-    fun getCognome():String= cognome
+    fun getCognome(): String = cognome
 
     /**
-     * Restituisce l'emaol dell'utente
+     * Restituisce l'email dell'utente
      * @return **[UserValue.email]**
      */
+    fun getEmail(): String = email
 
-    fun getEmail():String= email
     /**
      * Restituisce il compleanno dell'utente
      * @return **[UserValue.compleanno]**
      */
-    fun getCompleanno():String= compleanno
+    fun getCompleanno(): String = compleanno
 
     /**
      * Restituisce il cellulare dell'utente
      * @return **[UserValue.cellulare]**
      */
-    fun getCellulare():String= cellulare
+    fun getCellulare(): String = cellulare
 
     /**
      * Restituisce il sesso dell'utente
      * @return **[UserValue.sesso]**
      */
-    fun getSesso():String= sesso
-
+    fun getSesso(): String = sesso
 
 
     /**
      * Restituisce un account con i valori delle variabili contenute nella classe
      * @return una variabile account inizializzata
      */
-    fun getAccount():Account{
+    fun getAccount(): Account {
         val account = Account()
-        account._nome.value=nome
-        account._cognome.value=cognome
-        account._email.value=email
-        account._compleanno.value= compleanno
+        account._nome.value = nome
+        account._cognome.value = cognome
+        account._email.value = email
+        account._compleanno.value = compleanno
         account._cellulare.value = cellulare
         account._sesso.value = sesso
         return account
     }
-
-
-
 
 }

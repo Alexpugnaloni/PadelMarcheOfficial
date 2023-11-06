@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
-import com.example.padelmarcheofficial.dataclass.OperazioniSuFb
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -24,6 +24,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+/**
+ * Classe principale e che si occupa di gestire la navigazione all'interno dell'applicazione
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Variabile utilizzata per le operazioni fatte su +Firebase*
      */
-    private var database: OperazioniSuFb = OperazioniSuFb()
+    private var database: GestioneFirebase = GestioneFirebase()
 
     private var auth: FirebaseAuth = Firebase.auth
 
@@ -77,10 +80,14 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+
         val headerView : View = navViewDrawer.getHeaderView(0)
         val navNomeUtente : TextView = headerView.findViewById(R.id.nomeutente)
         val navEmailUtente : TextView =headerView.findViewById(R.id.emailutente)
 
+        /**
+         * effettua un controllo se l'utente è già loggato, se non è loggato rimanda al login
+         */
 
         if (!model.checkUtenteisLoggato()){
             startActivity(Intent(this, AccediActivity::class.java))
@@ -102,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_profilo -> {
-                    startActivity(Intent(this,ProfiloActivity3::class.java))
+                    startActivity(Intent(this,ProfiloActivity::class.java))
                     true
 
                 }
@@ -134,7 +141,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    /**
+     * Funzione che recupera le informazioni dell'account loggato
+     */
     private fun initPoint() {
         acc.idD = currentUser!!.uid
         acc._email.value = currentUser!!.email
@@ -142,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             acc.salva()
             database.initUservalue()
-            //}
+
         }
     }
 }

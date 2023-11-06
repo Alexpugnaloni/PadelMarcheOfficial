@@ -2,7 +2,6 @@ package com.example.padelmarcheofficial.ui.prenotazioni
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,15 +11,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.databinding.ActivityPrenotaSolitariaBinding
-import com.example.padelmarcheofficial.dataclass.GestioneAccount
+import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartitaBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,16 +25,18 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
+/**
+ * Classe che gestisce la prenotazione di una partita privata scegliendo la sede, il giorno e la fascia oraria
+ */
 
+class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
 
-class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
-
-    private lateinit var binding: ActivityPrenotaSolitariaBinding
+    private lateinit var binding: ActivityPrenotaUnaPartitaBinding
     private var myCalendar: Calendar = Calendar.getInstance()
     private lateinit var frecciaBack: ImageButton
     private lateinit var listesedi: List<String>
     private var mappabottoni: HashMap<Int, Button> = hashMapOf()
-    private var mappatextview: HashMap<Int, TextView> = hashMapOf()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +47,7 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
         }
 
         val lifecycleowner = this
-        binding = ActivityPrenotaSolitariaBinding.inflate(layoutInflater)
+        binding = ActivityPrenotaUnaPartitaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         mappabottoni.put(9, binding.fasciaoraria1)
@@ -57,13 +56,6 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
         mappabottoni.put(15, binding.fasciaoraria4)
         mappabottoni.put(16, binding.fasciaoraria5)
         mappabottoni.put(17, binding.fasciaoraria6)
-
-        mappatextview.put(9, binding.personepresenti1)
-        mappatextview.put(10, binding.personepresenti2)
-        mappatextview.put(11, binding.personepresenti3)
-        mappatextview.put(15, binding.personepresenti4)
-        mappatextview.put(16, binding.personepresenti5)
-        mappatextview.put(17, binding.personepresenti6)
 
 
         val adapter = ArrayAdapter(
@@ -101,6 +93,7 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
 
+
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -118,16 +111,14 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
                 month,
                 day)
 
-            val dataOdierna =  Date()//Calendar.getInstance()
-            //   dataOdierna.timeInMillis
+            val dataOdierna =  Date()
             val formatoData = SimpleDateFormat("dd/MM/yyyy")
 
             dpd.show()
-            dpd.setOnDateSetListener() { view, year, monthOfYear, dayOfMonth ->
+            dpd.setOnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val dataString = "${dayOfMonth}/${monthOfYear + 1}/$year"
 
                 val dataInserita = formatoData.parse(dataString)
-
 
                 if (dataInserita.before(dataOdierna)) {
                     Toast.makeText(this, "Non è possibile selezionare una data passata", Toast.LENGTH_LONG).show()
@@ -143,97 +134,71 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
             }
         }
 
+
         viewmodel.dataSelezionata.observe(lifecycleowner) {
             binding.giornoscelto.text = "Giorno Scelto: " + viewmodel.formatoGiorno.format(it)
-            val utenti = hashMapOf(9 to 0,10 to 0,11 to 0,15 to 0, 16 to 0,17 to 0)
-            for(p in viewmodel.listafiltrata){
-                utenti[viewmodel.formatoOra.format(p.date).toInt()]=p.listautenti.size+1
-            }
-            for(fascia in listOf(9,10,11,15,16,17))
-                toggleview(mappabottoni[fascia]!!,mappatextview[fascia]!!,utenti[fascia]!!,fascia==viewmodel.fasciaSelezionata.value)
+            for (fascia in listOf(9,10,11,15,16,17))
+                toggleBottone(mappabottoni[fascia]!!, viewmodel.fasceOccupate.contains(fascia), viewmodel.fasciaSelezionata.value==fascia)
         }
 
-        mappabottoni[9]!!.setOnClickListener {
+        mappabottoni[9]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(9)
         }
-        mappabottoni[10]!!.setOnClickListener {
+        mappabottoni[10]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(10)
         }
-        mappabottoni[11]!!.setOnClickListener {
+        mappabottoni[11]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(11)
         }
-        mappabottoni[15]!!.setOnClickListener {
+        mappabottoni[15]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(15)
         }
-        mappabottoni[16]!!.setOnClickListener {
+        mappabottoni[16]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(16)
         }
-        mappabottoni[17]!!.setOnClickListener {
+        mappabottoni[17]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(17)
         }
 
         viewmodel.fasciaSelezionata.observe(lifecycleowner) {
-            val utenti = hashMapOf(9 to 0,10 to 0,11 to 0,15 to 0, 16 to 0,17 to 0)
-            for(p in viewmodel.listafiltrata){
-                utenti[viewmodel.formatoOra.format(p.date).toInt()]=p.listautenti.size+1
-            }
-            for(fascia in listOf(9,10,11,15,16,17))
-                toggleview(mappabottoni[fascia]!!,mappatextview[fascia]!!,utenti[fascia]!!,fascia==viewmodel.fasciaSelezionata.value)
+            for (fascia in listOf(9,10,11,15,16,17))
+                toggleBottone(mappabottoni[fascia]!!, viewmodel.fasceOccupate.contains(fascia), viewmodel.fasciaSelezionata.value==fascia)
+        }
+
+        binding.btnConferma.setOnClickListener{
+            viewmodel.conferma(baseContext,false)
         }
 
         viewmodel.terminato.observe(lifecycleowner){
             if (it == true){
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("Prenotazione Confermata")
+                .setMessage("La tua prenotazione è stata confermata con successo.")
+                .setPositiveButton("OK") { _, _ ->
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                .setCancelable(false)
 
-                val alertDialog = AlertDialog.Builder(this)
-                    .setTitle("Prenotazione Confermata")
-                    .setMessage("La tua prenotazione è stata confermata con successo.")
-                    .setPositiveButton("OK") { _, _ ->
-                        // Quando l'utente fa clic su "OK", avvia l'Activity principale
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish() // Chiudi questa Activity
-                    }
-                    .setCancelable(false) // Impedisce all'utente di chiudere l'AlertDialog toccando all'esterno
-
-                val dialog = alertDialog.create()
-                dialog.show()
-            }
-
+            val dialog = alertDialog.create()
+            dialog.show()
         }
-        binding.btnConferma.setOnClickListener{
-            viewmodel.conferma(lifecycleowner,true)
+
         }
     }
 
-    fun toggleview(button: Button, textview: TextView, utenti :Int,selezionata: Boolean){
+    /**
+     * Funzione che abilita e disabilita le fasce orarie applicata una volta selezionata la data
+     */
+    fun toggleBottone(button: Button, disabilitata: Boolean, selezionata:Boolean) {
+        button.isEnabled = !disabilitata
+        val gray =resources.getColor(R.color.lightGray,theme)
+        val blu =resources.getColor(R.color.blu,theme)
         val red = resources.getColor(R.color.LightRed,theme)
-        val gray = resources.getColor(R.color.lightGray,theme)
-        val blu = resources.getColor(R.color.blu,theme)
-        val black = resources.getColor(R.color.black,theme)
-        when(utenti){
-            0 -> {
-                button.isEnabled=true
-                button.setBackgroundColor(if(selezionata)red else blu)
-                textview.text = "0/4"
-                textview.setTextColor(black)
-            }
-            1,2,3 -> {
-                button.isEnabled=true
-                button.setBackgroundColor(if(selezionata)red else blu)
-                textview.text = "$utenti/4"
-                textview.setTextColor(black)
-            }
-            4 -> {
-                button.isEnabled=false
-                button.setBackgroundColor(gray)
-                textview.text = "4/4"
-                textview.setTextColor(gray)
-            }
-            else -> {
-                Toast.makeText(baseContext,"Errore nel download del numero di utenti prenotati",Toast.LENGTH_LONG).show()
-            }
-        }
-
-
+        button.setBackgroundColor(if (selezionata) red else if(!disabilitata) blu else gray)
     }
+
+
+
 }

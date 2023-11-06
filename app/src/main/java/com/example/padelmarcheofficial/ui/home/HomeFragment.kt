@@ -7,16 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaSolitariaActivity
+import com.example.padelmarcheofficial.ui.prenotazioni.UniscitiPartitaActivity
 import com.example.padelmarcheofficial.databinding.FragmentHomeBinding
-import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartita3Activity
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartitaActivity
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -30,17 +29,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-       /* val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        } */
-        binding.prenotaunapartitaButton.setOnClickListener{
-            val intent = Intent(this.context, PrenotaUnaPartita3Activity::class.java)
+
+        binding.prenotaunapartitaButton.setOnClickListener {
+            val intent = Intent(this.context, PrenotaUnaPartitaActivity::class.java)
             startActivity(intent)
         }
 
         binding.prenotasolitariaButton.setOnClickListener {
-            val intent = Intent(this.context, PrenotaSolitariaActivity::class.java)
+            val intent = Intent(this.context, UniscitiPartitaActivity::class.java)
             startActivity(intent)
         }
 

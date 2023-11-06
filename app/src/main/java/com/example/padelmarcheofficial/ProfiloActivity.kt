@@ -13,14 +13,14 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import com.example.padelmarcheofficial.databinding.ActivityProfilo3Binding
-import com.example.padelmarcheofficial.dataclass.GestioneAccount
+import com.example.padelmarcheofficial.databinding.ActivityProfiloBinding
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.UserValue
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class ProfiloActivity3 : AppCompatActivity() {
+class ProfiloActivity : AppCompatActivity() {
 
     /**
      * variabili utilizzate per la gestione del nome dell'utente
@@ -61,30 +61,28 @@ class ProfiloActivity3 : AppCompatActivity() {
 
 
     /**
-     * variabili utilizzata per la gestione della visualizzazione dei bottoni
+     * variabile utilizzata per la gestione della visualizzazione dei bottoni
      */
     private var enabledmodifyng:Boolean=false
-    private var check : Boolean = false
-
 
     /**
-     * Binding del layout con le informazioni contenuta nell'account loggato
+     * Binding del layout con le informazioni contenute nell'account loggato
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profilo3)
-        val binding = DataBindingUtil.setContentView<ActivityProfilo3Binding>(this, R.layout.activity_profilo3)
+        setContentView(R.layout.activity_profilo)
+        val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, R.layout.activity_profilo)
 
-
-        //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
+    /*    //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
         enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
             (savedInstanceState.get("enable") as Boolean)
         else
-            false
+            false */
 
         initPoint(UserValue().getId(), UserValue().getEmail())
 
-        //collego la variabile del layout con la variabile del ViewModel associtata
+        //collego la variabile del layout con la variabile del ViewModel Account, ossia accappoggio
+
         binding.account = accAppoggio
         binding.lifecycleOwner = this
 
@@ -143,7 +141,7 @@ class ProfiloActivity3 : AppCompatActivity() {
         }
 
         btnMod.setOnClickListener {
-            if(GestioneAccount().isOnline(it.context))
+            if(GestioneFirebase().isOnline(it.context))
                 enable()
         }
         //se annullo le modifiche fatte, riporto il tutto alla condizione iniziale,
@@ -156,7 +154,7 @@ class ProfiloActivity3 : AppCompatActivity() {
             binding.account = accAppoggio
         }
         binding.btnSalvataggio.setOnClickListener {
-            if (GestioneAccount().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.celluareModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
+            if (GestioneFirebase().isOnline(baseContext.applicationContext as Context)&&verificaInserimento( binding.nameModificabile.text.toString(),binding.surnameModificabile.text.toString(),binding.celluareModificabile.text.toString(),binding.editTextDateModificabile.text.toString()))
             {   accAppoggio.stampa()
                 accAppoggio.update()
                 disable()
@@ -240,9 +238,6 @@ class ProfiloActivity3 : AppCompatActivity() {
 
     /**
      * verifico che siano presenti tutti i dati necessari per l'inserimento di un nuovo account
-     * @param nome il nome dell'utente
-     * @param cognome il cognome dell'utente
-     * @param compleanno la data di nascita dell'utente
      */
     private fun verificaInserimento(nome: String, cognome: String, cellulare:String, compleanno: String): Boolean {
         if(nome.isBlank()) {
@@ -270,22 +265,20 @@ class ProfiloActivity3 : AppCompatActivity() {
 
     }
 
-
+/*
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("enable",enabledmodifyng)
-    }
+    } */
 
     /**
-     * Funzione per inizializzare i valori della variabile accouunt di appoggio, evitando di intaccare
+     * Funzione per inizializzare i valori della variabile account di appoggio, evitando di intaccare
      * i dati originali finchè l'utente non conferma. Se si è online vengono scaricati i dati da firebase,
      * altrimenti si caricano i dati salvati in locale.
-     * @param id identificativo dell'utente
-     * @param em l'email dell'utente
      */
     private fun initPoint(id:String, em:String) {
         //se il dispositivo è online recupero le info da firebase
-        if (GestioneAccount().isOnline(cont = this)) {
+        if (GestioneFirebase().isOnline(cont = this)) {
             accAppoggio.idD = id
             lifecycleScope.launch {
                 accAppoggio.salva()
