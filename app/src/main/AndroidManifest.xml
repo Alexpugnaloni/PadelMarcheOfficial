@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name=".AccediActivity"
-            android:exported="false" /> <!-- <activity android:name=".PrenotaUnaPartitaActivity" /> -->
+            android:exported="false" />
         <activity android:name=".RegistratiActivity" />
     </application>
 

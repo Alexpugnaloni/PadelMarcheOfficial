@@ -8,4 +8,10 @@
         <item>Fermo</item>
         <item>Ascoli Piceno</item>
     </string-array>
+
+    <string-array name="sesso_array">
+        <item>Uomo</item>
+        <item>Donna</item>
+        <item>Altro</item>
+    </string-array>
 </resources>

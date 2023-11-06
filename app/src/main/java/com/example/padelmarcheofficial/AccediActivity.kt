@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
+import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
 
 /**
  * Classe che gestisce l'accesso all'applicazione tramite email e password
@@ -14,12 +14,12 @@ import com.example.padelmarcheofficial.databinding.ActivityWelcomeBinding
  */
 class AccediActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityWelcomeBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()

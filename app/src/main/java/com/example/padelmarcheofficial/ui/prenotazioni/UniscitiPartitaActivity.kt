@@ -18,7 +18,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.databinding.ActivityPrenotaSolitariaBinding
+import com.example.padelmarcheofficial.databinding.ActivityUniscitiPartitaBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ import java.util.Date
  */
 class UniscitiPartitaActivity : AppCompatActivity(), LifecycleOwner {
 
-    private lateinit var binding: ActivityPrenotaSolitariaBinding
+    private lateinit var binding: ActivityUniscitiPartitaBinding
     private var myCalendar: Calendar = Calendar.getInstance()
     private lateinit var frecciaBack: ImageButton
     private lateinit var listesedi: List<String>
@@ -48,7 +48,7 @@ class UniscitiPartitaActivity : AppCompatActivity(), LifecycleOwner {
         }
 
         val lifecycleowner = this
-        binding = ActivityPrenotaSolitariaBinding.inflate(layoutInflater)
+        binding = ActivityUniscitiPartitaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         mappabottoni.put(9, binding.fasciaoraria1)
