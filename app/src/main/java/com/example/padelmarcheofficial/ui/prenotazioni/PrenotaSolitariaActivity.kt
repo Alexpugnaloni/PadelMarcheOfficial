@@ -2,6 +2,7 @@ package com.example.padelmarcheofficial.ui.prenotazioni
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
@@ -18,12 +20,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityPrenotaSolitariaBinding
+import com.example.padelmarcheofficial.dataclass.GestioneAccount
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+
 
 
 class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
@@ -33,6 +37,7 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var frecciaBack: ImageButton
     private lateinit var listesedi: List<String>
     private var mappabottoni: HashMap<Int, Button> = hashMapOf()
+    private var mappatextview: HashMap<Int, TextView> = hashMapOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +57,13 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
         mappabottoni.put(15, binding.fasciaoraria4)
         mappabottoni.put(16, binding.fasciaoraria5)
         mappabottoni.put(17, binding.fasciaoraria6)
+
+        mappatextview.put(9, binding.personepresenti1)
+        mappatextview.put(10, binding.personepresenti2)
+        mappatextview.put(11, binding.personepresenti3)
+        mappatextview.put(15, binding.personepresenti4)
+        mappatextview.put(16, binding.personepresenti5)
+        mappatextview.put(17, binding.personepresenti6)
 
 
         val adapter = ArrayAdapter(
@@ -88,8 +100,6 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
@@ -133,20 +143,14 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
             }
         }
 
-
-        viewmodel.fasceOccupate.observe(lifecycleowner) {
-            toggleBottone(mappabottoni[9]!!, !it.contains(9))
-            toggleBottone(mappabottoni[10]!!, !it.contains(10))
-            toggleBottone(mappabottoni[11]!!, !it.contains(11))
-            toggleBottone(mappabottoni[15]!!, !it.contains(15))
-            toggleBottone(mappabottoni[16]!!, !it.contains(16))
-            toggleBottone(mappabottoni[17]!!, !it.contains(17))
-
-        }
-
-
         viewmodel.dataSelezionata.observe(lifecycleowner) {
             binding.giornoscelto.text = "Giorno Scelto: " + viewmodel.formatoGiorno.format(it)
+            val utenti = hashMapOf(9 to 0,10 to 0,11 to 0,15 to 0, 16 to 0,17 to 0)
+            for(p in viewmodel.listafiltrata){
+                utenti[viewmodel.formatoOra.format(p.date).toInt()]=p.listautenti.size+1
+            }
+            for(fascia in listOf(9,10,11,15,16,17))
+                toggleview(mappabottoni[fascia]!!,mappatextview[fascia]!!,utenti[fascia]!!,fascia==viewmodel.fasciaSelezionata.value)
         }
 
         mappabottoni[9]!!.setOnClickListener {
@@ -169,41 +173,67 @@ class PrenotaSolitariaActivity : AppCompatActivity(), LifecycleOwner {
         }
 
         viewmodel.fasciaSelezionata.observe(lifecycleowner) {
-            val red = resources.getColor(R.color.LightRed)
-            val blu = resources.getColor(R.color.blu)
-            mappabottoni[9]!!.setBackgroundColor(if (it == 9) red else blu)
-            mappabottoni[10]!!.setBackgroundColor(if (it == 10) red else blu)
-            mappabottoni[11]!!.setBackgroundColor(if (it == 11) red else blu)
-            mappabottoni[15]!!.setBackgroundColor(if (it == 15) red else blu)
-            mappabottoni[16]!!.setBackgroundColor(if (it == 16) red else blu)
-            mappabottoni[17]!!.setBackgroundColor(if (it == 17) red else blu)
+            val utenti = hashMapOf(9 to 0,10 to 0,11 to 0,15 to 0, 16 to 0,17 to 0)
+            for(p in viewmodel.listafiltrata){
+                utenti[viewmodel.formatoOra.format(p.date).toInt()]=p.listautenti.size+1
+            }
+            for(fascia in listOf(9,10,11,15,16,17))
+                toggleview(mappabottoni[fascia]!!,mappatextview[fascia]!!,utenti[fascia]!!,fascia==viewmodel.fasciaSelezionata.value)
         }
 
+        viewmodel.terminato.observe(lifecycleowner){
+            if (it == true){
+
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("Prenotazione Confermata")
+                    .setMessage("La tua prenotazione è stata confermata con successo.")
+                    .setPositiveButton("OK") { _, _ ->
+                        // Quando l'utente fa clic su "OK", avvia l'Activity principale
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish() // Chiudi questa Activity
+                    }
+                    .setCancelable(false) // Impedisce all'utente di chiudere l'AlertDialog toccando all'esterno
+
+                val dialog = alertDialog.create()
+                dialog.show()
+            }
+
+        }
         binding.btnConferma.setOnClickListener{
-            viewmodel.conferma(baseContext)
-            val alertDialog = AlertDialog.Builder(this)
-                .setTitle("Prenotazione Confermata")
-                .setMessage("La tua prenotazione è stata confermata con successo.")
-                .setPositiveButton("OK") { _, _ ->
-                    // Quando l'utente fa clic su "OK", avvia l'Activity principale
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish() // Chiudi questa Activity
-                }
-                .setCancelable(false) // Impedisce all'utente di chiudere l'AlertDialog toccando all'esterno
-
-            val dialog = alertDialog.create()
-            dialog.show()
-
+            viewmodel.conferma(lifecycleowner,true)
         }
     }
 
-    fun toggleBottone(button: Button, abilita: Boolean) {
-        button.isEnabled = abilita
-        val gray = resources.getColor(R.color.lightGray)
-        val blu = resources.getColor(R.color.blu)
-        button.setBackgroundColor(if (abilita) blu else gray)
+    fun toggleview(button: Button, textview: TextView, utenti :Int,selezionata: Boolean){
+        val red = resources.getColor(R.color.LightRed,theme)
+        val gray = resources.getColor(R.color.lightGray,theme)
+        val blu = resources.getColor(R.color.blu,theme)
+        val black = resources.getColor(R.color.black,theme)
+        when(utenti){
+            0 -> {
+                button.isEnabled=true
+                button.setBackgroundColor(if(selezionata)red else blu)
+                textview.text = "0/4"
+                textview.setTextColor(black)
+            }
+            1,2,3 -> {
+                button.isEnabled=true
+                button.setBackgroundColor(if(selezionata)red else blu)
+                textview.text = "$utenti/4"
+                textview.setTextColor(black)
+            }
+            4 -> {
+                button.isEnabled=false
+                button.setBackgroundColor(gray)
+                textview.text = "4/4"
+                textview.setTextColor(gray)
+            }
+            else -> {
+                Toast.makeText(baseContext,"Errore nel download del numero di utenti prenotati",Toast.LENGTH_LONG).show()
+            }
+        }
+
+
     }
-
-
 }
