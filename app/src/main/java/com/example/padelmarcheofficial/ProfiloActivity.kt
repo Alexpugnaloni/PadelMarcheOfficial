@@ -73,11 +73,6 @@ class ProfiloActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profilo)
         val binding = DataBindingUtil.setContentView<ActivityProfiloBinding>(this, R.layout.activity_profilo)
 
-    /*    //per gestire il mantenimento della possibiltà di modifica in caso di rotazione
-        enabledmodifyng = if(savedInstanceState?.get("enable")!=null)
-            (savedInstanceState.get("enable") as Boolean)
-        else
-            false */
 
         initPoint(UserValue().getId(), UserValue().getEmail())
 
@@ -265,11 +260,6 @@ class ProfiloActivity : AppCompatActivity() {
 
     }
 
-/*
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean("enable",enabledmodifyng)
-    } */
 
     /**
      * Funzione per inizializzare i valori della variabile account di appoggio, evitando di intaccare

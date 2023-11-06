@@ -25,25 +25,6 @@ class GestioneFirebase {
     private var auth: FirebaseAuth = Firebase.auth
 
     /**
-     * Funzione per inserire nuovo utente in *FirebaseAuth*
-     * @param acc l'account da inserire in *FirebaseAuth*
-     */
-    /* fun inserimentoNuovoAccountInFirebaseAuth(acc: Account) {
-         auth = Firebase.auth
-         auth.createUserWithEmailAndPassword(acc.email.value.toString(), acc.psw.value.toString())
-             .addOnCompleteListener { task ->
-                 if (task.isSuccessful) {
-                     // Registrazione avvenuta, aggiorno i dati dell'utente
-                     val user = auth.currentUser
-                     acc.idD=user!!.uid
-                     //Se le credenziali vengono inserite correttamente, allora salvo le info dell'account nel db
-                     inserimentoInFirestore(acc)
-
-                 }
-             }
-
-     } */
-    /**
      * Funzione per verificare se il dispositivo è online
      */
     fun isOnline(cont: Context): Boolean {

@@ -147,7 +147,7 @@ class Account : ViewModel(), Serializable {
      * @param value valore di tipo stringa necessario per tutti campi
      */
 
-    fun changeValue(idVariabile: Int, value: String? = null/*, imgvalue:Bitmap?=null*/) {
+    fun changeValue(idVariabile: Int, value: String? = null) {
 
         when (idVariabile) {
             1 -> _nome.value = value.toString()
