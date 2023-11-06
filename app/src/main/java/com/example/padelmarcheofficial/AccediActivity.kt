@@ -1,5 +1,6 @@
 package com.example.padelmarcheofficial
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -15,7 +16,8 @@ import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
 class AccediActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    lateinit var firebaseAuth: FirebaseAuth
+    var testing: Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +44,15 @@ class AccediActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        val user = firebaseAuth.currentUser
                         setResult(1)
                         finish()
+                        val replyintent=Intent()
+                        replyintent.putExtra("UserAccount",user)
+                        if(!testing) {
+                            setResult(Activity.RESULT_OK, replyintent)
+                            finish()
+                        }
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
