@@ -14,8 +14,6 @@
     tools:context=".ProfiloActivity">
 
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,10 +40,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/nameNonModificabile"
-                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blu">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -101,10 +99,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/surnameNonModificabile"
-                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blu">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -159,10 +157,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.cardview.widget.CardView
-                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blu">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -199,13 +197,12 @@
             </androidx.cardview.widget.CardView>
 
 
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/editTextDateNonModificabile"
-                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blu">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -263,10 +260,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cellulareNonModificabile"
-                android:backgroundTint="@color/blu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blu">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -321,7 +318,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <LinearLayout
                 android:id="@+id/layoutBtn1"
                 android:layout_width="match_parent"
@@ -333,20 +329,20 @@
 
                 <Button
                     android:id="@+id/btnModifica"
-                    android:backgroundTint="@color/blu"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
+                    android:backgroundTint="@color/blu"
                     android:text="@string/modifica" />
 
                 <Button
                     android:id="@+id/btnBackHome"
-                    android:backgroundTint="@color/blu"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
+                    android:backgroundTint="@color/blu"
                     android:text="Indietro" />
             </LinearLayout>
 
@@ -362,25 +358,25 @@
 
                 <Button
                     android:id="@+id/btnSalvataggio"
-                    android:backgroundTint="@color/blu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:backgroundTint="@color/blu"
                     android:enabled="false"
                     android:text="@string/salva"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnIndietro"
-                    android:backgroundTint="@color/blu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="2"
+                    android:backgroundTint="@color/blu"
                     android:enabled="false"
                     android:text="@string/Back"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
