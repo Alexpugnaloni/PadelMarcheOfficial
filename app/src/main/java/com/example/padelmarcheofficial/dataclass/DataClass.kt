@@ -2,13 +2,6 @@ package com.example.padelmarcheofficial.dataclass
 
 import java.util.Date
 
-data class UtenteRegistrato(
-    val nome: String,
-    val cognome: String,
-    val email: String,
-    val numeroTelefono: String
-)
-
 data class CentroSportivo(
     val id: String,
     val nome: String,
