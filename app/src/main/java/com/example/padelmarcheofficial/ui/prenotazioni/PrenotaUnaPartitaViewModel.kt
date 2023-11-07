@@ -11,12 +11,15 @@ import androidx.lifecycle.ViewModel
 import com.example.padelmarcheofficial.dataclass.CentroSportivo
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.Prenotazione
+import com.google.type.DateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalDate
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -50,7 +53,9 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
     private var _sedeSelezionata = ""
 
     private val _dataSelezionata = MutableLiveData<Date>().apply {
-        value = Date()
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        value = calendar.time
     }
     val dataSelezionata: LiveData<Date> = _dataSelezionata
 
