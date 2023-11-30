@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.padelmarcheofficial.admin.AdminActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
-import com.example.padelmarcheofficial.ui.admin.AdminActivity
+
 
 /**
  * Classe che gestisce l'accesso all'applicazione tramite email e password
@@ -40,6 +41,38 @@ class AccediActivity : AppCompatActivity() {
 
             val email = binding.editTextTextEmailAddress3.text.toString()
             val password = binding.editTextTextPassword.text.toString()
+
+
+
+
+
+            val emailInput = "ancona@padelmarche.it"
+            val passwordInput = "Anconaancona"
+
+
+            fun isAdmin(email: String?): Boolean {
+                // Verifica se l'utente corrente corrisponde a un utente specifico
+                return email == "ancona@padelmarche.it"
+            }
+
+            firebaseAuth.signInWithEmailAndPassword(emailInput, passwordInput).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = firebaseAuth.currentUser
+                    if (user != null && isAdmin(user.email)) {
+                        // Reindirizza alla vista specifica per l'amministratore (AdminActivity)
+                        val intent = Intent(this, AdminActivity::class.java)
+                        startActivity(intent)
+                        finish() // Chiudi l'activity di login
+                    } else {
+                        // L'utente non è un amministratore
+                        // Puoi mostrare un messaggio di errore o reindirizzare altrove
+                    }
+                } else {
+                    // Accesso non riuscito
+                    Toast.makeText(this, "Accesso non riuscito: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
 
 
             if (email.isNotEmpty() && password.isNotEmpty()) {

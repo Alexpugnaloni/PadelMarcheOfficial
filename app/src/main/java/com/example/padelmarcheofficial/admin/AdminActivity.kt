@@ -1,14 +1,10 @@
-package com.example.padelmarcheofficial.ui.admin
+package com.example.padelmarcheofficial.admin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAdminBinding
-import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartitaBinding
-import com.example.padelmarcheofficial.admin.AdminViewModel
-import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartitaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
