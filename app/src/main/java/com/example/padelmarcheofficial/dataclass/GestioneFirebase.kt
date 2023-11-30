@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import java.security.Timestamp
+import java.util.Calendar
 import java.util.Date
 
 class GestioneFirebase {
@@ -240,6 +241,8 @@ class GestioneFirebase {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val utenteID = currentUser?.uid ?: ""
 
+        val currentDate = Calendar.getInstance().time
+
         val centriSportiviSnapshot = db.collection("Centrisportivi").get().await()
 
         for (centroSnapshot in centriSportiviSnapshot) {
@@ -254,22 +257,28 @@ class GestioneFirebase {
 
             for (doc in snapshot.documents) {
                 val dataPrenotazione = doc.getTimestamp("data")!!.toDate()
-                val utente = doc.getString("idutente") ?: "" // Presumo che "idutente" sia una stringa
-                val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList() // Presumo che "utenti" sia una lista di stringhe
 
-                val prenotazione = Prenotazione(
-                    id = doc.id,
-                    utente = utente,
-                    centroSportivo = centroSportivo,
-                    date = dataPrenotazione,
-                    listautenti = listaUtenti
-                )
-                prenotazioniList.add(prenotazione)
+                // Verifica se la data della prenotazione è oggi o in futuro
+                if (!dataPrenotazione.before(currentDate)) {
+                    val utente = doc.getString("idutente") ?: ""
+                    val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList()
+
+                    val prenotazione = Prenotazione(
+                        id = doc.id,
+                        utente = utente,
+                        centroSportivo = centroSportivo,
+                        date = dataPrenotazione,
+                        listautenti = listaUtenti
+                    )
+                    prenotazioniList.add(prenotazione)
+                }
             }
         }
 
         return prenotazioniList
     }
+
+
 
 
 

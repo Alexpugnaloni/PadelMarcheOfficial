@@ -9,6 +9,9 @@ import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.dataclass.CentroSportivo
 import com.example.padelmarcheofficial.dataclass.Prenotazione
 import com.example.padelmarcheofficial.dataclass.UserValue
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 //package com.example.padelmarcheofficial.ui.prenotazioni
 
@@ -25,10 +28,17 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
     }
 
     inner class PrenotazioneViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val prenotazioneUtenteTextView: TextView = itemView.findViewById(R.id.prenotazioneUtenteTextView)
+      //  private val prenotazioneUtenteTextView: TextView = itemView.findViewById(R.id.prenotazioneUtenteTextView)
         private val prenotazioneCSportivoTextView: TextView = itemView.findViewById(R.id.prenotazioneCSportivoTextView)
         private val prenotazioneDataTextView: TextView = itemView.findViewById(R.id.prenotazioneDataTextView)
+        private val prenotazionePartecipantiTextView: TextView = itemView.findViewById(R.id.prenotazionePartecipantiTextView)
 
+
+        fun formatTimestamp(timestamp: Long): String {
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+            val date = Date(timestamp)
+            return sdf.format(date)
+        }
         fun bind(prenotazione: Prenotazione) {
             val datiUtente = UserValue()
 
@@ -42,15 +52,27 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
 
             val nomeSede = mappaSedi[prenotazione.centroSportivo]
 
-            if (prenotazione.utente == datiUtente.getId().toString()) {
+        /*    if (prenotazione.utente == datiUtente.getId().toString()) {
                 prenotazioneUtenteTextView.text = "Nome e Cognome: " +  datiUtente.getNome() + " " + datiUtente.getCognome()
-            }
+            }*/
             if (nomeSede != null){
                 prenotazioneCSportivoTextView.text = "Sede: " + nomeSede
             }
 
-            prenotazioneDataTextView.text = prenotazione.date.toString()
+            val timestamp = prenotazione.date.time
+            val formattedDate = formatTimestamp(timestamp)
+            prenotazioneDataTextView.text = "Giorno e ora: " + formattedDate
 
+            //VERIFICARE INCONGRUENZA DELLO 0 LISTAUTENTI CHE è 3 SE PRENOTO TUTTO IL CAMPO E 0 SE HO FATTO UNISCITI
+            val partecipanti: Int = when (prenotazione.listautenti.size) {
+                0 -> 3
+                1 -> 1
+                2 -> 2
+                3, 4 -> 3
+                else -> prenotazione.listautenti.size // Valore predefinito se non rientra in nessuna condizione
+            }
+
+            prenotazionePartecipantiTextView.text = "Altri Partecipanti: $partecipanti"
         }
     }
 

@@ -9,7 +9,7 @@
         android:id="@+id/prenotazioneUtenteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Utente: "
+        android:text="PARTITA"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 
@@ -26,6 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data: "
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/prenotazionePartecipantiTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Partecipanti: "
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 
