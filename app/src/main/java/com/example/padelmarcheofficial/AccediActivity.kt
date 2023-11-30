@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
+import com.example.padelmarcheofficial.ui.admin.AdminActivity
 
 /**
  * Classe che gestisce l'accesso all'applicazione tramite email e password

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PadelMarcheOfficial"
         tools:targetApi="31">
         <activity
+            android:name=".admin.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".ContattaciActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,6 @@
         <activity
             android:name=".ui.prenotazioni.PrenotaUnaPartitaActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.prenotazioni.UniscitiPartitaActivity"
             android:exported="false" />
