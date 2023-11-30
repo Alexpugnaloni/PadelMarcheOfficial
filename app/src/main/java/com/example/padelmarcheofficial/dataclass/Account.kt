@@ -1,6 +1,5 @@
 package com.example.padelmarcheofficial.dataclass
 
-import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

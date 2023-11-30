@@ -9,6 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+import java.security.Timestamp
 import java.util.Date
 
 class GestioneFirebase {
@@ -232,6 +233,46 @@ class GestioneFirebase {
             }
         }.await()
     }
+
+    suspend fun downloadPrenotazioniUtente(): List<Prenotazione> {
+        val prenotazioniList = mutableListOf<Prenotazione>()
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val utenteID = currentUser?.uid ?: ""
+
+        val centriSportiviSnapshot = db.collection("Centrisportivi").get().await()
+
+        for (centroSnapshot in centriSportiviSnapshot) {
+            val centroSportivo = centroSnapshot.id
+
+            val snapshot = db.collection("Centrisportivi")
+                .document(centroSportivo)
+                .collection("Prenotazioni")
+                .whereEqualTo("idutente", utenteID)
+                .get()
+                .await()
+
+            for (doc in snapshot.documents) {
+                val dataPrenotazione = doc.getTimestamp("data")!!.toDate()
+                val utente = doc.getString("idutente") ?: "" // Presumo che "idutente" sia una stringa
+                val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList() // Presumo che "utenti" sia una lista di stringhe
+
+                val prenotazione = Prenotazione(
+                    id = doc.id,
+                    utente = utente,
+                    centroSportivo = centroSportivo,
+                    date = dataPrenotazione,
+                    listautenti = listaUtenti
+                )
+                prenotazioniList.add(prenotazione)
+            }
+        }
+
+        return prenotazioniList
+    }
+
+
+
 
     /**
      * restituisce l'id dell'utente

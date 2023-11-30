@@ -39,6 +39,7 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewmodel = ViewModelProvider(this).get(PrenotaUnaPartitaViewModel::class.java)
@@ -56,6 +57,10 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
         mappabottoni.put(15, binding.fasciaoraria4)
         mappabottoni.put(16, binding.fasciaoraria5)
         mappabottoni.put(17, binding.fasciaoraria6)
+
+
+
+
 
 
         val adapter = ArrayAdapter(
@@ -87,6 +92,7 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
                 ) {
                     val selectedItem = viewmodel.listaSedi.value!![position]
                     viewmodel.sedeSelezionata(selectedItem)
+
                 }
 
 
@@ -136,11 +142,14 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
         }
 
 
+
         viewmodel.dataSelezionata.observe(lifecycleowner) {
             binding.giornoscelto.text = "Giorno Scelto: " + viewmodel.formatoGiorno.format(it)
             for (fascia in listOf(9,10,11,15,16,17))
                 toggleBottone(mappabottoni[fascia]!!, viewmodel.fasceOccupate.contains(fascia), viewmodel.fasciaSelezionata.value==fascia)
+
         }
+
 
         mappabottoni[9]!!.setOnClickListener{
             viewmodel.fasciaSelezionata(9)
@@ -199,7 +208,6 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
         val red = resources.getColor(R.color.LightRed,theme)
         button.setBackgroundColor(if (selezionata) red else if(!disabilitata) blu else gray)
     }
-
 
 
 }
