@@ -31,10 +31,24 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
 
         fun bind(prenotazione: Prenotazione) {
             val datiUtente = UserValue()
+
+            val mappaSedi = mapOf(
+                "EHRgWL3MllLaSuWPzddd" to "Ascoli Piceno",
+                "VapW6qTS1HOHEmORefB5" to "Pesaro Urbino",
+                "gPNgSKQgkrg8G0yXmWV4" to "Macerata",
+                "ge42drMdBlsI3MUuVeuX" to "Ancona",
+                "ixvptNZVldQwyKAMTYkD" to "Fermo"
+            )
+
+            val nomeSede = mappaSedi[prenotazione.centroSportivo]
+
             if (prenotazione.utente == datiUtente.getId().toString()) {
-                prenotazioneUtenteTextView.text = datiUtente.getNome() + " " + datiUtente.getCognome()
+                prenotazioneUtenteTextView.text = "Nome e Cognome: " +  datiUtente.getNome() + " " + datiUtente.getCognome()
             }
-            prenotazioneCSportivoTextView.text = prenotazione.centroSportivo
+            if (nomeSede != null){
+                prenotazioneCSportivoTextView.text = "Sede: " + nomeSede
+            }
+
             prenotazioneDataTextView.text = prenotazione.date.toString()
 
         }
