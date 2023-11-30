@@ -28,7 +28,7 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
     }
 
     inner class PrenotazioneViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-      //  private val prenotazioneUtenteTextView: TextView = itemView.findViewById(R.id.prenotazioneUtenteTextView)
+
         private val prenotazioneCSportivoTextView: TextView = itemView.findViewById(R.id.prenotazioneCSportivoTextView)
         private val prenotazioneDataTextView: TextView = itemView.findViewById(R.id.prenotazioneDataTextView)
         private val prenotazionePartecipantiTextView: TextView = itemView.findViewById(R.id.prenotazionePartecipantiTextView)
@@ -40,7 +40,7 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
             return sdf.format(date)
         }
         fun bind(prenotazione: Prenotazione) {
-            val datiUtente = UserValue()
+
 
             val mappaSedi = mapOf(
                 "EHRgWL3MllLaSuWPzddd" to "Ascoli Piceno",
@@ -52,9 +52,7 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
 
             val nomeSede = mappaSedi[prenotazione.centroSportivo]
 
-        /*    if (prenotazione.utente == datiUtente.getId().toString()) {
-                prenotazioneUtenteTextView.text = "Nome e Cognome: " +  datiUtente.getNome() + " " + datiUtente.getCognome()
-            }*/
+
             if (nomeSede != null){
                 prenotazioneCSportivoTextView.text = "Sede: " + nomeSede
             }
@@ -69,7 +67,7 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
                 1 -> 1
                 2 -> 2
                 3, 4 -> 3
-                else -> prenotazione.listautenti.size // Valore predefinito se non rientra in nessuna condizione
+                else -> prenotazione.listautenti.size
             }
 
             prenotazionePartecipantiTextView.text = "Altri Partecipanti: $partecipanti"
