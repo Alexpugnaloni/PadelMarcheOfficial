@@ -27,5 +27,5 @@ class AdminViewModel : ViewModel() {
     suspend fun init() {
 //ci andrà la funzione che ricarica la lista di tutte le prenotazioni
     }
-te piallo il sistema
+
 }
