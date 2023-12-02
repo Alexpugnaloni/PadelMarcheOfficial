@@ -14,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 
 import com.example.padelmarcheofficial.AccediActivity
 import com.example.padelmarcheofficial.MainActivityViewModel
@@ -58,14 +59,17 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
 
             val navEmailAdmin: TextView = headerView.findViewById(R.id.emailadmin)
 
+
+
             val toolbar : Toolbar = findViewById(R.id.toolbaradmin)
             setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(this,adminDrawerLayout,toolbar, R.string.cognome, R.string.nome)
         adminDrawerLayout.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
 
-        setSupportActionBar(toolbar)
+
 
 
 
