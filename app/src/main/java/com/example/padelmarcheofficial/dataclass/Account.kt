@@ -165,4 +165,15 @@ class Account : ViewModel(), Serializable {
     fun update() {
         gestioneFirebase.aggiornaAccount(this)
     }
+
+    suspend fun isAdmin(email: String?): String? {
+        val sedi = GestioneFirebase().downloadSedi()
+        for (sede in sedi.keys) {
+            if (sedi[sede]?.email == email) {
+                return sede
+            }
+        }
+
+        return null // Se l'email non corrisponde a nessun admin
+    }
 }

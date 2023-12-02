@@ -9,6 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.padelmarcheofficial.admin.AdminActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
+import com.example.padelmarcheofficial.dataclass.Account
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.time.Instant
+import java.util.Date
 
 
 /**
@@ -20,6 +28,7 @@ class AccediActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     lateinit var firebaseAuth: FirebaseAuth
     var testing: Boolean=false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,55 +55,42 @@ class AccediActivity : AppCompatActivity() {
 
 
 
-            val emailInput = "ancona@padelmarche.it"
-            val passwordInput = "Anconaancona"
 
-
-            fun isAdmin(email: String?): Boolean {
-                // Verifica se l'utente corrente corrisponde a un utente specifico
-                return email == "ancona@padelmarche.it"
-            }
-
-            firebaseAuth.signInWithEmailAndPassword(emailInput, passwordInput).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = firebaseAuth.currentUser
-                    if (user != null && isAdmin(user.email)) {
-                        // Reindirizza alla vista specifica per l'amministratore (AdminActivity)
-                        val intent = Intent(this, AdminActivity::class.java)
-                        startActivity(intent)
-                        finish() // Chiudi l'activity di login
-                    } else {
-                        // L'utente non è un amministratore
-                        // Puoi mostrare un messaggio di errore o reindirizzare altrove
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val user = firebaseAuth.currentUser
+                            if (user != null) {
+                                val reftothis= this
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    if (Account().isAdmin(user.email) != null) {
+                                        val intent = Intent(reftothis, AdminActivity::class.java)
+                                        startActivity(intent)
+                                        finish() // Chiudi l'activity di login
+                                    } else {
+                                        setResult(1)
+                                        finish()
+                                        val replyIntent = Intent()
+                                        replyIntent.putExtra("UserAccount", user)
+                                        if (!testing) {
+                                            setResult(Activity.RESULT_OK, replyIntent)
+                                            finish()
+                                        }
+                                        val mainIntent = Intent(reftothis, MainActivity::class.java)
+                                        startActivity(mainIntent)
+                                    }
+                                }
+                            } else {
+                                // Gestione dell'utente null
+                            }
+                        } else {
+                            Toast.makeText(this, "Accesso non riuscito: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
-                    // Accesso non riuscito
-                    Toast.makeText(this, "Accesso non riuscito: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val user = firebaseAuth.currentUser
-                        setResult(1)
-                        finish()
-                        val replyintent=Intent()
-                        replyintent.putExtra("UserAccount",user)
-                        if(!testing) {
-                            setResult(Activity.RESULT_OK, replyintent)
-                            finish()
-                        }
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this, "Completa i campi", Toast.LENGTH_SHORT).show()
                 }
 
-            } else Toast.makeText(this, "Completa i campi", Toast.LENGTH_SHORT).show()
         }
     }
 }

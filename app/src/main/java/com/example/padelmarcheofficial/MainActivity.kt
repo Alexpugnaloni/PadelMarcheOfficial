@@ -13,7 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.padelmarcheofficial.admin.AdminActivity
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
+import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.UserValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -89,14 +93,20 @@ class MainActivity : AppCompatActivity() {
          * effettua un controllo se l'utente è già loggato, se non è loggato rimanda al login
          */
 
-        if (!model.checkUtenteisLoggato()){
+        if (!model.checkUtenteisLoggato())
             startActivity(Intent(this, AccediActivity::class.java))
-        }
-        else   {
-            currentUser=auth.currentUser
-            navNomeUtente.text = UserValue().getNome() +" "+ UserValue().getCognome()
-            navEmailUtente.text = currentUser!!.email.toString()
-            initPoint()
+            else {
+            currentUser = auth.currentUser!!
+            val reftothis = this
+            CoroutineScope(Dispatchers.Main).launch {
+                if (Account().isAdmin(currentUser!!.email) != null) {
+                    startActivity(Intent(reftothis, AdminActivity::class.java))
+                } else {
+                    navNomeUtente.text = UserValue().getNome() + " " + UserValue().getCognome()
+                    navEmailUtente.text = currentUser!!.email.toString()
+                    initPoint()
+                }
+            }
         }
 
 

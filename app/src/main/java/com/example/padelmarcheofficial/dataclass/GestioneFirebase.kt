@@ -143,7 +143,8 @@ class GestioneFirebase {
                     doc.id,
                     doc["sede"].toString(),
                     doc["indirizzo"].toString(),
-                    doc["civico"].toString()
+                    doc["civico"].toString(),
+                    doc["email"].toString(),
                 )
             )
         return centriPadel

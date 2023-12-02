@@ -6,7 +6,8 @@ data class CentroSportivo(
     val id: String,
     val nome: String,
     val indirizzo: String,
-    val civico: String
+    val civico: String,
+    val email: String
 )
 
 

@@ -27,10 +27,8 @@ class AmiciFragment : Fragment() {
         _binding = FragmentAmiciBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        amiciViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+
         return root
     }
 
