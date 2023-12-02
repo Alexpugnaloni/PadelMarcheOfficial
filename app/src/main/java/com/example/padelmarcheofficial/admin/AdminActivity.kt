@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 
 import com.example.padelmarcheofficial.AccediActivity
+import com.example.padelmarcheofficial.MainActivityViewModel
 
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAdminBinding
@@ -35,16 +37,53 @@ import kotlinx.coroutines.launch
 class AdminActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityAdminBinding
 
+    private var currentUser: FirebaseUser? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewmodel = ViewModelProvider(this).get(AdminViewModel::class.java)
         CoroutineScope(Dispatchers.Main).launch {
             viewmodel.init()
-
+        }
             binding = ActivityAdminBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
+            val navAdminViewDrawer: NavigationView = binding.navAdminviewdrawer
 
+            val adminDrawerLayout: DrawerLayout = findViewById(R.id.admindrawer_layout)
+
+            val headerView: View = navAdminViewDrawer.getHeaderView(0)
+
+            val navEmailAdmin: TextView = headerView.findViewById(R.id.emailadmin)
+
+            val toolbar : Toolbar = findViewById(R.id.toolbaradmin)
+            setSupportActionBar(toolbar)
+
+        val toggle = ActionBarDrawerToggle(this,adminDrawerLayout,toolbar, R.string.cognome, R.string.nome)
+        adminDrawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        setSupportActionBar(toolbar)
+
+
+
+       // navEmailAdmin.text = currentUser!!.email.toString()
+        //initPoint()
+
+
+            navAdminViewDrawer.setNavigationItemSelectedListener { it: MenuItem ->
+                when (it.itemId) {
+                    R.id.nav_adminlogout -> {
+                        viewmodel.logOut()
+                        startActivity(Intent(this, AccediActivity::class.java))
+
+                        true
+                    }
+                    else -> {true}
+                }
+            }
         }
     }
-}
+

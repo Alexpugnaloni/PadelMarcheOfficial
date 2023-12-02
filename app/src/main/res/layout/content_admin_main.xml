@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/app_bar_admin_main">
+
+<androidx.fragment.app.FragmentContainerView
+    android:id="@+id/admimfragmentcontainer"
+    tools:layout ="@layout/fragment_admin_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

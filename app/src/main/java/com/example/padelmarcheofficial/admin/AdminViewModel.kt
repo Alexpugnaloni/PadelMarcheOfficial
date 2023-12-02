@@ -15,7 +15,7 @@ class AdminViewModel : ViewModel() {
 
     private var auth: FirebaseAuth = Firebase.auth
 
-    private var listaprenotazioni = GestioneFirebase().downloadprenotazioni
+//    private var listaprenotazioni = GestioneFirebase().downloadPrenotazioni()
 
     fun logOut() {
         auth.signOut()
