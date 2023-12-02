@@ -214,6 +214,6 @@ class PrenotaUnaPartitaViewModel : ViewModel() {
         for (id in prenotazione.listautenti)
             if (id.equals(idutente))
                 count++
-        return count fawfafaf
+        return count
     }
 }
