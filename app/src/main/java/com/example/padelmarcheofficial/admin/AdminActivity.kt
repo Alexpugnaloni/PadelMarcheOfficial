@@ -69,7 +69,7 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
 
 
 
-       // navEmailAdmin.text = currentUser!!.email.toString()
+        //navEmailAdmin.text = currentUser!!.email.toString()
         //initPoint()
 
 
