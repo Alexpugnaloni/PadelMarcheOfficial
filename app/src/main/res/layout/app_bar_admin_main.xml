@@ -25,6 +25,6 @@
 
     <include
         android:id="@+id/contenuto"
-        layout="@layout/fragment_admin_home" />
+        layout="@layout/content_admin_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
