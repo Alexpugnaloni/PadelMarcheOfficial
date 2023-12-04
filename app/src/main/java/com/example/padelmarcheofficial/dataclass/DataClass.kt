@@ -18,3 +18,9 @@ data class Prenotazione(
     val date: Date,
     val listautenti: List<String>, //Utenti che si prenotano mano a mano
 )
+
+data class Amministratori(
+    val id: String,
+    val email: String,
+    val sede: String
+)

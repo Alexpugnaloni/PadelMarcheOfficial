@@ -278,7 +278,28 @@ class GestioneFirebase {
 
         return prenotazioniList
     }
+    suspend fun downloadAmministratori(): List<Amministratori> {
+        //val db = FirebaseFirestore.getInstance()
+        val amministratoriList = mutableListOf<Amministratori>()
 
+        try {
+            val amministratoriSnapshot = db.collection("Amministratori").get().await()
+
+            for (document in amministratoriSnapshot.documents) {
+                val id = document.id
+                val email = document.getString("email") ?: ""
+                val sede = document.getString("sede") ?: ""
+
+                val amministratore = Amministratori(id, email, sede)
+                amministratoriList.add(amministratore)
+            }
+        } catch (e: Exception) {
+            // Gestisci l'eccezione
+            e.printStackTrace()
+        }
+
+        return amministratoriList
+    }
 
 
 

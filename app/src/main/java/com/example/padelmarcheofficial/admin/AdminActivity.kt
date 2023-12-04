@@ -17,11 +17,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 
 import com.example.padelmarcheofficial.AccediActivity
+import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.MainActivityViewModel
 
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAdminBinding
+import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
+import com.example.padelmarcheofficial.dataclass.UserValue
 
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -39,6 +42,7 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityAdminBinding
 
     private var currentUser: FirebaseUser? = null
+    private var auth: FirebaseAuth = Firebase.auth
 
 
 
@@ -69,12 +73,23 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
 
+        if (!viewmodel.checkAdminisLoggato())
+            startActivity(Intent(this, AccediActivity::class.java))
+        else {
+            currentUser = auth.currentUser!!
+            val reftothis = this
+            CoroutineScope(Dispatchers.Main).launch {
+                if (Account().isUser(currentUser!!.email)) {
+                    startActivity(Intent(reftothis, MainActivity::class.java))
+                } else {
+
+                    navEmailAdmin.text = currentUser!!.email.toString()
+                   // initPoint()
+                }
+            }
+        }
 
 
-
-
-        //navEmailAdmin.text = currentUser!!.email.toString()
-        //initPoint()
 
 
             navAdminViewDrawer.setNavigationItemSelectedListener { it: MenuItem ->

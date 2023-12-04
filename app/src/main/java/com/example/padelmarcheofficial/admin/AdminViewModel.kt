@@ -17,6 +17,12 @@ class AdminViewModel : ViewModel() {
 
 //    private var listaprenotazioni = GestioneFirebase().downloadPrenotazioni()
 
+    fun checkAdminisLoggato() : Boolean{
+        if(auth.currentUser != null)
+            return true
+        return false
+    }
+
     fun logOut() {
         auth.signOut()
     }
