@@ -279,7 +279,7 @@ class GestioneFirebase {
         return prenotazioniList
     }
     suspend fun downloadAmministratori(): List<Amministratori> {
-        //val db = FirebaseFirestore.getInstance()
+
         val amministratoriList = mutableListOf<Amministratori>()
 
         try {
@@ -300,6 +300,53 @@ class GestioneFirebase {
 
         return amministratoriList
     }
+
+    suspend fun downloadPrenotazioniAmministratore(): List<Prenotazione> {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val utenteID = currentUser?.uid ?: ""
+
+
+        val amministratoriList = downloadAmministratori()
+
+        val prenotazioniList = mutableListOf<Prenotazione>()
+
+        for (amministratore in amministratoriList) {
+            if (amministratore.id == utenteID) {
+                val sedeAmministratore = amministratore.sede
+
+                val centriSportiviSnapshot = db.collection("Centrisportivi")
+                    .whereEqualTo("id", sedeAmministratore)
+                    .get()
+                    .await()
+
+                for (centroSnapshot in centriSportiviSnapshot) {
+                    val snapshot = db.collection("Centrisportivi")
+                        .document(centroSnapshot.id)
+                        .collection("Prenotazioni")
+                        .get()
+                        .await()
+
+                    for (doc in snapshot.documents) {
+                        val dataPrenotazione = doc.getTimestamp("data")!!.toDate()
+                        val utente = doc.getString("idutente") ?: ""
+                        val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList()
+
+                        val prenotazione = Prenotazione(
+                            id = doc.id,
+                            utente = utente,
+                            centroSportivo = sedeAmministratore, // Puoi usare la sede dell'amministratore come centro sportivo
+                            date = dataPrenotazione,
+                            listautenti = listaUtenti
+                        )
+                        prenotazioniList.add(prenotazione)
+                    }
+                }
+            }
+        }
+
+        return prenotazioniList
+    }
+
 
 
 
