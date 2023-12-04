@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.dataclass.Prenotazione
+import com.example.padelmarcheofficial.dataclass.PrenotazioneAdmin
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PrenotazioniAdminAdapter : ListAdapter<Prenotazione, PrenotazioniAdminAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
+class PrenotazioniAdminAdapter : ListAdapter<PrenotazioneAdmin, PrenotazioniAdminAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrenotazioneViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_admin_layout, parent, false)
@@ -29,7 +30,9 @@ class PrenotazioniAdminAdapter : ListAdapter<Prenotazione, PrenotazioniAdminAdap
 
 
         private val prenotazioneDataTextView: TextView = itemView.findViewById(R.id.prenotazioneDataTextView)
-        private val prenotazionePartecipantiTextView: TextView = itemView.findViewById(R.id.prenotazionePartecipantiTextView)
+        private val prenotazioneConfermataTextView: TextView = itemView.findViewById(R.id.prenotazioneConfermataTextView)
+        private val prenotazioneNomeCognomeUtenteTextView: TextView = itemView.findViewById(R.id.prenotazioneNomeCognomeUtenteTextView)
+        private val prenotazioneCellulareTextView:TextView = itemView.findViewById(R.id.prenotazioneCellulareTextView)
 
 
         fun formatTimestamp(timestamp: Long): String {
@@ -37,7 +40,7 @@ class PrenotazioniAdminAdapter : ListAdapter<Prenotazione, PrenotazioniAdminAdap
             val date = Date(timestamp)
             return sdf.format(date)
         }
-        fun bind(prenotazione: Prenotazione) {
+        fun bind(prenotazione: PrenotazioneAdmin) {
 
 
 
@@ -46,24 +49,27 @@ class PrenotazioniAdminAdapter : ListAdapter<Prenotazione, PrenotazioniAdminAdap
             prenotazioneDataTextView.text = "Giorno e ora: " + formattedDate
 
             //VERIFICARE INCONGRUENZA DELLO 0 LISTAUTENTI CHE è 3 SE PRENOTO TUTTO IL CAMPO E 0 SE HO FATTO UNISCITI
-            val partecipanti: Int = when (prenotazione.listautenti.size) {
-                0 -> 3
-                1 -> 1
-                2 -> 2
-                3, 4 -> 3
-                else -> prenotazione.listautenti.size
+            val partecipanti: String = when (prenotazione.listautenti.size) {
+                0 -> "CONFERMATA"
+                1 -> "NON CONFERMATA"
+                2 -> "NON CONFERMATA"
+                3, 4 -> "CONFERMATA"
+                else -> prenotazione.listautenti.size.toString()
             }
 
-            prenotazionePartecipantiTextView.text = "Altri Partecipanti: $partecipanti"
+            prenotazioneConfermataTextView.text = "Prenotazione: $partecipanti"
+
+            prenotazioneNomeCognomeUtenteTextView.text = "Nome e Cognome: ${prenotazione.nomeutente}"
+            prenotazioneCellulareTextView.text = "Cellulare: ${prenotazione.cellulareUtente}"
         }
     }
 
-    class PrenotazioneDiffCallback : DiffUtil.ItemCallback<Prenotazione>() {
-        override fun areItemsTheSame(oldItem: Prenotazione, newItem: Prenotazione): Boolean {
+    class PrenotazioneDiffCallback : DiffUtil.ItemCallback<PrenotazioneAdmin>() {
+        override fun areItemsTheSame(oldItem: PrenotazioneAdmin, newItem: PrenotazioneAdmin): Boolean {
             return oldItem.id == newItem.id // Modifica questo controllo se hai un identificatore diverso per le prenotazioni
         }
 
-        override fun areContentsTheSame(oldItem: Prenotazione, newItem: Prenotazione): Boolean {
+        override fun areContentsTheSame(oldItem: PrenotazioneAdmin, newItem: PrenotazioneAdmin): Boolean {
             return oldItem == newItem // Controlla se i contenuti sono gli stessi, nel caso delle prenotazioni, è bene controllare l'uguaglianza
         }
     }

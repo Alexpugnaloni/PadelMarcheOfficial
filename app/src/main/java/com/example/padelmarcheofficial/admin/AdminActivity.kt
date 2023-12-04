@@ -73,21 +73,19 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
 
-        if (!viewmodel.checkAdminisLoggato())
+       if (!viewmodel.checkAdminisLoggato())
             startActivity(Intent(this, AccediActivity::class.java))
         else {
             currentUser = auth.currentUser!!
             val reftothis = this
             CoroutineScope(Dispatchers.Main).launch {
-                if (Account().isUser(currentUser!!.email)) {
-                    startActivity(Intent(reftothis, MainActivity::class.java))
-                } else {
+
 
                     navEmailAdmin.text = currentUser!!.email.toString()
-                   // initPoint()
+
                 }
             }
-        }
+
 
 
 

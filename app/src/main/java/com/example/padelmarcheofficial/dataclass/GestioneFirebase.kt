@@ -269,7 +269,7 @@ class GestioneFirebase {
                         utente = utente,
                         centroSportivo = centroSportivo,
                         date = dataPrenotazione,
-                        listautenti = listaUtenti
+                        listautenti = listaUtenti,
                     )
                     prenotazioniList.add(prenotazione)
                 }
@@ -301,51 +301,67 @@ class GestioneFirebase {
         return amministratoriList
     }
 
-    suspend fun downloadPrenotazioniAmministratore(): List<Prenotazione> {
+    suspend fun downloadPrenotazioniAmministratore(): List<PrenotazioneAdmin> {
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val utenteID = currentUser?.uid ?: ""
+        val userEmail = currentUser?.email ?: ""
+        val prenotazioniList = mutableListOf<PrenotazioneAdmin>()
 
+        // Ottieni i documenti dei centri sportivi che corrispondono all'email dell'utente loggato
+        val centriSportiviSnapshot = db.collection("Centrisportivi")
+            .whereEqualTo("email", userEmail)
+            .get()
+            .await()
 
-        val amministratoriList = downloadAmministratori()
+        for (centroSportivo in centriSportiviSnapshot) {
+            val centroSportivoEmail = centroSportivo.getString("email") ?: ""
+            val centroSportivoId = centroSportivo.id
 
-        val prenotazioniList = mutableListOf<Prenotazione>()
+            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
+            val prenotazioniSnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
 
-        for (amministratore in amministratoriList) {
-            if (amministratore.id == utenteID) {
-                val sedeAmministratore = amministratore.sede
+            val now = Calendar.getInstance().time // Ottieni la data attuale
 
-                val centriSportiviSnapshot = db.collection("Centrisportivi")
-                    .whereEqualTo("id", sedeAmministratore)
-                    .get()
-                    .await()
+            for (prenotazioneDoc in prenotazioniSnapshot) {
+                val dataPrenotazione = prenotazioneDoc.getTimestamp("data")?.toDate()
+                if (dataPrenotazione != null && dataPrenotazione >= now) {
+                    val utenteId = prenotazioneDoc.getString("idutente") ?: ""
 
-                for (centroSnapshot in centriSportiviSnapshot) {
-                    val snapshot = db.collection("Centrisportivi")
-                        .document(centroSnapshot.id)
-                        .collection("Prenotazioni")
-                        .get()
-                        .await()
+                    // Ottieni i dati dell'utente dalla raccolta "Accounts"
+                    val accountDoc = db.collection("Accounts").document(utenteId).get().await()
+                    val nome = accountDoc.getString("nome") ?: ""
+                    val cognome = accountDoc.getString("cognome") ?: ""
+                    val cellulare = accountDoc.getString("cellulare") ?: ""
 
-                    for (doc in snapshot.documents) {
-                        val dataPrenotazione = doc.getTimestamp("data")!!.toDate()
-                        val utente = doc.getString("idutente") ?: ""
-                        val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList()
+                    val listaUtenti = prenotazioneDoc.get("utenti") as? List<String> ?: emptyList()
 
-                        val prenotazione = Prenotazione(
-                            id = doc.id,
-                            utente = utente,
-                            centroSportivo = sedeAmministratore, // Puoi usare la sede dell'amministratore come centro sportivo
-                            date = dataPrenotazione,
-                            listautenti = listaUtenti
-                        )
-                        prenotazioniList.add(prenotazione)
-                    }
+                    val prenotazione = PrenotazioneAdmin(
+                        id = prenotazioneDoc.id,
+                        utente = utenteId,
+                        nomeutente = "$nome $cognome",
+                        centroSportivo = centroSportivoEmail,
+                        date = dataPrenotazione,
+                        listautenti = listaUtenti,
+                        cellulareUtente = cellulare
+                    )
+                    prenotazioniList.add(prenotazione)
                 }
             }
         }
 
+        // Ordina le prenotazioni per data (dal più recente al meno recente)
+        prenotazioniList.sortByDescending { it.date }
+
         return prenotazioniList
     }
+
+
+
+
+
 
 
 

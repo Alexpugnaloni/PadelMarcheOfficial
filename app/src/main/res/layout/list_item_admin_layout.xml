@@ -13,6 +13,22 @@
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 
+    <TextView
+        android:id="@+id/prenotazioneNomeCognomeUtenteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome e cognome:"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/prenotazioneCellulareTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Celulare:"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
 
     <TextView
         android:id="@+id/prenotazioneDataTextView"
@@ -23,10 +39,10 @@
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/prenotazionePartecipantiTextView"
+        android:id="@+id/prenotazioneConfermataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Partecipanti: "
+        android:text="Prenotazione Confermata: "
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 

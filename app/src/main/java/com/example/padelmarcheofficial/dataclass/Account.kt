@@ -178,7 +178,7 @@ class Account : ViewModel(), Serializable {
     }
 
  // generare funzione isUser che verifica che l'email dell'utente loggato non sia quella di un amministratore
- suspend fun isUser(userEmail: String?): Boolean {
+ /*suspend fun isUser(userEmail: String?): Boolean {
      val amministratoriList = GestioneFirebase().downloadAmministratori()
 
      for (amministratore in amministratoriList) {
@@ -188,5 +188,5 @@ class Account : ViewModel(), Serializable {
      }
      return true // L'utente non è tra gli amministratori
  }
-
+*/
 }
