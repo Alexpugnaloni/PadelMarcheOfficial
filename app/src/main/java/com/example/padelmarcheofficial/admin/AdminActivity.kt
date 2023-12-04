@@ -19,6 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.padelmarcheofficial.AccediActivity
 import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.MainActivityViewModel
+import com.example.padelmarcheofficial.ProfiloActivity
 
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAdminBinding
@@ -92,6 +93,13 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
 
             navAdminViewDrawer.setNavigationItemSelectedListener { it: MenuItem ->
                 when (it.itemId) {
+
+                    R.id.nav_prenotazionesingola -> {
+                        startActivity(Intent(this, AdminPrenotazioneActivity::class.java))
+                        true
+
+                    }
+
                     R.id.nav_adminlogout -> {
                         viewmodel.logOut()
                         startActivity(Intent(this, AccediActivity::class.java))

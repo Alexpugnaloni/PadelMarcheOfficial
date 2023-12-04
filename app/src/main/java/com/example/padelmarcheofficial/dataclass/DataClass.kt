@@ -14,7 +14,6 @@ data class CentroSportivo(
 data class Prenotazione(
     val id: String,
     val utente: String,//UtenteRegistrato,
-
     val centroSportivo: String,//CentroSportivo,
     val date: Date,
     val listautenti: List<String>, //Utenti che si prenotano mano a mano

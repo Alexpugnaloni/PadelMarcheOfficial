@@ -58,7 +58,6 @@ class PrenotazioniAdminAdapter : ListAdapter<PrenotazioneAdmin, PrenotazioniAdmi
             }
 
             prenotazioneConfermataTextView.text = "Prenotazione: $partecipanti"
-
             prenotazioneNomeCognomeUtenteTextView.text = "Nome e Cognome: ${prenotazione.nomeutente}"
             prenotazioneCellulareTextView.text = "Cellulare: ${prenotazione.cellulareUtente}"
         }

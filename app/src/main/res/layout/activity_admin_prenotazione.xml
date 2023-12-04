@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AdminPrenotazioneActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbargenerale"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titolotoolbar"
+        android:layout_width="241dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="686dp"
+        android:text="PadelMarche"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/frecciatoolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="347dp"
+        android:backgroundTint="@color/blu"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleziona la provincia"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <Spinner
+                android:id="@+id/spinnerProvincia"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
+                android:minHeight="48dp"
+                android:prompt="@string/spinnerP"
+                android:spinnerMode="dialog"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="88dp" />
+
+            <Button
+                android:id="@+id/btnDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Scegli un giorno"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/giornoscelto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/fasciaoraria1"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 9:00 alle 10:00"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/fasciaoraria2"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 10:00 alle 11:00"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/fasciaoraria3"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 11:00 alle 12:00"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/fasciaoraria4"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 15:00 alle 16:00"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/fasciaoraria5"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 16:00 alle 17:00"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/fasciaoraria6"
+                android:layout_width="368dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:text="Ora dalle 17:00 alle 18:00"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/prezzo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prezzo 60€"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+
+            <Button
+                android:id="@+id/btnConferma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CONFERMA"
+                android:textAllCaps="false" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
