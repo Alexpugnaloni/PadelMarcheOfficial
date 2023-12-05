@@ -18,7 +18,7 @@ import com.example.padelmarcheofficial.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 
-class PrenotazioniFragment : Fragment() {
+class PrenotazioniFragment : Fragment(),PrenotazioneClickListener {
 
 
     private var _binding: FragmentPrenotazioniBinding? = null
@@ -44,7 +44,7 @@ class PrenotazioniFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        prenotazioniAdapter = PrenotazioniAdapter()
+        prenotazioniAdapter = PrenotazioniAdapter(this)
         recyclerView.adapter = prenotazioniAdapter
 
         viewModelFactory = PrenotazioniViewModelFactory(GestioneFirebase())
@@ -59,6 +59,14 @@ class PrenotazioniFragment : Fragment() {
     return view
 
 
+    }
+    override fun onPrenotazioneDelete(prenotazioneId: String) {
+        // Esegui le azioni necessarie quando viene richiesta l'eliminazione della prenotazione
+        // Ad esempio, chiamare il metodo per eliminare la prenotazione dalla classe GestioneFirebase
+        lifecycleScope.launch {
+            val gestioneFirebase = GestioneFirebase()
+            gestioneFirebase.eliminaPrenotazione(prenotazioneId)
+        }
     }
 
 

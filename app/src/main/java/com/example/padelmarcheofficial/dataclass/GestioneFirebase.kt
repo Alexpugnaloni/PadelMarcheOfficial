@@ -300,6 +300,23 @@ class GestioneFirebase {
 
         return amministratoriList
     }
+    suspend fun eliminaPrenotazione(idPrenotazione: String) {
+        val centriSportiviRef = db.collection("Centrisportivi")
+
+        try {
+            val snapshot = centriSportiviRef.get().await()
+            for (document in snapshot) {
+                val prenotazioniRef = document.reference.collection("Prenotazioni")
+                val prenotazioneDaEliminare = prenotazioniRef.document(idPrenotazione).get().await()
+
+                if (prenotazioneDaEliminare.exists()) {
+                    prenotazioniRef.document(idPrenotazione).delete().await()
+                }
+            }
+        } catch (e: Exception) {
+            // Gestisci l'eccezione se si verifica un errore durante l'eliminazione della prenotazione
+        }
+    }
 
     suspend fun downloadPrenotazioniAmministratore(): List<PrenotazioneAdmin> {
         val currentUser = FirebaseAuth.getInstance().currentUser

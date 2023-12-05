@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/custon_background_items"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -36,6 +37,17 @@
         android:text="Partecipanti: "
         android:textSize="16sp"
         android:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/btnEliminaPren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/delete"
+        android:padding="8dp" />
 
 
 </LinearLayout>

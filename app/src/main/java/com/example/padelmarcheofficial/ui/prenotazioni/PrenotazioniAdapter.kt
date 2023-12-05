@@ -1,21 +1,25 @@
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.dataclass.CentroSportivo
+import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.Prenotazione
 import com.example.padelmarcheofficial.dataclass.UserValue
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotazioneClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 //package com.example.padelmarcheofficial.ui.prenotazioni
 
-class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
+class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneClickListener) : ListAdapter<Prenotazione, PrenotazioniAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrenotazioneViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_layout, parent, false)
@@ -32,6 +36,31 @@ class PrenotazioniAdapter : ListAdapter<Prenotazione, PrenotazioniAdapter.Prenot
         private val prenotazioneCSportivoTextView: TextView = itemView.findViewById(R.id.prenotazioneCSportivoTextView)
         private val prenotazioneDataTextView: TextView = itemView.findViewById(R.id.prenotazioneDataTextView)
         private val prenotazionePartecipantiTextView: TextView = itemView.findViewById(R.id.prenotazionePartecipantiTextView)
+
+
+            init {
+                itemView.findViewById<ImageView>(R.id.btnEliminaPren).setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val prenotazioneToDelete = getItem(position)
+
+                        val builder = AlertDialog.Builder(itemView.context)
+                        builder.setTitle("Conferma eliminazione")
+                        builder.setMessage("Sei sicuro di voler eliminare questa prenotazione?")
+                        builder.setPositiveButton("Elimina") { dialog, _ ->
+                            val idPrenotazione = prenotazioneToDelete.id
+                            prenotazioneClickListener.onPrenotazioneDelete(idPrenotazione)
+                        }
+                        builder.setNegativeButton("Annulla") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+
+                        val dialog = builder.create()
+                        dialog.show()
+                    }
+                }
+            }
+            // ... il resto del codice del ViewHolder
 
 
         fun formatTimestamp(timestamp: Long): String {
