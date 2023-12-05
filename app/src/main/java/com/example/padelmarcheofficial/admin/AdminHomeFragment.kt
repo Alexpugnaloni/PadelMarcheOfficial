@@ -27,9 +27,9 @@ import java.util.Date
  * Use the [AdminHomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminHomeFragment : Fragment(),LifecycleOwner{
+class AdminHomeFragment : Fragment(){
 
-    private lateinit var binding: FragmentAdminHomeBinding
+  //  private lateinit var binding: FragmentAdminHomeBinding
 
     private var _binding: FragmentAdminHomeBinding? = null
 
@@ -68,7 +68,7 @@ class AdminHomeFragment : Fragment(),LifecycleOwner{
 
 
 
-
+/*
         binding.btnDatePicker2.setOnClickListener {
             val c = Calendar.getInstance()
             c.add(Calendar.DAY_OF_YEAR, 1)
@@ -102,7 +102,7 @@ class AdminHomeFragment : Fragment(),LifecycleOwner{
                     }
                 }
             }
-        }
+        } */
 
         return view
 
