@@ -13,11 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.FragmentAdminHomeBinding
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotazioneClickListener
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -27,7 +30,7 @@ import java.util.Date
  * Use the [AdminHomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminHomeFragment : Fragment(){
+class AdminHomeFragment : Fragment(), PrenotazioneClickListener {
 
   //  private lateinit var binding: FragmentAdminHomeBinding
 
@@ -54,7 +57,7 @@ class AdminHomeFragment : Fragment(){
         recyclerView = view.findViewById(R.id.recyclerAdminView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        prenotazioniAdapter = PrenotazioniAdminAdapter()
+        prenotazioniAdapter = PrenotazioniAdminAdapter(this)
         recyclerView.adapter = prenotazioniAdapter
 
         viewModelFactory = PrenotazioniAdminViewModelFactory(GestioneFirebase())
@@ -108,7 +111,14 @@ class AdminHomeFragment : Fragment(){
 
 
     }
-
+    override fun onPrenotazioneDelete(prenotazioneId: String) {
+        // Esegui le azioni necessarie quando viene richiesta l'eliminazione della prenotazione
+        // Ad esempio, chiamare il metodo per eliminare la prenotazione dalla classe GestioneFirebase
+        lifecycleScope.launch {
+            val gestioneFirebase = GestioneFirebase()
+            gestioneFirebase.eliminaPrenotazione(prenotazioneId)
+        }
+    }
 
 
     override fun onDestroyView() {

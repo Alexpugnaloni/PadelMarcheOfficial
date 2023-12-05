@@ -349,9 +349,12 @@ class GestioneFirebase {
 
                     // Ottieni i dati dell'utente dalla raccolta "Accounts"
                     val accountDoc = db.collection("Accounts").document(utenteId).get().await()
-                    val nome = accountDoc.getString("nome") ?: ""
+                    val nome = accountDoc.getString("nome") ?: "Admin"
                     val cognome = accountDoc.getString("cognome") ?: ""
-                    val cellulare = accountDoc.getString("cellulare") ?: ""
+                    val cellulare = accountDoc.getString("cellulare") ?: "Admin"
+
+
+
 
                     val listaUtenti = prenotazioneDoc.get("utenti") as? List<String> ?: emptyList()
 

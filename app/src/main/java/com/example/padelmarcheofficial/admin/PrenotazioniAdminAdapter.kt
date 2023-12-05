@@ -1,8 +1,10 @@
 package com.example.padelmarcheofficial.admin
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.dataclass.Prenotazione
 import com.example.padelmarcheofficial.dataclass.PrenotazioneAdmin
+import com.example.padelmarcheofficial.ui.prenotazioni.PrenotazioneClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PrenotazioniAdminAdapter : ListAdapter<PrenotazioneAdmin, PrenotazioniAdminAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
+class PrenotazioniAdminAdapter(private val prenotazioneClickListener: PrenotazioneClickListener) : ListAdapter<PrenotazioneAdmin, PrenotazioniAdminAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrenotazioneViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_admin_layout, parent, false)
@@ -34,7 +37,28 @@ class PrenotazioniAdminAdapter : ListAdapter<PrenotazioneAdmin, PrenotazioniAdmi
         private val prenotazioneNomeCognomeUtenteTextView: TextView = itemView.findViewById(R.id.prenotazioneNomeCognomeUtenteTextView)
         private val prenotazioneCellulareTextView:TextView = itemView.findViewById(R.id.prenotazioneCellulareTextView)
 
+        init {
+            itemView.findViewById<ImageView>(R.id.btnEliminaPren).setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val prenotazioneToDelete = getItem(position)
 
+                    val builder = AlertDialog.Builder(itemView.context)
+                    builder.setTitle("Conferma eliminazione")
+                    builder.setMessage("Sei sicuro di voler eliminare questa prenotazione?")
+                    builder.setPositiveButton("Elimina") { dialog, _ ->
+                        val idPrenotazione = prenotazioneToDelete.id
+                        prenotazioneClickListener.onPrenotazioneDelete(idPrenotazione)
+                    }
+                    builder.setNegativeButton("Annulla") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                    val dialog = builder.create()
+                    dialog.show()
+                }
+            }
+        }
         fun formatTimestamp(timestamp: Long): String {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             val date = Date(timestamp)
