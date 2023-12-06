@@ -21,7 +21,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class AdminPrenotazioneViewModel : ViewModel() {
+class AdminPrenotaUnaPartitaViewModel : ViewModel() {
     val _terminato = MutableLiveData<Boolean>(false)
     val terminato: LiveData<Boolean> = _terminato
 

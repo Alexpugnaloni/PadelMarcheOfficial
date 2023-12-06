@@ -1,15 +1,11 @@
 package com.example.padelmarcheofficial.admin
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.DatePicker
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,10 +25,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-
 
 
 class AdminActivity : AppCompatActivity(), LifecycleOwner {
@@ -90,7 +82,7 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
                 when (it.itemId) {
 
                     R.id.nav_prenotazionesingola -> {
-                        startActivity(Intent(this, AdminPrenotazioneActivity::class.java))
+                        startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
                         true
 
                     }

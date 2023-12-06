@@ -2,8 +2,6 @@ package com.example.padelmarcheofficial.admin
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,28 +13,17 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import com.example.padelmarcheofficial.MainActivity
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAdminPrenotazioneBinding
-import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartitaBinding
-import com.example.padelmarcheofficial.dataclass.CentroSportivo
-import com.example.padelmarcheofficial.dataclass.GestioneFirebase
-import com.example.padelmarcheofficial.dataclass.Prenotazione
-import com.example.padelmarcheofficial.ui.prenotazioni.PrenotaUnaPartitaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
-class AdminPrenotazioneActivity : AppCompatActivity() {
+class AdminPrenotaUnaPartitaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminPrenotazioneBinding
     private var myCalendar: Calendar = Calendar.getInstance()
@@ -49,7 +36,7 @@ class AdminPrenotazioneActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewmodel = ViewModelProvider(this).get(AdminPrenotazioneViewModel::class.java)
+        val viewmodel = ViewModelProvider(this).get(AdminPrenotaUnaPartitaViewModel::class.java)
         CoroutineScope(Dispatchers.Main).launch {
             viewmodel.init()
         }
