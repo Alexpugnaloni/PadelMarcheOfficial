@@ -22,6 +22,7 @@
     <string name="title_prenotazioni">Prenotazioni</string>
     <string name="title_amici">Amici</string>
     <string name="title_prenotazioni_admin">Prenotazioni Admin</string>
+    <string name="title_stats">Statistiche Superadmin</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
