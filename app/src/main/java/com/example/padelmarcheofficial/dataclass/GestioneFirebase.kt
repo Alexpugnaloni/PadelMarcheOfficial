@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -414,6 +415,117 @@ class GestioneFirebase {
                 )
                 inserimentoInFirestore(acc)
             }
+    }
+
+    suspend fun contaUtentiStatistiche(): Int {
+
+        return try {
+            val querySnapshot: QuerySnapshot = db.collection("Accounts").get().await()
+            querySnapshot.size()
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+            -1
+        }
+    }
+    suspend fun contaPrenotazioniOggi(centroSportivoId: String): Int {
+
+        val today = Calendar.getInstance()
+
+        return try {
+            val prenotazioniSnapshot: QuerySnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            var count = 0
+
+            for (prenotazioneDoc in prenotazioniSnapshot) {
+                val dataPrenotazione = prenotazioneDoc.getTimestamp("data")
+                if (dataPrenotazione != null) {
+                    val cal = Calendar.getInstance()
+                    cal.time = dataPrenotazione.toDate()
+                    if (cal.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
+                        cal.get(Calendar.MONTH) == today.get(Calendar.MONTH) &&
+                        cal.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)
+                    ) {
+                        count++
+                    }
+                }
+            }
+            count
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+            -1
+        }
+    }
+
+    suspend fun contaPrenotazioniSettimana(centroSportivoId: String): Int {
+
+        val today = Calendar.getInstance()
+        val oneWeekAgo = Calendar.getInstance()
+        oneWeekAgo.add(Calendar.DAY_OF_YEAR, -7)
+
+        return try {
+            val prenotazioniSnapshot: QuerySnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            var count = 0
+
+            for (prenotazioneDoc in prenotazioniSnapshot) {
+                val dataPrenotazione = prenotazioneDoc.getTimestamp("data")
+                if (dataPrenotazione != null) {
+                    val cal = Calendar.getInstance()
+                    cal.time = dataPrenotazione.toDate()
+                    if (cal.after(oneWeekAgo) && cal.before(today)) {
+                        count++
+                    }
+                }
+            }
+            count
+        } catch (e: Exception) {
+            // Gestione dell'eccezione in caso di errore
+            e.printStackTrace()
+            -1 // Valore di ritorno in caso di errore
+        }
+    }
+
+    suspend fun contaPrenotazioniMese(centroSportivoId: String): Int {
+
+        val today = Calendar.getInstance()
+        val oneMonthAgo = Calendar.getInstance()
+        oneMonthAgo.add(Calendar.MONTH, -1)
+
+        return try {
+            val prenotazioniSnapshot: QuerySnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            var count = 0
+
+            for (prenotazioneDoc in prenotazioniSnapshot) {
+                val dataPrenotazione = prenotazioneDoc.getTimestamp("data")
+                if (dataPrenotazione != null) {
+                    val cal = Calendar.getInstance()
+                    cal.time = dataPrenotazione.toDate()
+                    if (cal.after(oneMonthAgo) && cal.before(today)) {
+                        count++
+                    }
+                }
+            }
+            count
+        } catch (e: Exception) {
+            // Gestione dell'eccezione in caso di errore
+            e.printStackTrace()
+            -1 // Valore di ritorno in caso di errore
+        }
     }
 
 }

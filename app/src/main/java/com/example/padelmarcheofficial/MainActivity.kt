@@ -18,6 +18,7 @@ import com.example.padelmarcheofficial.databinding.ActivityMainBinding
 import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.UserValue
+import com.example.padelmarcheofficial.superadmin.SuperadminActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -101,7 +102,9 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 if (Account().isAdmin(currentUser!!.email) != null) {
                     startActivity(Intent(reftothis, AdminActivity::class.java))
-                } else {
+                }else if (currentUser!!.email == "superadmin@padelmarche.it")
+                    startActivity(Intent(reftothis, SuperadminActivity::class.java))
+                else {
                     navNomeUtente.text = UserValue().getNome() + " " + UserValue().getCognome()
                     navEmailUtente.text = currentUser!!.email.toString()
                     initPoint()

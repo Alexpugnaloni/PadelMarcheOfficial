@@ -27,6 +27,76 @@
                 android:textSize="25dp"
                 android:textStyle="bold|italic"/>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            </Space>
+
+            <TextView
+                android:id="@+id/textnumiscrittiView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numero di iscritti:"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            </Space>
+
+            <TextView
+                android:id="@+id/textEntrateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrate"
+                android:textSize="25dp"
+                android:textStyle="bold|italic"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            </Space>
+
+            <TextView
+                android:id="@+id/textentrategiornaliereTotView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrate Giornaliere Totali:"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            </Space>
+
+            <TextView
+                android:id="@+id/textentrateSettimanaliTotView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrate Settimanali Totali:"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            </Space>
+
+            <TextView
+                android:id="@+id/textentrateMensiliTotView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrate Mensili Totali:"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
             <!-- <Button
                 android:id="@+id/btnDatePicker2"
                 android:layout_width="wrap_content"

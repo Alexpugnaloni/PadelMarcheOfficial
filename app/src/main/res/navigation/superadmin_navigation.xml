@@ -6,7 +6,7 @@
     app:startDestination="@+id/navigation_superadmin">
 
     <fragment
-        android:id="@+id/navigation_admin"
+        android:id="@+id/navigation_superadmin"
         android:name="com.example.padelmarcheofficial.superadmin.SuperadminFragment"
         android:label="@string/title_stats"
         tools:layout="@layout/fragment_superadmin_home"/>

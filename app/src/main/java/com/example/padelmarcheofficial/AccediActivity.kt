@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
 import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
+import com.example.padelmarcheofficial.superadmin.SuperadminActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -67,7 +68,12 @@ class AccediActivity : AppCompatActivity() {
                                         val intent = Intent(reftothis, AdminActivity::class.java)
                                         startActivity(intent)
                                         finish() // Chiudi l'activity di login
-                                    } else {
+                                    }else if (user.email == "superadmin@padelmarche.it"){
+                                        val intent = Intent(reftothis, SuperadminActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    else {
                                         setResult(1)
                                         finish()
                                         val replyIntent = Intent()
