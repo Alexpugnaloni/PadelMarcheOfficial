@@ -4,6 +4,8 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
+
 android {
     namespace = "com.example.padelmarcheofficial"
     compileSdk = 34
@@ -40,6 +42,8 @@ android {
     }
 }
 
+
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -65,5 +69,6 @@ dependencies {
     implementation ("com.google.firebase:firebase-messaging:23.3.1")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
+
 
 }
