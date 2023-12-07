@@ -31,6 +31,18 @@ class SuperadminViewModel : ViewModel() {
     val numUtentiIscritti: LiveData<Int>
         get() = _numUtentiIscritti
 
+    private val _numPrenotazioniCentroSportivoOggi = MutableLiveData<Int>()
+    val numPrenotazioniCentroSportivoOggi: LiveData<Int>
+        get() = _numPrenotazioniCentroSportivoOggi
+
+    private val _numPrenotazioniCentroSportivoSettimanaPassata = MutableLiveData<Int>()
+    val numPrenotazioniCentroSportivoSettimanaPassata: LiveData<Int>
+        get() = _numPrenotazioniCentroSportivoSettimanaPassata
+
+    private val _numPrenotazioniCentroSportivoMesePassato = MutableLiveData<Int>()
+    val numPrenotazioniCentroSportivoMesePassato: LiveData<Int>
+        get() = _numPrenotazioniCentroSportivoMesePassato
+
     fun checkSuperadminisLoggato() : Boolean{
         if(auth.currentUser != null)
             return true
@@ -68,12 +80,34 @@ class SuperadminViewModel : ViewModel() {
         }
     }
 
+    fun caricaNumPrenotazioniOggiPerCentroSportivo(centroSportivoId: String) {
+        viewModelScope.launch {
+            val numPrenotazioni = gestioneFirebase.contaPrenotazioniOggi(centroSportivoId)
+            _numPrenotazioniCentroSportivoOggi.postValue(numPrenotazioni)
+        }
+    }
+
+    fun caricaNumPrenotazioniSettimanaPassataPerCentroSportivo(centroSportivoId: String) {
+        viewModelScope.launch {
+            val numPrenotazioni = gestioneFirebase.contaPrenotazioniSettimanaPassata(centroSportivoId)
+            _numPrenotazioniCentroSportivoSettimanaPassata.postValue(numPrenotazioni)
+        }
+    }
+
+    fun caricaNumPrenotazioniMesePassatoPerCentroSportivo(centroSportivoId: String) {
+        viewModelScope.launch {
+            val numPrenotazioni = gestioneFirebase.contaPrenotazioniMesePassato(centroSportivoId)
+            _numPrenotazioniCentroSportivoMesePassato.postValue(numPrenotazioni)
+        }
+    }
+
+
 
     /**
      * Funzione che istanzia le prenotazioni effettuando download da Firebase
      */
     suspend fun init() {
-//ci andrà la funzione che ricarica la lista di tutte le prenotazioni
+
     }
 
 }

@@ -82,7 +82,7 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
                 }
 
                 R.id.nav_centroAncona -> {
-                    startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
+                    startActivity(Intent(this, AnconaActivity::class.java))
                     true
 
                 }
