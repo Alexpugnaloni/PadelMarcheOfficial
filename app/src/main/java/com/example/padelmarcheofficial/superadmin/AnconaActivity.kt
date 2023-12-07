@@ -32,7 +32,7 @@ class AnconaActivity : AppCompatActivity() {
         superadminViewModel = ViewModelProvider(this).get(SuperadminViewModel::class.java)
 
 
-        val centroSportivoId = intent.getStringExtra("centroSportivoId") ?: ""
+        val centroSportivoId = intent.getStringExtra("centroSportivoId") ?: "ge42drMdBlsI3MUuVeuX"
         superadminViewModel.caricaNumPrenotazioniOggiPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniSettimanaPassataPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniMesePassatoPerCentroSportivo(centroSportivoId)
