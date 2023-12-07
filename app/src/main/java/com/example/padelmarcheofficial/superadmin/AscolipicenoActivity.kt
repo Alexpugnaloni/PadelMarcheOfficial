@@ -1,37 +1,37 @@
 package com.example.padelmarcheofficial.superadmin
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.databinding.ActivityAnconaBinding
 
+import com.example.padelmarcheofficial.databinding.ActivityAscolipicenoBinding
 
-class AnconaActivity : AppCompatActivity() {
+class AscolipicenoActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnconaBinding
+    private lateinit var binding: ActivityAscolipicenoBinding
     private lateinit var frecciaBack: ImageButton
     private lateinit var superadminViewModel: SuperadminViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnconaBinding.inflate(layoutInflater)
+        binding = ActivityAscolipicenoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
             val intent = Intent(this, SuperadminActivity::class.java)
-            intent.putExtra("centroSportivoId", "ge42drMdBlsI3MUuVeuX")
+            intent.putExtra("centroSportivoId", "EHRgWL3MllLaSuWPzddd")
             startActivity(intent)
         }
 
         superadminViewModel = ViewModelProvider(this).get(SuperadminViewModel::class.java)
 
 
-        val centroSportivoId = intent.getStringExtra("centroSportivoId") ?: "ge42drMdBlsI3MUuVeuX"
+        val centroSportivoId = intent.getStringExtra("centroSportivoId") ?: "EHRgWL3MllLaSuWPzddd"
         superadminViewModel.caricaNumPrenotazioniOggiPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniSettimanaPassataPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniMesePassatoPerCentroSportivo(centroSportivoId)

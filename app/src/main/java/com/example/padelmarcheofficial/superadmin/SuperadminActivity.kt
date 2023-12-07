@@ -76,7 +76,7 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
             when (it.itemId) {
 
                 R.id.nav_centroPesaroUrbino -> {
-                    startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
+                    startActivity(Intent(this, PesarourbinoActivity::class.java))
                     true
 
                 }
@@ -88,19 +88,19 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
                 }
 
                 R.id.nav_centroMacerata -> {
-                    startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
+                    startActivity(Intent(this, MacerataActivity::class.java))
                     true
 
                 }
 
                 R.id.nav_centroFermo -> {
-                    startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
+                    startActivity(Intent(this, FermoActivity::class.java))
                     true
 
                 }
 
                 R.id.nav_centroAscoliPiceno -> {
-                    startActivity(Intent(this, AdminPrenotaUnaPartitaActivity::class.java))
+                    startActivity(Intent(this, AscolipicenoActivity::class.java))
                     true
 
                 }

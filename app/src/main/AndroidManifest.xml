@@ -13,6 +13,18 @@
         android:theme="@style/Theme.PadelMarcheOfficial"
         tools:targetApi="31">
         <activity
+            android:name=".superadmin.AscolipicenoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".superadmin.FermoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".superadmin.MacerataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".superadmin.PesarourbinoActivity"
+            android:exported="false" />
+        <activity
             android:name=".superadmin.AnconaActivity"
             android:exported="false" />
         <activity
