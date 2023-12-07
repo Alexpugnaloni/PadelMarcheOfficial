@@ -11,6 +11,7 @@ import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.FragmentPrenotazioniBinding
 import com.example.padelmarcheofficial.databinding.FragmentSuperadminHomeBinding
 
+
 class SuperadminFragment : Fragment() {
 
     private lateinit var superadminViewModel: SuperadminViewModel
@@ -58,6 +59,8 @@ class SuperadminFragment : Fragment() {
         superadminViewModel.numUtentiIscritti.observe(viewLifecycleOwner, Observer { numUtenti ->
             binding.textnumiscrittiView.text = "Numero di iscritti: $numUtenti"
         })
+
+
     }
 
     override fun onDestroyView() {

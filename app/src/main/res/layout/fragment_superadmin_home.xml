@@ -33,6 +33,7 @@
 
             </Space>
 
+
             <TextView
                 android:id="@+id/textnumiscrittiView"
                 android:layout_width="wrap_content"
@@ -106,8 +107,12 @@
                 android:textAllCaps="false" /> -->
 
 
+
         </LinearLayout>
 
+
+
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
