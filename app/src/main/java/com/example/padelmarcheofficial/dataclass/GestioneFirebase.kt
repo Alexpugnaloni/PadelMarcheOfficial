@@ -11,8 +11,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import java.security.Timestamp
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class GestioneFirebase {
 
@@ -462,7 +464,7 @@ class GestioneFirebase {
         }
     }
 
-    suspend fun contaPrenotazioniSettimana(centroSportivoId: String): Int {
+    suspend fun contaPrenotazioniSettimanaPassata(centroSportivoId: String): Int {
 
         val today = Calendar.getInstance()
         val oneWeekAgo = Calendar.getInstance()
@@ -495,7 +497,7 @@ class GestioneFirebase {
         }
     }
 
-    suspend fun contaPrenotazioniMese(centroSportivoId: String): Int {
+    suspend fun contaPrenotazioniMesePassato(centroSportivoId: String): Int {
 
         val today = Calendar.getInstance()
         val oneMonthAgo = Calendar.getInstance()
@@ -526,6 +528,100 @@ class GestioneFirebase {
             e.printStackTrace()
             -1 // Valore di ritorno in caso di errore
         }
+    }
+
+    suspend fun contaPrenotazioniTotaliOggi(): Int {
+
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        var totalPrenotazioni = 0
+
+        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
+        val centriSportivi = db.collection("Centrisportivi").get().await()
+
+        for (centroSportivo in centriSportivi) {
+            val centroSportivoId = centroSportivo.id
+
+            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
+            val prenotazioniSnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .whereEqualTo("data", currentDate)
+                .get()
+                .await()
+
+            totalPrenotazioni += prenotazioniSnapshot.size()
+        }
+
+        return totalPrenotazioni
+    }
+
+    suspend fun contaPrenotazioniTotaliSettimanaPassata(): Int {
+
+        val currentDate = Date()
+
+        val oneWeekAgo = Calendar.getInstance()
+        oneWeekAgo.add(Calendar.DATE, -7)
+
+        var totalPrenotazioni = 0
+
+        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
+        val centriSportivi = db.collection("Centrisportivi").get().await()
+
+        for (centroSportivo in centriSportivi) {
+            val centroSportivoId = centroSportivo.id
+
+            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
+            val prenotazioniSnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            for (doc in prenotazioniSnapshot) {
+                val dataPrenotazione = doc.getTimestamp("data")?.toDate()
+
+                if (dataPrenotazione != null && dataPrenotazione >= oneWeekAgo.time && dataPrenotazione <= currentDate) {
+                    totalPrenotazioni++
+                }
+            }
+        }
+
+        return totalPrenotazioni
+    }
+
+    suspend fun contaPrenotazioniTotaliMesePassato(): Int {
+
+        val currentDate = Date()
+
+        val oneMonthAgo = Calendar.getInstance()
+        oneMonthAgo.add(Calendar.MONTH, -1)
+
+        var totalPrenotazioni = 0
+
+        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
+        val centriSportivi = db.collection("Centrisportivi").get().await()
+
+        for (centroSportivo in centriSportivi) {
+            val centroSportivoId = centroSportivo.id
+
+            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
+            val prenotazioniSnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            for (doc in prenotazioniSnapshot) {
+                val dataPrenotazione = doc.getTimestamp("data")?.toDate()
+
+                if (dataPrenotazione != null && dataPrenotazione >= oneMonthAgo.time && dataPrenotazione <= currentDate) {
+                    totalPrenotazioni++
+                }
+            }
+        }
+
+        return totalPrenotazioni
     }
 
 }

@@ -10,12 +10,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.AccediActivity
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.admin.AdminActivityViewModel
 import com.example.padelmarcheofficial.admin.AdminPrenotaUnaPartitaActivity
-import com.example.padelmarcheofficial.databinding.ActivityAdminBinding
 import com.example.padelmarcheofficial.databinding.ActivitySuperadminBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -32,7 +31,7 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
     private var auth: FirebaseAuth = Firebase.auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewmodel = ViewModelProvider(this).get(SuperadminActivityViewModel::class.java)
+        val viewmodel = ViewModelProvider(this).get(SuperadminViewModel::class.java)
         CoroutineScope(Dispatchers.Main).launch {
             viewmodel.init()
         }
@@ -70,6 +69,7 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
                 navEmailSuperAdmin.text = currentUser!!.email.toString()
             }
         }
+
 
 
         navAdminViewDrawer.setNavigationItemSelectedListener { it: MenuItem ->
