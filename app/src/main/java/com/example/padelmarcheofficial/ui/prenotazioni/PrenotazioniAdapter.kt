@@ -8,16 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.dataclass.CentroSportivo
-import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.Prenotazione
-import com.example.padelmarcheofficial.dataclass.UserValue
 import com.example.padelmarcheofficial.ui.prenotazioni.PrenotazioneClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-//package com.example.padelmarcheofficial.ui.prenotazioni
+/**
+ * Classe Adapter per la gestione dell'item di una recycleView delle Prenotazioni per l'utente
+ */
 
 class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneClickListener) : ListAdapter<Prenotazione, PrenotazioniAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
 
@@ -60,7 +59,7 @@ class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneCli
                     }
                 }
             }
-            // ... il resto del codice del ViewHolder
+
 
 
         fun formatTimestamp(timestamp: Long): String {
@@ -90,7 +89,7 @@ class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneCli
             val formattedDate = formatTimestamp(timestamp)
             prenotazioneDataTextView.text = "Giorno e ora: " + formattedDate
 
-            //VERIFICARE INCONGRUENZA DELLO 0 LISTAUTENTI CHE è 3 SE PRENOTO TUTTO IL CAMPO E 0 SE HO FATTO UNISCITI
+
             val partecipanti: Int = when (prenotazione.listautenti.size) {
                 0 -> 3
                 1 -> 1
@@ -103,13 +102,18 @@ class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneCli
         }
     }
 
+    /**
+     * Classe utilizzata insieme all'adapter di RecyclerView dell'admin per gestire gli aggiornamenti degli elementi
+     * visualizzati nella lista in modo efficiente verificando items e contenuti.
+     * DiffUtil è una classe fornita da Android Jetpack in grado di calcolare differenze tra due liste.
+     */
     class PrenotazioneDiffCallback : DiffUtil.ItemCallback<Prenotazione>() {
         override fun areItemsTheSame(oldItem: Prenotazione, newItem: Prenotazione): Boolean {
-            return oldItem.id == newItem.id // Modifica questo controllo se hai un identificatore diverso per le prenotazioni
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Prenotazione, newItem: Prenotazione): Boolean {
-            return oldItem == newItem // Controlla se i contenuti sono gli stessi, nel caso delle prenotazioni, è bene controllare l'uguaglianza
+            return oldItem == newItem
         }
     }
 }

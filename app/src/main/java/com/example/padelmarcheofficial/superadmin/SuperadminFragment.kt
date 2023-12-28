@@ -11,7 +11,9 @@ import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.FragmentPrenotazioniBinding
 import com.example.padelmarcheofficial.databinding.FragmentSuperadminHomeBinding
 
-
+/**
+ * Fragment del superadmin dove vengono caricate tramite ViewModel tutte le statistiche generali
+ */
 class SuperadminFragment : Fragment() {
 
     private lateinit var superadminViewModel: SuperadminViewModel

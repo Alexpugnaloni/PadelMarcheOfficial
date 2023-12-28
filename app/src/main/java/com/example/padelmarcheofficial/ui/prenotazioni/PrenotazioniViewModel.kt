@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.Prenotazione
-import com.example.padelmarcheofficial.dataclass.UserValue
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel che interagisce con il PrenotazioniFragment per caricare le prenotazioni dell'utente
+ * pescate dal metodo della classe
+ */
 class PrenotazioniViewModel(private val gestioneFirebase: GestioneFirebase) : ViewModel() {
     private val _prenotazioniUtente = MutableLiveData<List<Prenotazione>>()
     val prenotazioniUtente: LiveData<List<Prenotazione>> get() = _prenotazioniUtente

@@ -21,6 +21,10 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Classe ViewModel che si occupa di interagire con LiveData e MutableLiveData per lo scambio di
+ * informazioni tra activity e GestioneFirebase
+ */
 class AdminPrenotaUnaPartitaViewModel : ViewModel() {
     val _terminato = MutableLiveData<Boolean>(false)
     val terminato: LiveData<Boolean> = _terminato

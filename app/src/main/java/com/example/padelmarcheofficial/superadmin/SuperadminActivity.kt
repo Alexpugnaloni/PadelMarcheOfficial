@@ -10,11 +10,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.AccediActivity
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.admin.AdminPrenotaUnaPartitaActivity
 import com.example.padelmarcheofficial.databinding.ActivitySuperadminBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +23,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
+/**
+ * Classe che gestisce la navigazione del superadmin nella sua activity
+ */
 class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivitySuperadminBinding
     private var currentUser: FirebaseUser? = null

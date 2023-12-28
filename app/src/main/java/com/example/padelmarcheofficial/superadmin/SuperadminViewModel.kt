@@ -10,6 +10,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+/**
+ * Classe ViewModel del superadmin che interagisce con l'activity del superadmin e con i metodi di
+ * GestioneFirebase
+ */
+
 class SuperadminViewModel : ViewModel() {
     private var auth: FirebaseAuth = Firebase.auth
 
@@ -103,9 +108,6 @@ class SuperadminViewModel : ViewModel() {
 
 
 
-    /**
-     * Funzione che istanzia le prenotazioni effettuando download da Firebase
-     */
     suspend fun init() {
 
     }

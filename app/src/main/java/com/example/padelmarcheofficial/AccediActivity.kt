@@ -53,9 +53,11 @@ class AccediActivity : AppCompatActivity() {
             val password = binding.editTextTextPassword.text.toString()
 
 
-
-
-
+            /**
+             * Qua si effettua un controllo della correttezza delle credenziali inserite e tramite un if,
+             * se le credenziali sono corrette si va a verificare se chi ha effettuato l'accesso è un utente,
+             * un amministratore o un superadmin dirigendolo nella sua activity principale
+             */
 
                 if (email.isNotEmpty() && password.isNotEmpty()) {
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -67,7 +69,7 @@ class AccediActivity : AppCompatActivity() {
                                     if (Account().isAdmin(user.email) != null) {
                                         val intent = Intent(reftothis, AdminActivity::class.java)
                                         startActivity(intent)
-                                        finish() // Chiudi l'activity di login
+                                        finish()
                                     }else if (user.email == "superadmin@padelmarche.it"){
                                         val intent = Intent(reftothis, SuperadminActivity::class.java)
                                         startActivity(intent)
@@ -86,8 +88,6 @@ class AccediActivity : AppCompatActivity() {
                                         startActivity(mainIntent)
                                     }
                                 }
-                            } else {
-                                // Gestione dell'utente null
                             }
                         } else {
                             Toast.makeText(this, "Accesso non riuscito: ${task.exception?.message}", Toast.LENGTH_SHORT).show()

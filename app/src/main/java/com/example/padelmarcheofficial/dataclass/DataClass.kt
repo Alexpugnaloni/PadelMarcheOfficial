@@ -13,25 +13,20 @@ data class CentroSportivo(
 
 data class Prenotazione(
     val id: String,
-    val utente: String,//UtenteRegistrato,
-    val centroSportivo: String,//CentroSportivo,
+    val utente: String,
+    val centroSportivo: String,
     val date: Date,
-    val listautenti: List<String>, //Utenti che si prenotano mano a mano
+    val listautenti: List<String>,
 
 )
 
-data class Amministratori(
-    val id: String,
-    val email: String,
-    val sede: String
-)
 
 data class PrenotazioneAdmin(
     val id: String,
-    val utente: String,//UtenteRegistrato,
+    val utente: String,
     val nomeutente: String,
-    val centroSportivo: String,//CentroSportivo,
+    val centroSportivo: String,
     val date: Date,
-    val listautenti: List<String>, //Utenti che si prenotano mano a mano
+    val listautenti: List<String>,
     val cellulareUtente: String
 )

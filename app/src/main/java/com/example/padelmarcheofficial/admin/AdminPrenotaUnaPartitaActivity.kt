@@ -23,6 +23,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
+/**
+ * Classe che gestisce la prenotazione di una partita privata scegliendo la sede, il giorno e la fascia oraria
+ */
 class AdminPrenotaUnaPartitaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminPrenotazioneBinding

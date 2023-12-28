@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.FragmentPrenotazioniBinding
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
-import com.example.padelmarcheofficial.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
 
-
+/**
+ * Fragment che tramite recycleView mostra le prenotazioni dell'utente
+ */
 class PrenotazioniFragment : Fragment(),PrenotazioneClickListener {
 
 
@@ -61,8 +62,6 @@ class PrenotazioniFragment : Fragment(),PrenotazioneClickListener {
 
     }
     override fun onPrenotazioneDelete(prenotazioneId: String) {
-        // Esegui le azioni necessarie quando viene richiesta l'eliminazione della prenotazione
-        // Ad esempio, chiamare il metodo per eliminare la prenotazione dalla classe GestioneFirebase
         lifecycleScope.launch {
             val gestioneFirebase = GestioneFirebase()
             gestioneFirebase.eliminaPrenotazione(prenotazioneId)

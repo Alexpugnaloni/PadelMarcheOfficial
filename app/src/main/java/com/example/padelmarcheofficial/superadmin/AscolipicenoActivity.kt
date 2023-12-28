@@ -9,7 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.R
 
 import com.example.padelmarcheofficial.databinding.ActivityAscolipicenoBinding
-
+/**
+ * Classe che effettua un binding con il centro sportivo di riferimento dove vengono poi caricate tramite ViewModel
+ * tutte le statistiche del centro sportivo
+ */
 class AscolipicenoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAscolipicenoBinding

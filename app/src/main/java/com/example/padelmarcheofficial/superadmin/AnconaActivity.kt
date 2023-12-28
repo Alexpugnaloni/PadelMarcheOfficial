@@ -10,6 +10,10 @@ import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityAnconaBinding
 
 
+/**
+ * Classe che effettua un binding con il centro sportivo di riferimento dove vengono poi caricate tramite ViewModel
+ * tutte le statistiche del centro sportivo
+ */
 class AnconaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnconaBinding

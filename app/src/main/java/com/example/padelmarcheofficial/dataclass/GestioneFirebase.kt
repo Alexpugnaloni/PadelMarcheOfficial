@@ -239,6 +239,10 @@ class GestioneFirebase {
         }.await()
     }
 
+    /**
+     * Funzione che effettua il download di tutte le prenotazioni effettuate da un utente in ogni
+     * Centro Sportivo
+     */
     suspend fun downloadPrenotazioniUtente(): List<Prenotazione> {
         val prenotazioniList = mutableListOf<Prenotazione>()
 
@@ -262,7 +266,7 @@ class GestioneFirebase {
             for (doc in snapshot.documents) {
                 val dataPrenotazione = doc.getTimestamp("data")!!.toDate()
 
-                // Verifica se la data della prenotazione è oggi o in futuro
+
                 if (!dataPrenotazione.before(currentDate)) {
                     val utente = doc.getString("idutente") ?: ""
                     val listaUtenti = doc.get("utenti") as? List<String> ?: emptyList()
@@ -281,28 +285,10 @@ class GestioneFirebase {
 
         return prenotazioniList
     }
-    suspend fun downloadAmministratori(): List<Amministratori> {
 
-        val amministratoriList = mutableListOf<Amministratori>()
-
-        try {
-            val amministratoriSnapshot = db.collection("Amministratori").get().await()
-
-            for (document in amministratoriSnapshot.documents) {
-                val id = document.id
-                val email = document.getString("email") ?: ""
-                val sede = document.getString("sede") ?: ""
-
-                val amministratore = Amministratori(id, email, sede)
-                amministratoriList.add(amministratore)
-            }
-        } catch (e: Exception) {
-            // Gestisci l'eccezione
-            e.printStackTrace()
-        }
-
-        return amministratoriList
-    }
+    /**
+     * Metodo che si occupa dell'eliminazione della Prenotazione passandogli l'id della prenotazione
+     */
     suspend fun eliminaPrenotazione(idPrenotazione: String) {
         val centriSportiviRef = db.collection("Centrisportivi")
 
@@ -317,16 +303,20 @@ class GestioneFirebase {
                 }
             }
         } catch (e: Exception) {
-            // Gestisci l'eccezione se si verifica un errore durante l'eliminazione della prenotazione
+
         }
     }
 
+    /**
+     * Metodo che si occupa del download delle prenotazioni dell'amministratore loggato, quindi del
+     * proprio centro sportivo di riferimento
+     */
     suspend fun downloadPrenotazioniAmministratore(): List<PrenotazioneAdmin> {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userEmail = currentUser?.email ?: ""
         val prenotazioniList = mutableListOf<PrenotazioneAdmin>()
 
-        // Ottieni i documenti dei centri sportivi che corrispondono all'email dell'utente loggato
+
         val centriSportiviSnapshot = db.collection("Centrisportivi")
             .whereEqualTo("email", userEmail)
             .get()
@@ -336,21 +326,20 @@ class GestioneFirebase {
             val centroSportivoEmail = centroSportivo.getString("email") ?: ""
             val centroSportivoId = centroSportivo.id
 
-            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
+
             val prenotazioniSnapshot = db.collection("Centrisportivi")
                 .document(centroSportivoId)
                 .collection("Prenotazioni")
                 .get()
                 .await()
 
-            val now = Calendar.getInstance().time // Ottieni la data attuale
+            val now = Calendar.getInstance().time
 
             for (prenotazioneDoc in prenotazioniSnapshot) {
                 val dataPrenotazione = prenotazioneDoc.getTimestamp("data")?.toDate()
                 if (dataPrenotazione != null && dataPrenotazione >= now) {
                     val utenteId = prenotazioneDoc.getString("idutente") ?: ""
 
-                    // Ottieni i dati dell'utente dalla raccolta "Accounts"
                     val accountDoc = db.collection("Accounts").document(utenteId).get().await()
                     val nome = accountDoc.getString("nome") ?: "Admin"
                     val cognome = accountDoc.getString("cognome") ?: ""
@@ -374,22 +363,11 @@ class GestioneFirebase {
                 }
             }
         }
-
-        // Ordina le prenotazioni per data (dal più recente al meno recente)
+        //Ordina le date in maniera decrescente
         prenotazioniList.sortByDescending { it.date }
 
         return prenotazioniList
     }
-
-
-
-
-
-
-
-
-
-
 
     /**
      * restituisce l'id dell'utente
@@ -419,6 +397,9 @@ class GestioneFirebase {
             }
     }
 
+    /**
+     * Funzione utilizzata nelle statistiche per contare gli utenti registrati nell'applicazione
+     */
     suspend fun contaUtentiStatistiche(): Int {
 
         return try {
@@ -430,6 +411,11 @@ class GestioneFirebase {
             -1
         }
     }
+
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni odierne nel centro sportivo di
+     * riferimento
+     */
     suspend fun contaPrenotazioniOggi(centroSportivoId: String): Int {
 
         val today = Calendar.getInstance()
@@ -463,7 +449,10 @@ class GestioneFirebase {
             -1
         }
     }
-
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni della settimana passata nel centro sportivo di
+     * riferimento
+     */
     suspend fun contaPrenotazioniSettimanaPassata(centroSportivoId: String): Int {
 
         val today = Calendar.getInstance()
@@ -491,12 +480,15 @@ class GestioneFirebase {
             }
             count
         } catch (e: Exception) {
-            // Gestione dell'eccezione in caso di errore
+
             e.printStackTrace()
-            -1 // Valore di ritorno in caso di errore
+            -1
         }
     }
-
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni del mese passato nel centro sportivo di
+     * riferimento
+     */
     suspend fun contaPrenotazioniMesePassato(centroSportivoId: String): Int {
 
         val today = Calendar.getInstance()
@@ -524,25 +516,26 @@ class GestioneFirebase {
             }
             count
         } catch (e: Exception) {
-            // Gestione dell'eccezione in caso di errore
+
             e.printStackTrace()
-            -1 // Valore di ritorno in caso di errore
+            -1
         }
     }
-
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni odierne di tutti i centri sportivi
+     *
+     */
     suspend fun contaPrenotazioniTotaliOggi(): Int {
 
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         var totalPrenotazioni = 0
 
-        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
         val centriSportivi = db.collection("Centrisportivi").get().await()
 
         for (centroSportivo in centriSportivi) {
             val centroSportivoId = centroSportivo.id
 
-            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
             val prenotazioniSnapshot = db.collection("Centrisportivi")
                 .document(centroSportivoId)
                 .collection("Prenotazioni")
@@ -556,6 +549,11 @@ class GestioneFirebase {
         return totalPrenotazioni
     }
 
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni della settimana passata
+     * di tutti i centri sportivi
+     *
+     */
     suspend fun contaPrenotazioniTotaliSettimanaPassata(): Int {
 
         val currentDate = Date()
@@ -565,13 +563,11 @@ class GestioneFirebase {
 
         var totalPrenotazioni = 0
 
-        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
         val centriSportivi = db.collection("Centrisportivi").get().await()
 
         for (centroSportivo in centriSportivi) {
             val centroSportivoId = centroSportivo.id
 
-            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
             val prenotazioniSnapshot = db.collection("Centrisportivi")
                 .document(centroSportivoId)
                 .collection("Prenotazioni")
@@ -589,7 +585,10 @@ class GestioneFirebase {
 
         return totalPrenotazioni
     }
-
+    /**
+     * Funzione utilizzata nelle statistiche per contare le prenotazioni del mese passato di tutti i centri sportivi
+     *
+     */
     suspend fun contaPrenotazioniTotaliMesePassato(): Int {
 
         val currentDate = Date()
@@ -599,13 +598,11 @@ class GestioneFirebase {
 
         var totalPrenotazioni = 0
 
-        // Ottieni tutti i documenti dalla raccolta "Centrisportivi"
         val centriSportivi = db.collection("Centrisportivi").get().await()
 
         for (centroSportivo in centriSportivi) {
             val centroSportivoId = centroSportivo.id
 
-            // Ottieni i documenti dalla raccolta "Prenotazioni" di questo centro sportivo
             val prenotazioniSnapshot = db.collection("Centrisportivi")
                 .document(centroSportivoId)
                 .collection("Prenotazioni")
@@ -623,6 +620,8 @@ class GestioneFirebase {
 
         return totalPrenotazioni
     }
+
+
 
 }
 

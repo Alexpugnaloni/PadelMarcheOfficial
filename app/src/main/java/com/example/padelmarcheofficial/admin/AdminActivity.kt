@@ -26,7 +26,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+/**
+ * Classe che gestisce la navigazione dell'admin nella sua activity
+ */
 class AdminActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityAdminBinding
     private var currentUser: FirebaseUser? = null

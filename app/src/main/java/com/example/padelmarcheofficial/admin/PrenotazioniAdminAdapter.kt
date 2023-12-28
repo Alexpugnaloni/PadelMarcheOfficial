@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.dataclass.Prenotazione
 import com.example.padelmarcheofficial.dataclass.PrenotazioneAdmin
 import com.example.padelmarcheofficial.ui.prenotazioni.PrenotazioneClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Classe Adapter per la gestione dell'item di una recycleView delle Prenotazioni per l'admin
+ */
 class PrenotazioniAdminAdapter(private val prenotazioneClickListener: PrenotazioneClickListener) : ListAdapter<PrenotazioneAdmin, PrenotazioniAdminAdapter.PrenotazioneViewHolder>(PrenotazioneDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrenotazioneViewHolder {
@@ -72,7 +74,7 @@ class PrenotazioniAdminAdapter(private val prenotazioneClickListener: Prenotazio
             val formattedDate = formatTimestamp(timestamp)
             prenotazioneDataTextView.text = "Giorno e ora: " + formattedDate
 
-            //VERIFICARE INCONGRUENZA DELLO 0 LISTAUTENTI CHE è 3 SE PRENOTO TUTTO IL CAMPO E 0 SE HO FATTO UNISCITI
+
             val partecipanti: String = when (prenotazione.listautenti.size) {
                 0 -> "CONFERMATA"
                 1 -> "NON CONFERMATA"
@@ -87,13 +89,18 @@ class PrenotazioniAdminAdapter(private val prenotazioneClickListener: Prenotazio
         }
     }
 
+    /**
+     * Classe utilizzata insieme all'adapter di RecyclerView dell'admin per gestire gli aggiornamenti degli elementi
+     * visualizzati nella lista in modo efficiente verificando items e contenuti.
+     * DiffUtil è una classe fornita da Android Jetpack in grado di calcolare differenze tra due liste.
+     */
     class PrenotazioneDiffCallback : DiffUtil.ItemCallback<PrenotazioneAdmin>() {
         override fun areItemsTheSame(oldItem: PrenotazioneAdmin, newItem: PrenotazioneAdmin): Boolean {
-            return oldItem.id == newItem.id // Modifica questo controllo se hai un identificatore diverso per le prenotazioni
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PrenotazioneAdmin, newItem: PrenotazioneAdmin): Boolean {
-            return oldItem == newItem // Controlla se i contenuti sono gli stessi, nel caso delle prenotazioni, è bene controllare l'uguaglianza
+            return oldItem == newItem
         }
     }
 }
