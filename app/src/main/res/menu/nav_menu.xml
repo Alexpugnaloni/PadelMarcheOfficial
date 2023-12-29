@@ -10,10 +10,6 @@
             android:id="@+id/nav_profilo"
             android:icon="@drawable/ic_users"
             android:title="Profilo"/>
-        <item
-            android:id="@+id/nav_notifiche"
-            android:icon="@drawable/ic_notification_important"
-            android:title="Notifiche"/>
 
         <item
             android:id="@+id/nav_nostricentri"
