@@ -127,11 +127,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-                R.id.nav_notifiche -> {
-                    startActivity(Intent(this, NotificheActivity::class.java))
-                    true
-
-                }
 
                 R.id.nav_nostricentri -> {
                     startActivity(Intent(this, NostriCentriActivity::class.java))
