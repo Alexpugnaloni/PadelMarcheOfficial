@@ -8,6 +8,7 @@ import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.PrenotazioneAdmin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 
 /**
@@ -29,6 +30,12 @@ class PrenotazioniAdminViewModel(private val gestioneFirebase: GestioneFirebase)
         }
     }
 
+    fun downloadprenotazioni(data: Date) {
 
+        viewModelScope.launch(Dispatchers.IO){
+            val prenotazioni = gestioneFirebase.downloadPrenotazioniAmministratore()
+            _prenotazioniAmministratore.postValue(prenotazioni)
+        }
+    }
 
 }

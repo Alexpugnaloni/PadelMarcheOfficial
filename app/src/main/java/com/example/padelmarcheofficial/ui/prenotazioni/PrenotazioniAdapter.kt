@@ -88,13 +88,15 @@ class PrenotazioniAdapter(private val prenotazioneClickListener: PrenotazioneCli
             val timestamp = prenotazione.date.time
             val formattedDate = formatTimestamp(timestamp)
             prenotazioneDataTextView.text = "Giorno e ora: " + formattedDate
+            var partecipanti = 0
 
-
-            val partecipanti: Int = when (prenotazione.listautenti.size) {
-                0 -> 3
-                1 -> 1
-                2 -> 2
-                3, 4 -> 3
+            if(prenotazione.confermato)
+                partecipanti = 3
+             else when (prenotazione.listautenti.size) {
+                0 -> partecipanti = 0
+                1 -> partecipanti = 1
+                2 -> partecipanti = 2
+                3, 4 -> partecipanti = 3
                 else -> prenotazione.listautenti.size
             }
 

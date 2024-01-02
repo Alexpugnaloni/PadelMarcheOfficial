@@ -17,7 +17,7 @@ data class Prenotazione(
     val centroSportivo: String,
     val date: Date,
     val listautenti: List<String>,
-
+    val confermato: Boolean,
 )
 
 

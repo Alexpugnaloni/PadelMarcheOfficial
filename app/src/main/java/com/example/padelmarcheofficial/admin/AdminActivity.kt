@@ -74,7 +74,6 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
                     val reftothis = this
                     CoroutineScope(Dispatchers.Main).launch {
 
-
                         navEmailAdmin.text = currentUser!!.email.toString()
                         }
                     }

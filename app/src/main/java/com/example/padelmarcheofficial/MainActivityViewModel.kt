@@ -8,14 +8,6 @@ import com.google.firebase.ktx.Firebase
 class MainActivityViewModel : ViewModel(){
     private var auth: FirebaseAuth = Firebase.auth
 
-
-
-    fun checkUtenteisLoggato() : Boolean{
-        if(auth.currentUser != null)
-            return true
-        return false
-    }
-
     fun logOut() {
         auth.signOut()
     }

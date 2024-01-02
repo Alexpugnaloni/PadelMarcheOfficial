@@ -90,27 +90,14 @@ class MainActivity : AppCompatActivity() {
         val navNomeUtente : TextView = headerView.findViewById(R.id.nomeutente)
         val navEmailUtente : TextView =headerView.findViewById(R.id.emailutente)
 
-        /**
-         * effettua un controllo se l'utente è già loggato, se non è loggato rimanda al login
-         */
 
-        if (!model.checkUtenteisLoggato())
-            startActivity(Intent(this, AccediActivity::class.java))
-            else {
-            currentUser = auth.currentUser!!
-            val reftothis = this
-            CoroutineScope(Dispatchers.Main).launch {
-                if (Account().isAdmin(currentUser!!.email) != null) {
-                    startActivity(Intent(reftothis, AdminActivity::class.java))
-                }else if (currentUser!!.email == "superadmin@padelmarche.it")
-                    startActivity(Intent(reftothis, SuperadminActivity::class.java))
-                else {
-                    navNomeUtente.text = UserValue().getNome() + " " + UserValue().getCognome()
-                    navEmailUtente.text = currentUser!!.email.toString()
-                    initPoint()
-                }
-            }
-        }
+        currentUser = auth.currentUser!!
+
+        navNomeUtente.text = UserValue().getNome() + " " + UserValue().getCognome()
+        navEmailUtente.text = currentUser!!.email.toString()
+        initPoint()
+
+
 
 
         navViewDrawer.setNavigationItemSelectedListener {it:MenuItem ->

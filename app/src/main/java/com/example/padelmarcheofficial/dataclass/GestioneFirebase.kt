@@ -185,7 +185,8 @@ class GestioneFirebase {
                     doc["idutente"].toString(),
                     centroSportivo,
                     doc.getDate("data") as Date,
-                    listautenti
+                    listautenti,
+                    doc.getBoolean("confermato")!!,
                 )
             )
         }
@@ -277,6 +278,7 @@ class GestioneFirebase {
                         centroSportivo = centroSportivo,
                         date = dataPrenotazione,
                         listautenti = listaUtenti,
+                        confermato = doc.getBoolean("confermato")!!,
                     )
                     prenotazioniList.add(prenotazione)
                 }
