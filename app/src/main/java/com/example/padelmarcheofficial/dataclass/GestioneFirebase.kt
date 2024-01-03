@@ -623,6 +623,75 @@ class GestioneFirebase {
         return totalPrenotazioni
     }
 
+    /**
+     * Metodo utilizzato per effettuare il download delle prenotazioni dell'amministratore passandogli una data di riferimento
+     */
+    suspend fun downloadPrenotazioniAmministratorePerData(data: Date): List<PrenotazioneAdmin> {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userEmail = currentUser?.email ?: ""
+        val prenotazioniList = mutableListOf<PrenotazioneAdmin>()
+
+        val centriSportiviSnapshot = db.collection("Centrisportivi")
+            .whereEqualTo("email", userEmail)
+            .get()
+            .await()
+
+        //Utilizziamo calendar per effettuare successivamente un confronto tra la data passata e quella estratta da Firebase
+        //considerando però solamente la data e non l'orario
+        val cal = Calendar.getInstance()
+        cal.time = data
+        val anno = cal.get(Calendar.YEAR)
+        val mese = cal.get(Calendar.MONTH)
+        val giorno = cal.get(Calendar.DAY_OF_MONTH)
+
+        for (centroSportivo in centriSportiviSnapshot) {
+            val centroSportivoEmail = centroSportivo.getString("email") ?: ""
+            val centroSportivoId = centroSportivo.id
+
+            val prenotazioniSnapshot = db.collection("Centrisportivi")
+                .document(centroSportivoId)
+                .collection("Prenotazioni")
+                .get()
+                .await()
+
+            for (prenotazioneDoc in prenotazioniSnapshot) {
+                val dataPrenotazione = prenotazioneDoc.getTimestamp("data")?.toDate()
+                if (dataPrenotazione != null) {
+                    cal.time = dataPrenotazione
+                    val annoPrenotazione = cal.get(Calendar.YEAR)
+                    val mesePrenotazione = cal.get(Calendar.MONTH)
+                    val giornoPrenotazione = cal.get(Calendar.DAY_OF_MONTH)
+
+                    if (anno == annoPrenotazione && mese == mesePrenotazione && giorno == giornoPrenotazione) {
+                        val utenteId = prenotazioneDoc.getString("idutente") ?: ""
+
+                        val accountDoc = db.collection("Accounts").document(utenteId).get().await()
+                        val nome = accountDoc.getString("nome") ?: "Admin"
+                        val cognome = accountDoc.getString("cognome") ?: ""
+                        val cellulare = accountDoc.getString("cellulare") ?: "Admin"
+
+                        val listaUtenti = prenotazioneDoc.get("utenti") as? List<String> ?: emptyList()
+
+                        val prenotazione = PrenotazioneAdmin(
+                            id = prenotazioneDoc.id,
+                            utente = utenteId,
+                            nomeutente = "$nome $cognome",
+                            centroSportivo = centroSportivoEmail,
+                            date = dataPrenotazione,
+                            listautenti = listaUtenti,
+                            cellulareUtente = cellulare
+                        )
+                        prenotazioniList.add(prenotazione)
+                    }
+                }
+            }
+        }
+        // Ordina le date in maniera decrescente
+        prenotazioniList.sortByDescending { it.date }
+
+        return prenotazioniList
+    }
+
 
 
 }

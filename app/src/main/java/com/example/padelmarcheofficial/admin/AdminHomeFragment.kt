@@ -68,17 +68,28 @@ class AdminHomeFragment : Fragment(), PrenotazioneClickListener {
         return view
     }
 
+    /**
+     * Metodo che tramite datpicker ci permette di selezionare una data da passare ad un metodo per
+     * caricare le prenotazioni di quella specifica data
+     */
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
+
+
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
                 val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                viewModel.downloadprenotazioni(selectedDate)
+
+
+                val data : Date = viewModel.formatoGiorno.parse(selectedDate)
+                viewModel.downloadPrenotazioniAmministratorePerData(data)
+
+
 
             },
             year,
