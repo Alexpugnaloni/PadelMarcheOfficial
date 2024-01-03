@@ -13,30 +13,25 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.padelmarcheofficial.admin.AdminActivity
 import com.example.padelmarcheofficial.databinding.ActivityMainBinding
-import com.example.padelmarcheofficial.dataclass.Account
 import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.dataclass.UserValue
-import com.example.padelmarcheofficial.superadmin.SuperadminActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
  * Classe principale e che si occupa di gestire la navigazione all'interno dell'applicazione
  */
-class MainActivity : AppCompatActivity() {
+class UserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var model =MainActivityViewModel()
+    private var model =UserActivityViewModel()
 
     /**
      * Variabile utilizzata per salvare le informazioni della persona che si logga
@@ -59,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
 
     /**
-     * Funzione alla creazione dell'interfaccia grafica del MainActivity
+     * Funzione alla creazione dell'interfaccia grafica del UserActivity
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

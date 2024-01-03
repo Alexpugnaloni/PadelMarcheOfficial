@@ -80,7 +80,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".UserActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait">

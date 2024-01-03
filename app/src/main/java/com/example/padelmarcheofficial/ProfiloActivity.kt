@@ -130,7 +130,7 @@ class ProfiloActivity : AppCompatActivity() {
         btnHomeBack.isVisible= true
 
         btnHomeBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
 
         }

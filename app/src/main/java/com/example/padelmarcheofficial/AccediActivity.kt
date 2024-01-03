@@ -10,14 +10,10 @@ import com.example.padelmarcheofficial.admin.AdminActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.padelmarcheofficial.databinding.ActivityLoginBinding
 import com.example.padelmarcheofficial.dataclass.Account
-import com.example.padelmarcheofficial.dataclass.GestioneFirebase
 import com.example.padelmarcheofficial.superadmin.SuperadminActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.time.Instant
-import java.util.Date
 
 
 /**
@@ -84,7 +80,7 @@ class AccediActivity : AppCompatActivity() {
                                             setResult(Activity.RESULT_OK, replyIntent)
                                             finish()
                                         }
-                                        val mainIntent = Intent(reftothis, MainActivity::class.java)
+                                        val mainIntent = Intent(reftothis, UserActivity::class.java)
                                         startActivity(mainIntent)
                                     }
                                 }

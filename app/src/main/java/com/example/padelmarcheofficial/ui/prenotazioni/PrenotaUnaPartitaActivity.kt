@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import com.example.padelmarcheofficial.MainActivity
+import com.example.padelmarcheofficial.UserActivity
 import com.example.padelmarcheofficial.R
 import com.example.padelmarcheofficial.databinding.ActivityPrenotaUnaPartitaBinding
 import kotlinx.coroutines.CoroutineScope
@@ -102,7 +102,7 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
 
@@ -185,7 +185,7 @@ class PrenotaUnaPartitaActivity : AppCompatActivity(), LifecycleOwner {
                 .setTitle("Prenotazione Confermata")
                 .setMessage("La tua prenotazione è stata confermata con successo.")
                 .setPositiveButton("OK") { _, _ ->
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, UserActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

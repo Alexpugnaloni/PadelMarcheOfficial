@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import com.example.padelmarcheofficial.admin.AdminActivity
 import com.example.padelmarcheofficial.dataclass.Account
-import com.example.padelmarcheofficial.dataclass.GestioneFirebase
-import com.example.padelmarcheofficial.dataclass.UserValue
 import com.example.padelmarcheofficial.superadmin.SuperadminActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -50,7 +48,7 @@ class BenvenutoActivity : AppCompatActivity() {
                 }else if (currentUser!!.email == "superadmin@padelmarche.it")
                     startActivity(Intent(reftothis, SuperadminActivity::class.java))
                 else {
-                        startActivity(Intent(reftothis,MainActivity::class.java))
+                        startActivity(Intent(reftothis,UserActivity::class.java))
                 }
             }
         }
