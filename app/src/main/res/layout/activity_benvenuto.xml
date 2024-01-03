@@ -6,45 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".BenvenutoActivity">
 
+
+    <!-- <ImageView
+         android:id="@+id/SplashScreenImage"
+         android:layout_width="485dp"
+         android:layout_height="255dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/campocropped" /> -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blu"
+        android:fitsSystemWindows="true"
+        app:elevation="0dip"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/textApplicazione"
         android:layout_width="332dp"
         android:layout_height="63dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="167dp"
-        android:layout_marginEnd="73dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="34dp"
         android:gravity="center"
         android:text="Benvenuto in PadelMarche"
-        android:textSize="24dp"
+        android:textSize="28dp"
         android:textStyle="bold|italic"
+        android:textColor="@color/blu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/SplashScreenImage"
-        android:layout_width="485dp"
-        android:layout_height="255dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/campocropped" />
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/splash"
+        app:layout_constraintBottom_toTopOf="@id/textApplicazione1"
+        app:layout_constraintTop_toBottomOf="@id/textApplicazione"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-3dp" />
 
     <TextView
         android:id="@+id/textApplicazione1"
         android:layout_width="332dp"
         android:layout_height="63dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="504dp"
-        android:layout_marginEnd="73dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="76dp"
         android:gravity="center"
         android:text="Caricamento..."
-        android:textSize="24dp"
+        android:textSize="28dp"
         android:textStyle="bold|italic"
+        android:textColor="@color/blu"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
