@@ -78,33 +78,43 @@ class SuperadminActivity : AppCompatActivity(), LifecycleOwner {
             when (it.itemId) {
 
                 R.id.nav_centroPesaroUrbino -> {
-                    startActivity(Intent(this, PesarourbinoActivity::class.java))
+                    val intent = Intent (this, CentroActivity::class.java)
+                    intent.putExtra("centroSportivoId", "VapW6qTS1HOHEmORefB5")
+                    intent.putExtra("nomecentro", "Pesaro Urbino")
+                    startActivity(intent)
                     true
-
                 }
 
                 R.id.nav_centroAncona -> {
-                    startActivity(Intent(this, AnconaActivity::class.java))
+                    val intent = Intent (this, CentroActivity::class.java)
+                    intent.putExtra("centroSportivoId", "ge42drMdBlsI3MUuVeuX")
+                    intent.putExtra("nomecentro", "Ancona")
+                    startActivity(intent)
                     true
-
                 }
 
                 R.id.nav_centroMacerata -> {
-                    startActivity(Intent(this, MacerataActivity::class.java))
+                    val intent = Intent (this, CentroActivity::class.java)
+                    intent.putExtra("centroSportivoId", "gPNgSKQgkrg8G0yXmWV4")
+                    intent.putExtra("nomecentro", "Macerata")
+                    startActivity(intent)
                     true
-
                 }
 
                 R.id.nav_centroFermo -> {
-                    startActivity(Intent(this, FermoActivity::class.java))
+                    val intent = Intent (this, CentroActivity::class.java)
+                    intent.putExtra("centroSportivoId", "ixvptNZVldQwyKAMTYkD")
+                    intent.putExtra("nomecentro", "Fermo")
+                    startActivity(intent)
                     true
-
                 }
 
                 R.id.nav_centroAscoliPiceno -> {
-                    startActivity(Intent(this, AscolipicenoActivity::class.java))
+                    val intent = Intent (this, CentroActivity::class.java)
+                    intent.putExtra("centroSportivoId", "EHRgWL3MllLaSuWPzddd")
+                    intent.putExtra("nomecentro", "Ascoli Piceno")
+                    startActivity(intent)
                     true
-
                 }
 
                 R.id.nav_superadminlogout -> {

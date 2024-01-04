@@ -1,41 +1,41 @@
 package com.example.padelmarcheofficial.superadmin
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelmarcheofficial.R
-import com.example.padelmarcheofficial.databinding.ActivityAnconaBinding
+import com.example.padelmarcheofficial.databinding.ActivityCentroBinding
 
 
 /**
  * Classe che effettua un binding con il centro sportivo di riferimento dove vengono poi caricate tramite ViewModel
  * tutte le statistiche del centro sportivo
  */
-class AnconaActivity : AppCompatActivity() {
+class CentroActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnconaBinding
+    private lateinit var binding: ActivityCentroBinding
     private lateinit var frecciaBack: ImageButton
     private lateinit var superadminViewModel: SuperadminViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnconaBinding.inflate(layoutInflater)
+        binding = ActivityCentroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
-            val intent = Intent(this, SuperadminActivity::class.java)
-            intent.putExtra("centroSportivoId", "ge42drMdBlsI3MUuVeuX")
-            startActivity(intent)
+            finish()
         }
 
         superadminViewModel = ViewModelProvider(this).get(SuperadminViewModel::class.java)
 
+        val centroSportivoId = intent.getStringExtra("centroSportivoId")!!
 
-        val centroSportivoId = intent.getStringExtra("centroSportivoId") ?: "ge42drMdBlsI3MUuVeuX"
+        val nomesede = intent.getStringExtra("nomecentro")!!
+        binding.textCentro.text = nomesede
+
         superadminViewModel.caricaNumPrenotazioniOggiPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniSettimanaPassataPerCentroSportivo(centroSportivoId)
         superadminViewModel.caricaNumPrenotazioniMesePassatoPerCentroSportivo(centroSportivoId)
@@ -59,3 +59,5 @@ class AnconaActivity : AppCompatActivity() {
 
     }
 }
+
+

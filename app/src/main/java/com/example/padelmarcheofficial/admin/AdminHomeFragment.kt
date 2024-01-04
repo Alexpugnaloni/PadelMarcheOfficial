@@ -90,7 +90,6 @@ class AdminHomeFragment : Fragment(), PrenotazioneClickListener {
                 viewModel.downloadPrenotazioniAmministratorePerData(data)
 
 
-
             },
             year,
             month,

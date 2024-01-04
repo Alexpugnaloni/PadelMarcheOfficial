@@ -48,7 +48,6 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
             setContentView(binding.root)
 
 
-
             val navAdminViewDrawer: NavigationView = binding.navAdminviewdrawer
 
             val adminDrawerLayout: DrawerLayout = findViewById(R.id.admindrawer_layout)
@@ -56,7 +55,6 @@ class AdminActivity : AppCompatActivity(), LifecycleOwner {
             val headerView: View = navAdminViewDrawer.getHeaderView(0)
 
             val navEmailAdmin: TextView = headerView.findViewById(R.id.emailadmin)
-
 
 
             val toolbar : Toolbar = findViewById(R.id.toolbaradmin)
