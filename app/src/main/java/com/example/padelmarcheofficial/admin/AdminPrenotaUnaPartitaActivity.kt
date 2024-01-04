@@ -99,8 +99,7 @@ class AdminPrenotaUnaPartitaActivity : AppCompatActivity() {
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
-            val intent = Intent(this, AdminActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         binding.btnDatePicker.setOnClickListener {

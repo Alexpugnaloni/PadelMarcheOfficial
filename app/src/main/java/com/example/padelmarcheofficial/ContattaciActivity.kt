@@ -21,8 +21,7 @@ class ContattaciActivity : AppCompatActivity() {
 
         frecciaBack = findViewById<ImageButton>(R.id.frecciatoolbar)
         frecciaBack.setOnClickListener {
-            val intent = Intent(this, UserActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }
